@@ -1,0 +1,212 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0" *ngIf="mode == 1">Visualizar</h3>
+          <h3 class="mb-0" *ngIf="mode == 2">Crear</h3>
+          <h3 class="mb-0" *ngIf="mode == 3">Actualizar</h3>
+        </div>
+        <form class="form" [formGroup]="theFormGroup">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4">
+                <label>Id:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ clients.id }}</p>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Direccion:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  [(ngModel)]="clients.address"
+                  formControlName="address"
+                  [class.is-invalid]="
+                    theFormGroup.get('address')?.invalid &&
+                    (theFormGroup.get('address')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('address')?.valid &&
+                    (theFormGroup.get('address')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.address.errors &&
+                    (getTheFormGroup.address.dirty ||
+                      getTheFormGroup.address.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.address.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.address.errors.minlength"
+                    class="msnError"
+                    >Inválido
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Ciudad:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  [(ngModel)]="clients.city"
+                  formControlName="city"
+                  [class.is-invalid]="
+                    theFormGroup.get('city')?.invalid &&
+                    (theFormGroup.get('city')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('city')?.valid &&
+                    (theFormGroup.get('city')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.city.errors &&
+                    (getTheFormGroup.city.dirty ||
+                      getTheFormGroup.city.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.city.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.city.errors.minlength"
+                    class="msnError"
+                    >Inválido
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Codigo postal:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  [(ngModel)]="clients.zip_code"
+                  formControlName="zip_code"
+                  [class.is-invalid]="
+                    theFormGroup.get('zip_code')?.invalid &&
+                    (theFormGroup.get('zip_code')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('zip_code')?.valid &&
+                    (theFormGroup.get('zip_code')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.zip_code.errors &&
+                    (getTheFormGroup.zip_code.dirty ||
+                      getTheFormGroup.zip_code.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.zip_code.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.zip_code.errors.pattern"
+                    class="msnError"
+                    >Inválido
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Usuaio:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  [(ngModel)]="clients.user_id"
+                  formControlName="user_id"
+                  [class.is-invalid]="
+                    theFormGroup.get('user_id')?.invalid &&
+                    (theFormGroup.get('user_id')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('user_id')?.valid &&
+                    (theFormGroup.get('user_id')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.user_iderrors &&
+                    (getTheFormGroup.user_iddirty ||
+                      getTheFormGroup.user_idtouched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.user_id.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.user_id.errors.pattern"
+                    class="msnError"
+                    >Inválido
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col text-center">
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="create()"
+                  *ngIf="mode == 2"
+                >
+                  Crear
+                </button>
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="update()"
+                  *ngIf="mode == 3"
+                >
+                  Actualizar
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
