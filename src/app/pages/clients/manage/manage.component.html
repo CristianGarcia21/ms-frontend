@@ -166,9 +166,9 @@
                 <div
                   class="text-danger mt-1"
                   *ngIf="
-                    getTheFormGroup.user_iderrors &&
-                    (getTheFormGroup.user_iddirty ||
-                      getTheFormGroup.user_idtouched ||
+                    getTheFormGroup.user_id.errors &&
+                    (getTheFormGroup.user_id.dirty ||
+                      getTheFormGroup.user_id.touched ||
                       trySend)
                   "
                 >
