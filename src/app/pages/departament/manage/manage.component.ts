@@ -1,28 +1,29 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, MinLengthValidator, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Client } from "src/app/models/client.model";
-import { ClientService } from "src/app/services/client.service";
-import Swal from "sweetalert2";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Departament } from 'src/app/models/departament.model';
+import { DepartamentService } from 'src/app/services/departament.service';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: "app-manage",
-  templateUrl: "./manage.component.html",
-  styleUrls: ["./manage.component.css"],
+  selector: 'app-manage',
+  templateUrl: './manage.component.html',
+  styleUrls: ['./manage.component.css']
 })
 export class ManageComponent implements OnInit {
-  clients: Client;
+
+  departament: Departament;
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
 
   constructor(
-    private clientService: ClientService,
+    private departamentService: DepartamentService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder
   ) {
-    this.clients = { id: 0, address: "", city: "", zip_code: "", user_id: "" };
+    this.departament = { id: 0, name: ""};
     this.mode = 0;
     this.configFormGroup();
     this.trySend = false;
@@ -39,8 +40,8 @@ export class ManageComponent implements OnInit {
       this.mode = 3;
     }
     if (this.activatedRoute.snapshot.params.id) {
-      this.clients.id = this.activatedRoute.snapshot.params.id;
-      this.getClients(this.clients.id);
+      this.departament.id = this.activatedRoute.snapshot.params.id;
+      this.getClients(this.departament.id);
     }
   }
 
@@ -48,10 +49,7 @@ export class ManageComponent implements OnInit {
     this.theFormGroup = this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      address: ["",[Validators.required, Validators.minLength(3)],],
-      city: ["", [Validators.required, Validators.minLength(3)] ],
-      zip_code: ["", [Validators.required, Validators.pattern(/^\d{5}(-\d{4})?$/)],],
-      user_id: ["",[Validators.required, Validators.pattern(/^[a-f\d]{24}$/i), ],],
+      name: ["",[Validators.required, Validators.minLength(3)],],
     });
   }
   get getTheFormGroup(){
@@ -59,8 +57,8 @@ export class ManageComponent implements OnInit {
   }
 
   getClients(id: number) {
-    this.clientService.view(id).subscribe((data) => {
-      this.clients = data;
+    this.departamentService.view(id).subscribe((data) => {
+      this.departament = data;
     });
   }
 
@@ -70,9 +68,9 @@ export class ManageComponent implements OnInit {
       Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
       return
     }
-    this.clientService.create(this.clients).subscribe((data) => {
+    this.departamentService.create(this.departament).subscribe((data) => {
       Swal.fire("Creado", "El registro ha sido creado", "success");
-      this.router.navigate(["clients/list"]);
+      this.router.navigate(["departaments/list"]);
     });
   }
 
@@ -82,9 +80,10 @@ export class ManageComponent implements OnInit {
       Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
       return
     }
-    this.clientService.update(this.clients).subscribe((data) => {
+    this.departamentService.update(this.departament).subscribe((data) => {
       Swal.fire("Actualizado", "El registro ha sido actualizado", "success");
-      this.router.navigate(["clients/list"]);
+      this.router.navigate(["departaments/list"]);
     });
   }
+
 }

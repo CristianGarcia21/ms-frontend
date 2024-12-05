@@ -20,10 +20,10 @@ export class ClientService {
   view(id:number): Observable<Client> {
     return this.http.get<Client>(`${environment.url_ms_logica}/clients/${id}`);
   }
-  create(theater:Client): Observable<Client> {
-    return this.http.post<Client>(`${environment.url_ms_logica}/clients`,theater);
+  create(client:Client): Observable<Client> {
+    return this.http.post<Client>(`${environment.url_ms_logica}/clients`,client);
   }
-  update(theater:Client): Observable<Client> {
-    return this.http.put<Client>(`${environment.url_ms_logica}/clients/${theater.id}`,theater);
+  update(client:Client): Observable<Client> {
+    return this.http.put<Client>(`${environment.url_ms_logica}/clients/${client.id}`,client);
   }
 }

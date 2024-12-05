@@ -15,5 +15,17 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'clients', children:[{
       path: '',
       loadChildren: () => import('src/app/pages/clients/clients.module').then(m=>m.ClientsModule)
+    }]},
+    { path: 'contracts', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/contracts/contracts.module').then(m=>m.ContractsModule)
+    }]},
+    { path: 'departaments', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/departament/departament.module').then(m=>m.DepartamentModule)
+    }]},
+    { path: 'municipalities', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/municipality/municipality.module').then(m=>m.MunicipalityModule)
     }]}
 ];

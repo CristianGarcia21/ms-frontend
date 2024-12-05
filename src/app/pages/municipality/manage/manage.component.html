@@ -1,0 +1,132 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0" *ngIf="mode == 1">Visualizar</h3>
+          <h3 class="mb-0" *ngIf="mode == 2">Crear</h3>
+          <h3 class="mb-0" *ngIf="mode == 3">Actualizar</h3>
+        </div>
+        <form class="form" [formGroup]="theFormGroup">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4">
+                <label>Id:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ municipality.id }}</p>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Nombre:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  [(ngModel)]="municipality.name"
+                  formControlName="name"
+                  [class.is-invalid]="
+                    theFormGroup.get('name')?.invalid &&
+                    (theFormGroup.get('name')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('name')?.valid &&
+                    (theFormGroup.get('name')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.name.errors &&
+                    (getTheFormGroup.name.dirty ||
+                      getTheFormGroup.name.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.name.errors.required"
+                    class="msnError"
+                    >El nombre es requerido.</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.name.errors.minlength"
+                    class="msnError"
+                    >Inválido el nombre debe tener al menos 3 caracteres.
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Departamento:</label>
+              </div>
+              <div class="col-8">
+                <!-- Mostrar el nombre del departamento en modo Ver -->
+                <p *ngIf="mode === 1" class="form-control-plaintext">
+                   {{ getDepartmentName(theFormGroup.get('department_id')?.value) }}
+                </p>
+
+                <!-- Mostrar el select para los demás modos -->
+                <select
+                  *ngIf="mode !== 1"
+                  formControlName="department_id"
+                  class="form-control"
+                  [class.is-invalid]="
+                    theFormGroup.get('department_id')?.invalid &&
+                    (theFormGroup.get('department_id')?.touched || trySend)
+                  "
+                >
+                  <option value="">Seleccionar Departamento</option>
+                  <option *ngFor="let department of departments" [value]="department.id">
+                    {{ department.name }}
+                  </option>
+                </select>
+
+                <!-- Mensaje de error -->
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    theFormGroup.get('department_id')?.errors &&
+                    (theFormGroup.get('department_id')?.touched || trySend)
+                  "
+                >
+                  <strong *ngIf="theFormGroup.get('department_id')?.errors?.required">
+                    El departamento es requerido.
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="row px-4 py-2">
+              <div class="col text-center">
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="create()"
+                  *ngIf="mode == 2"
+                >
+                  Crear
+                </button>
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="update()"
+                  *ngIf="mode == 3"
+                >
+                  Actualizar
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
