@@ -27,5 +27,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'municipalities', children:[{
       path: '',
       loadChildren: () => import('src/app/pages/municipality/municipality.module').then(m=>m.MunicipalityModule)
+    }]},
+    { path: 'addresses', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/address/address.module').then(m=>m.AddressModule)
     }]}
 ];

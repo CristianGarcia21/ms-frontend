@@ -6,7 +6,7 @@ export class Municipality {
   name: string;
   department_id?: number; // Asegúrate de que el tipo sea correcto
   department?: {
-    id: number;
+    id?: number;
     name: string;
   };
 }

@@ -1,0 +1,191 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0" *ngIf="mode == 1">Visualizar</h3>
+          <h3 class="mb-0" *ngIf="mode == 2">Crear</h3>
+          <h3 class="mb-0" *ngIf="mode == 3">Actualizar</h3>
+        </div>
+        <form class="form" *ngIf="theFormGroup" [formGroup]="theFormGroup">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4">
+                <label>Id:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ address.id }}</p>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Calle:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  [(ngModel)]="address.street"
+                  formControlName="street"
+                  class="form-control"
+                  [class.is-invalid]="
+                    getTheFormGroup.street?.invalid &&
+                    (getTheFormGroup.street?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    getTheFormGroup.street?.valid &&
+                    (getTheFormGroup.street?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.street?.errors &&
+                    (getTheFormGroup.street?.touched || trySend)
+                  "
+                >
+                  <strong *ngIf="getTheFormGroup.street?.errors?.required">
+                    La calle es requerida.
+                  </strong>
+                  <strong *ngIf="getTheFormGroup.street?.errors?.minlength">
+                    Inválido: la calle debe tener al menos 3 caracteres.
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Número:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="address.number"
+                  formControlName="number"
+                  class="form-control"
+                  [class.is-invalid]="
+                    getTheFormGroup.number?.invalid &&
+                    (getTheFormGroup.number?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    getTheFormGroup.number?.valid &&
+                    (getTheFormGroup.number?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.number?.errors &&
+                    (getTheFormGroup.number?.touched || trySend)
+                  "
+                >
+                  <strong *ngIf="getTheFormGroup.number?.errors?.required">
+                    El número es requerido.
+                  </strong>
+                  <strong *ngIf="getTheFormGroup.number?.errors?.min">
+                    Inválido: el número debe ser mayor a 0.
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Vecindario:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  [(ngModel)]="address.neighborhood"
+                  formControlName="neighborhood"
+                  class="form-control"
+                  [class.is-invalid]="
+                    getTheFormGroup.neighborhood?.invalid &&
+                    (getTheFormGroup.neighborhood?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    getTheFormGroup.neighborhood?.valid &&
+                    (getTheFormGroup.neighborhood?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.neighborhood?.errors &&
+                    (getTheFormGroup.neighborhood?.touched || trySend)
+                  "
+                >
+                  <strong *ngIf="getTheFormGroup.neighborhood?.errors?.required">
+                    El vecindario es requerido.
+                  </strong>
+                  <strong *ngIf="getTheFormGroup.neighborhood?.errors?.minlength">
+                    Inválido: el vecindario debe tener al menos 3 caracteres.
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Municipio:</label>
+              </div>
+              <div class="col-8">
+                <p *ngIf="mode === 1" class="form-control-plaintext">
+                  {{ getDepartmentName(theFormGroup.get('municipality_id')?.value) }}
+                </p>
+                <select
+                    formControlName="municipality_id"
+                    class="form-control"
+                    [class.is-invalid]="
+                      theFormGroup.get('municipality_id')?.invalid &&
+                      (theFormGroup.get('municipality_id')?.touched || trySend)
+                    "
+                  >
+                    <option value="">Seleccionar Municipio</option>
+                    <option *ngFor="let municipality of municipalities" [value]="municipality.id">
+                      {{ municipality.name }}({{ municipality.department?.name || 'Sin departamento' }})
+                    </option>
+                  </select>
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    theFormGroup.get('municipality_id')?.errors &&
+                    (theFormGroup.get('municipality_id')?.touched || trySend)
+                  "
+                >
+                  <strong *ngIf="theFormGroup.get('municipality_id')?.errors?.required">
+                    El municipio es requerido.
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col text-center">
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="create()"
+                  *ngIf="mode == 2"
+                >
+                  Crear
+                </button>
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="update()"
+                  *ngIf="mode == 3"
+                >
+                  Actualizar
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

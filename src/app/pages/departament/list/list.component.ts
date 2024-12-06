@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 export class ListComponent implements OnInit {
 
   Departament: Departament[] = [];
-  municipalities: Municipality[] = []; // Municipios del departamento seleccionado
+  municipalities: Municipality[] = []; 
   activeDepartment: Departament | null = null;
 
   constructor(

@@ -1,0 +1,56 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+              <div class="card-header border-0">
+                <div class="row align-items-center">
+                  <div class="col-3">
+                    <h3 class="mb-0">Direcciones</h3>
+                  </div>
+                  <div class="col-7"></div>
+                  <div class="col-2 text-end">
+                    <button type="button" class="btn btn-success" (click)="create()">Crear</button>
+                  </div>
+                </div>
+              </div>
+
+                <div class="card-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="col-1">ID</th>
+                        <th class="col-3">Calle</th>
+                        <th class="col-3">Numero</th>
+                        <th class="col-3">Vecindario</th>
+                        <th class="col-3">Municipio</th>
+                        <th class="col-3">Departamento</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let actual of addressses">
+                        <td>{{actual.id}}</td>
+                        <td>{{actual.street}}</td>
+                        <td>{{actual.number}}</td>
+                        <td>{{actual.neighborhood}}</td>
+                        <td>{{ actual.municipalities?.name || 'Sin municipio' }}</td>
+                        <td>{{ actual.department || 'Sin departamento' }}</td>
+                        <td>
+                          <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
+                          <button type="button" class="btn btn-success" (click)="view(actual.id)">Ver</button>
+                          <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Eliminar</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
