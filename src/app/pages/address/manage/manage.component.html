@@ -6,25 +6,32 @@
   <div class="row">
     <div class="col">
       <div class="card shadow">
-        <div class="card-header border-0">
-          <h3 class="mb-0" *ngIf="mode == 1">Visualizar</h3>
-          <h3 class="mb-0" *ngIf="mode == 2">Crear</h3>
-          <h3 class="mb-0" *ngIf="mode == 3">Actualizar</h3>
+        <div class="card-header border-0 d-flex justify-content-between align-items-center">
+          <div>
+            <h3 class="mb-0" *ngIf="mode == 1">Visualizar</h3>
+            <h3 class="mb-0" *ngIf="mode == 2">Crear</h3>
+            <h3 class="mb-0" *ngIf="mode == 3">Actualizar</h3>
+          </div>
+          <button
+            class="btn btn-primary"
+            (click)="navigateToList()">
+            <i class="bi bi-arrow-left-circle"></i> Volver a la lista
+          </button>
         </div>
         <form class="form" *ngIf="theFormGroup" [formGroup]="theFormGroup">
           <div class="card-body">
-            <div class="row">
+            <div class="row mb-3">
               <div class="col-4">
-                <label>Id:</label>
+                <label><strong>Id:</strong></label>
               </div>
               <div class="col-8">
-                <p>{{ address.id }}</p>
+                <p class="form-control-plaintext">{{ address.id }}</p>
               </div>
             </div>
 
-            <div class="row px-4 py-2">
+            <div class="row mb-3">
               <div class="col-4">
-                <label>Calle:</label>
+                <label><strong>Calle:</strong></label>
               </div>
               <div class="col-8">
                 <input
@@ -58,9 +65,9 @@
               </div>
             </div>
 
-            <div class="row px-4 py-2">
+            <div class="row mb-3">
               <div class="col-4">
-                <label>Número:</label>
+                <label><strong>Número:</strong></label>
               </div>
               <div class="col-8">
                 <input
@@ -94,9 +101,9 @@
               </div>
             </div>
 
-            <div class="row px-4 py-2">
+            <div class="row mb-3">
               <div class="col-4">
-                <label>Vecindario:</label>
+                <label><strong>Vecindario:</strong></label>
               </div>
               <div class="col-8">
                 <input
@@ -130,27 +137,28 @@
               </div>
             </div>
 
-            <div class="row px-4 py-2">
+            <div class="row mb-3">
               <div class="col-4">
-                <label>Municipio:</label>
+                <label><strong>Municipio:</strong></label>
               </div>
               <div class="col-8">
                 <p *ngIf="mode === 1" class="form-control-plaintext">
-                  {{ getDepartmentName(theFormGroup.get('municipality_id')?.value) }}
+                  {{ getMunicipalityName(theFormGroup.get('municipality_id')?.value) || 'Sin municipio' }}
                 </p>
                 <select
-                    formControlName="municipality_id"
-                    class="form-control"
-                    [class.is-invalid]="
-                      theFormGroup.get('municipality_id')?.invalid &&
-                      (theFormGroup.get('municipality_id')?.touched || trySend)
-                    "
-                  >
-                    <option value="">Seleccionar Municipio</option>
-                    <option *ngFor="let municipality of municipalities" [value]="municipality.id">
-                      {{ municipality.name }}({{ municipality.department?.name || 'Sin departamento' }})
-                    </option>
-                  </select>
+                  *ngIf="mode !== 1"
+                  formControlName="municipality_id"
+                  class="form-control"
+                  [class.is-invalid]="
+                    theFormGroup.get('municipality_id')?.invalid &&
+                    (theFormGroup.get('municipality_id')?.touched || trySend)
+                  "
+                >
+                  <option value="">Seleccionar Municipio</option>
+                  <option *ngFor="let municipality of municipalities" [value]="municipality.id">
+                    {{ municipality.name }} --- ({{ municipality.department?.name || 'Sin departamento' }})
+                  </option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="
@@ -165,7 +173,25 @@
               </div>
             </div>
 
-            <div class="row px-4 py-2">
+            <div class="row mb-3">
+              <div class="col-4">
+                <label><strong>Departamento:</strong></label>
+              </div>
+              <div class="col-8">
+                <p *ngIf="mode === 1" class="form-control-plaintext">
+                  {{ getDepartmentName(theFormGroup.get('municipality_id')?.value) || 'Sin departamento' }}
+                </p>
+                <input
+                  *ngIf="mode !== 1"
+                  type="text"
+                  formControlName="department"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+            </div>
+
+            <div class="row">
               <div class="col text-center">
                 <button
                   class="btn btn-success btn-block"

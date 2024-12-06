@@ -35,7 +35,7 @@ export class ManageComponent implements OnInit {
   ngOnInit(): void {
     console.log('Iniciando ngOnInit...');
 
-    // Cargar la lista de municipios
+
     this.municipalityService.list().subscribe((municipalities) => {
       console.log('Municipios cargados:', municipalities);
 
@@ -46,7 +46,7 @@ export class ManageComponent implements OnInit {
           this.departamentService.view(municipality.department_id).subscribe((department) => {
             console.log('Departamento encontrado:', department);
 
-            municipality.department = department; // Asignar el departamento al municipio
+            municipality.department = department;
           });
         } else {
           console.warn('Municipio sin departamento:', municipality.name);
@@ -55,13 +55,13 @@ export class ManageComponent implements OnInit {
       });
     });
 
-    // Configurar el formulario
+
     this.configFormGroup();
 
     const currentUrl = this.activatedRoute.snapshot.url.join('/');
     console.log('URL actual:', currentUrl);
 
-    // Configurar el modo
+
     if (currentUrl.includes('view')) {
       this.mode = 1;
     } else if (currentUrl.includes('create')) {
@@ -71,7 +71,7 @@ export class ManageComponent implements OnInit {
     }
     console.log('Modo configurado:', this.mode);
 
-    // Cargar datos si hay un ID
+
     if (this.activatedRoute.snapshot.params.id) {
       const id = this.activatedRoute.snapshot.params.id;
       console.log('ID del elemento:', id);
@@ -89,19 +89,8 @@ export class ManageComponent implements OnInit {
     });
   }
 
-  getSelectedMunicipalityDetails(municipalityId: number) {
-    return this.municipalities.find((mun) => mun.id === municipalityId);
-  }
 
-  onMunicipalityChange(municipalityId: number): void {
-    const selectedMunicipality = this.municipalities.find((mun) => mun.id === municipalityId);
 
-    if (selectedMunicipality?.department_id) {
-      this.departamentService.view(selectedMunicipality.department_id).subscribe((department) => {
-        this.theFormGroup.patchValue({ department: department.name }); // Agregamos el nombre del departamento al formulario
-      });
-    }
-  }
 
   get getTheFormGroup() {
     return this.theFormGroup.controls;
@@ -158,7 +147,7 @@ export class ManageComponent implements OnInit {
     const formData = {
       ...this.theFormGroup.value,
       id: this.address.id,
-      department: this.theFormGroup.get('department')?.value, // Agregamos el nombre del departamento
+      department: this.theFormGroup.get('department')?.value,
     };
 
     this.addressService.update(formData).subscribe(() => {
@@ -167,14 +156,20 @@ export class ManageComponent implements OnInit {
     });
   }
 
+  getMunicipalityName(municipalityId: number | null | undefined): string {
+    const municipality = this.municipalities.find((mun) => mun.id === municipalityId);
+    return municipality?.name || 'Sin municipio';
+  }
 
   getDepartmentName(municipalityId: number | null | undefined): string {
-    if (!municipalityId) {
-      return 'Sin municipio';
-    }
-    const municipality = this.municipalities.find(dep => dep.id === +municipalityId);
-    return municipality ? municipality.name : 'Sin municipio';
+    const municipality = this.municipalities.find((mun) => mun.id === municipalityId);
+    return municipality?.department?.name || 'Sin departamento';
   }
+
+  navigateToList(): void {
+  this.router.navigate(['addresses/list']);
+}
+
 }
 
 
