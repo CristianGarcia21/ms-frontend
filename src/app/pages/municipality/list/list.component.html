@@ -1,51 +1,69 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
 
-</div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
-    <!-- Table -->
-    <div class="row">
-        <div class="col">
-            <div class="card shadow">
-              <div class="card-header border-0">
-                <div class="row align-items-center">
-                  <div class="col-3">
-                    <h3 class="mb-0">Departamentos</h3>
-                  </div>
-                  <div class="col-7"></div>
-                  <div class="col-2 text-end">
-                    <button type="button" class="btn btn-success" (click)="create()">Crear</button>
-                  </div>
-                </div>
-              </div>
-
-                <div class="card-body">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th class="col-1">ID</th>
-                        <th class="col-3">Nombre</th>
-                        <th class="col-3">Departamento</th>
-
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let actual of Municipalities">
-                        <td>{{actual.id}}</td>
-                        <td>{{actual.name}}</td>
-                        <td>{{ actual.department?.name || 'Sin departamento' }}</td>
-
-                        <td>
-                          <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
-                          <button type="button" class="btn btn-success" (click)="view(actual.id)">Ver</button>
-                          <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Eliminar</button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col-3">
+              <h3 class="mb-0">Municipios</h3>
             </div>
+            <div class="col-7"></div>
+            <div class="col-2 text-end">
+              <button type="button" class="btn btn-success" (click)="create()">Crear</button>
+            </div>
+          </div>
         </div>
+
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="col-1">ID</th>
+                <th class="col-3">Nombre</th>
+                <th class="col-6">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let actual of Municipalities">
+                <!-- Fila de Municipio -->
+                <tr>
+                  <td>{{ actual.id }}</td>
+                  <td>{{ actual.name }}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
+                    <button type="button" class="btn btn-success" (click)="view(actual.id)">Ver</button>
+                    <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Eliminar</button>
+                    <button
+                      type="button"
+                      class="btn btn-info"
+                      (click)="toggleMunicipalities(actual)">
+                      {{ activeMunicipality?.id === actual.id ? 'Ocultar Direcciones' : 'Ver Direcciones' }}
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Fila Expandible para Direcciones -->
+                <tr *ngIf="activeMunicipality?.id === actual.id">
+                  <td colspan="3">
+                    <div>
+                      <h5>Direcciones de {{ activeMunicipality.name }}</h5>
+                      <ul class="list-group">
+                        <li *ngFor="let address of selectedAddresses" class="list-group-item">
+                          {{ address.street }}, {{ address.number }} - {{ address.neighborhood }}
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

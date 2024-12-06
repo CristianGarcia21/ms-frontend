@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Municipality } from '../models/municipality.model';
 import { environment } from 'src/environments/environment';
+import { Address } from '../models/address.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,15 @@ export class MunicipalityService {
   }
   update(municipality:Municipality): Observable<Municipality> {
     return this.http.put<Municipality>(`${environment.url_ms_logica}/municipalities/${municipality.id}`,municipality);
+  }
+   /**
+   * Obtener las direcciones de un municipio específico
+   * @param municipalityId ID del municipio
+   * @returns Observable con las direcciones
+   */
+   getAddresses(municipalityId: number): Observable<Address[]> {
+    return this.http.get<Address[]>(
+      `${environment.url_ms_logica}/municipalities/${municipalityId}/addresses`
+    );
   }
 }
