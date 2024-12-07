@@ -1,0 +1,199 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0" *ngIf="mode == 1">Visualizar</h3>
+          <h3 class="mb-0" *ngIf="mode == 2">Crear</h3>
+          <h3 class="mb-0" *ngIf="mode == 3">Actualizar</h3>
+        </div>
+        <form class="form" [formGroup]="theFormGroup">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4">
+                <label>Id:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ stages.id }}</p>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Orden:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="stages.order"
+                  formControlName="order"
+                  [class.is-invalid]="
+                    theFormGroup.get('order')?.invalid &&
+                    (theFormGroup.get('order')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('order')?.valid &&
+                    (theFormGroup.get('order')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.order.errors &&
+                    (getTheFormGroup.order.dirty ||
+                      getTheFormGroup.order.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.order.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.order.errors.min"
+                    class="msnError"
+                    >Inválido: Debe ser mayor a 0
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Direccion Id:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="stages.address_id"
+                  formControlName="address_id"
+                  [class.is-invalid]="
+                    theFormGroup.get('address_id')?.invalid &&
+                    (theFormGroup.get('address_id')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('address_id')?.valid &&
+                    (theFormGroup.get('address_id')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.address_id.errors &&
+                    (getTheFormGroup.address_id.dirty ||
+                      getTheFormGroup.address_id.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.address_id.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Ruta Id:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="stages.route_id"
+                  formControlName="route_id"
+                  [class.is-invalid]="
+                    theFormGroup.get('route_id')?.invalid &&
+                    (theFormGroup.get('route_id')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('route_id')?.valid &&
+                    (theFormGroup.get('route_id')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.route_id.errors &&
+                    (getTheFormGroup.route_id.dirty ||
+                      getTheFormGroup.route_id.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.route_id.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Lote Id:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="stages.lot_id"
+                  formControlName="lot_id"
+                  [class.is-invalid]="
+                    theFormGroup.get('lot_id')?.invalid &&
+                    (theFormGroup.get('lot_id')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('lot_id')?.valid &&
+                    (theFormGroup.get('lot_id')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.lot_id.errors &&
+                    (getTheFormGroup.lot_id.dirty ||
+                      getTheFormGroup.lot_id.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.lot_id.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row px-4 py-2">
+              <div class="col text-center">
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="create()"
+                  *ngIf="mode == 2"
+                >
+                  Crear
+                </button>
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="update()"
+                  *ngIf="mode == 3"
+                >
+                  Actualizar
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

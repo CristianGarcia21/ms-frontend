@@ -1,0 +1,183 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col-6">
+              <h3 class="mb-0" *ngIf="mode == 1">Visualizar Vehículo</h3>
+              <h3 class="mb-0" *ngIf="mode == 2">Crear Vehículo</h3>
+              <h3 class="mb-0" *ngIf="mode == 3">Actualizar Vehículo</h3>
+            </div>
+            <div class="col-6 text-end">
+              
+            </div>
+          </div>
+        </div>
+        <form class="form" [formGroup]="theFormGroup">
+          <div class="card-body">
+            <!-- ID -->
+            <div class="row">
+              <div class="col-4">
+                <label>Id:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ vehicle.id }}</p>
+              </div>
+            </div>
+
+            <!-- Placa -->
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Placa:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  formControlName="plate"
+                  class="form-control"
+                  [class.is-invalid]="theFormGroup.get('plate')?.invalid && (theFormGroup.get('plate')?.touched || trySend)"
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="theFormGroup.get('plate')?.errors && (theFormGroup.get('plate')?.touched || trySend)"
+                >
+                  <strong *ngIf="theFormGroup.get('plate')?.errors.required">Requerido</strong>
+                  <strong *ngIf="theFormGroup.get('plate')?.errors.pattern">Inválido: 3 letras mayúsculas y 3 números</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Marca -->
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Marca:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  formControlName="brand"
+                  class="form-control"
+                  [class.is-invalid]="theFormGroup.get('brand')?.invalid && (theFormGroup.get('brand')?.touched || trySend)"
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="theFormGroup.get('brand')?.errors && (theFormGroup.get('brand')?.touched || trySend)"
+                >
+                  <strong *ngIf="theFormGroup.get('brand')?.errors.required">Requerido</strong>
+                  <strong *ngIf="theFormGroup.get('brand')?.errors.minlength">Inválido: mínimo 2 caracteres</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tipo de vehículo -->
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Tipo de Vehículo:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  formControlName="type_vehicle"
+                  class="form-control"
+                  [class.is-invalid]="theFormGroup.get('type_vehicle')?.invalid && (theFormGroup.get('type_vehicle')?.touched || trySend)"
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="theFormGroup.get('type_vehicle')?.errors && (theFormGroup.get('type_vehicle')?.touched || trySend)"
+                >
+                  <strong *ngIf="theFormGroup.get('type_vehicle')?.errors.required">Requerido</strong>
+                  <strong *ngIf="theFormGroup.get('type_vehicle')?.errors.minlength">Inválido: mínimo 3 caracteres</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Capacidad -->
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Capacidad (KG):</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  formControlName="load_capacity"
+                  class="form-control"
+                  [class.is-invalid]="theFormGroup.get('load_capacity')?.invalid && (theFormGroup.get('load_capacity')?.touched || trySend)"
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="theFormGroup.get('load_capacity')?.errors && (theFormGroup.get('load_capacity')?.touched || trySend)"
+                >
+                  <strong *ngIf="theFormGroup.get('load_capacity')?.errors.required">Requerido</strong>
+                  <strong *ngIf="theFormGroup.get('load_capacity')?.errors.min">Inválido: mínimo 1</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Latitud -->
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Latitud:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  formControlName="latitude"
+                  class="form-control"
+                  [class.is-invalid]="theFormGroup.get('latitude')?.invalid && (theFormGroup.get('latitude')?.touched || trySend)"
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="theFormGroup.get('latitude')?.errors && (theFormGroup.get('latitude')?.touched || trySend)"
+                >
+                  <strong *ngIf="theFormGroup.get('latitude')?.errors.required">Requerido</strong>
+                  <strong *ngIf="theFormGroup.get('latitude')?.errors.min">Inválido: debe ser mayor a -90</strong>
+                  <strong *ngIf="theFormGroup.get('latitude')?.errors.max">Inválido: debe ser menor a 90</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Longitud -->
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Longitud:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  formControlName="longitude"
+                  class="form-control"
+                  [class.is-invalid]="theFormGroup.get('longitude')?.invalid && (theFormGroup.get('longitude')?.touched || trySend)"
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="theFormGroup.get('longitude')?.errors && (theFormGroup.get('longitude')?.touched || trySend)"
+                >
+                  <strong *ngIf="theFormGroup.get('longitude')?.errors.required">Requerido</strong>
+                  <strong *ngIf="theFormGroup.get('longitude')?.errors.min">Inválido: debe ser mayor a -180</strong>
+                  <strong *ngIf="theFormGroup.get('longitude')?.errors.max">Inválido: debe ser menor a 180</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="row px-4 py-2">
+              <div class="col text-center">
+                <button class="btn btn-success btn-block" (click)="create()" *ngIf="mode == 2">
+                  Crear
+                </button>
+                <button class="btn btn-success btn-block" (click)="update()" *ngIf="mode == 3">
+                  Actualizar
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

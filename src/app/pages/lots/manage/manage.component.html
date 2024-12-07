@@ -1,0 +1,247 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0" *ngIf="mode == 1">Visualizar</h3>
+          <h3 class="mb-0" *ngIf="mode == 2">Crear</h3>
+          <h3 class="mb-0" *ngIf="mode == 3">Actualizar</h3>
+        </div>
+        <form class="form" [formGroup]="theFormGroup">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4">
+                <label>Id:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ lots.id }}</p>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Cantidad:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="lots.quantity"
+                  formControlName="quantity"
+                  [class.is-invalid]="
+                    theFormGroup.get('quantity')?.invalid &&
+                    (theFormGroup.get('quantity')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('quantity')?.valid &&
+                    (theFormGroup.get('quantity')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.quantity.errors &&
+                    (getTheFormGroup.quantity.dirty ||
+                      getTheFormGroup.quantity.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.quantity.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.quantity.errors.min"
+                    class="msnError"
+                    >Inválido: Debe ser mayor a 0
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Peso total:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="lots.total_weight"
+                  formControlName="total_weight"
+                  [class.is-invalid]="
+                    theFormGroup.get('total_weight')?.invalid &&
+                    (theFormGroup.get('total_weight')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('total_weight')?.valid &&
+                    (theFormGroup.get('total_weight')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.total_weight.errors &&
+                    (getTheFormGroup.total_weight.dirty ||
+                      getTheFormGroup.total_weight.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.total_weight.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.total_weight.errors.min"
+                    class="msnError"
+                    >Inválido: Debe ser mayor a 0
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Tipo:</label>
+              </div>
+              <div class="col-8">
+                <select
+                  [(ngModel)]="lots.type"
+                  formControlName="type"
+                  class="form-control"
+                  [class.is-invalid]="
+                    theFormGroup.get('type')?.invalid &&
+                    (theFormGroup.get('type')?.touched || trySend)
+                  "
+                >
+                  <option value="" disabled>Seleccionar Tipo</option>
+                  <option value="perecedero">Perecedero</option>
+                  <option value="no perecedero">No Perecedero</option>
+                  <option value="líquido">Líquido</option>
+                  <option value="otro">Otro</option>
+                </select>
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    theFormGroup.get('type')?.errors &&
+                    (theFormGroup.get('type')?.dirty || theFormGroup.get('type')?.touched || trySend)
+                  "
+                >
+                  <strong *ngIf="theFormGroup.get('type')?.errors?.required">
+                    El tipo es obligatorio.
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Tamaño:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="lots.size"
+                  formControlName="size"
+                  [class.is-invalid]="
+                    theFormGroup.get('size')?.invalid &&
+                    (theFormGroup.get('size')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('size')?.valid &&
+                    (theFormGroup.get('size')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.size.errors &&
+                    (getTheFormGroup.size.dirty ||
+                      getTheFormGroup.size.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.size.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.size.errors.min"
+                    class="msnError"
+                    >Inválido: Debe ser mayor a 0
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Ruta:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="lots.route_id"
+                  formControlName="route_id"
+                  [class.is-invalid]="
+                    theFormGroup.get('route_id')?.invalid &&
+                    (theFormGroup.get('route_id')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('route_id')?.valid &&
+                    (theFormGroup.get('route_id')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.route_id.errors &&
+                    (getTheFormGroup.route_id.dirty ||
+                      getTheFormGroup.route_id.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.route_id.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.route_id.errors.min"
+                    class="msnError"
+                    >Inválido: Debe ser mayor a 0
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col text-center">
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="create()"
+                  *ngIf="mode == 2"
+                >
+                  Crear
+                </button>
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="update()"
+                  *ngIf="mode == 3"
+                >
+                  Actualizar
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

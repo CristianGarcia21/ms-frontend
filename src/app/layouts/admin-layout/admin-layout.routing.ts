@@ -31,5 +31,21 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'addresses', children:[{
       path: '',
       loadChildren: () => import('src/app/pages/address/address.module').then(m=>m.AddressModule)
+    }]},
+    {path: 'vehicles', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/vehicles/vehicles.module').then(m=>m.VehiclesModule)
+    }]},
+    {path: 'routes', children: [{
+      path: '',
+      loadChildren: () => import('src/app/pages/routes/routes.module').then(m => m.RoutesModule)
+    }]},
+    {path: 'lots', children: [{
+      path: '',
+      loadChildren: () => import('src/app/pages/lots/lots.module').then(m => m.LotsModule)
+    }]},
+    {path: 'stages', children: [{
+      path: '',
+      loadChildren: () => import('src/app/pages/stages/stages.module').then(m => m.StagesModule)
     }]}
 ];
