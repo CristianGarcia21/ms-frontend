@@ -71,5 +71,17 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'insurances', children:[{
       path: '',
       loadChildren: () => import('src/app/pages/insurances/insurances.module').then(m=>m.InsurancesModule)
+    }]},
+    { path: 'shifts', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/shift/shift.module').then(m=>m.ShiftModule)
+    }]},
+    { path: 'restaurants', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/restaurants/restaurants.module').then(m => m.RestaurantsModule)
+    }]},
+    { path: 'hotels', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/hotel/hotel.module').then(m => m.HotelModule)
     }]}
 ];

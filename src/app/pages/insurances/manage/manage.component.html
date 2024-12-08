@@ -270,6 +270,44 @@
             </div>
 
             <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Vehiculo Id:</label>
+              </div>
+              <div class="col-8">
+                <p *ngIf="mode == 1"> {{insurances.vehicle_id}}</p>
+                <input
+                  *ngIf="mode != 1"
+                  type="number"
+                  [(ngModel)]="insurances.vehicle_id"
+                  formControlName="vehicle_id"
+                  [class.is-invalid]="
+                    theFormGroup.get('vehicle_id')?.invalid &&
+                    (theFormGroup.get('vehicle_id')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('vehicle_id')?.valid &&
+                    (theFormGroup.get('vehicle_id')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.vehicle_id.errors &&
+                    (getTheFormGroup.vehicle_id.dirty ||
+                      getTheFormGroup.vehicle_id.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.vehicle_id.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
               <div class="col text-center">
                 <button
                   class="btn btn-success btn-block"

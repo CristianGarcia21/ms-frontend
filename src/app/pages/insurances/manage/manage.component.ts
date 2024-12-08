@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Insurances } from 'src/app/models/insurances.model';
+import { Vehicle } from 'src/app/models/vehicle.model';
 import { InsurancesService } from 'src/app/services/insurances.service';
 import Swal from 'sweetalert2';
 
@@ -54,6 +55,7 @@ export class ManageComponent implements OnInit {
       end_date: ["",[Validators.required, this.endDateAfterStartDateValidator() ],],
       amount: ["",[Validators.required, Validators.min(1), ],],
       status: ["",[Validators.required],],
+      vehicle_id: ["", [Validators.required],],
     });
   }
 
@@ -91,7 +93,7 @@ export class ManageComponent implements OnInit {
     }
     this.insurancesServices.create(this.insurances).subscribe((data) => {
       Swal.fire("Creado", "El registro ha sido creado", "success");
-      this.router.navigate(["clients/list"]);
+      this.router.navigate(["insurances/list"]);
     });
   }
 
@@ -103,7 +105,7 @@ export class ManageComponent implements OnInit {
     }
     this.insurancesServices.update(this.insurances).subscribe((data) => {
       Swal.fire("Actualizado", "El registro ha sido actualizado", "success");
-      this.router.navigate(["clients/list"]);
+      this.router.navigate(["insurances/list"]);
     });
   }
 

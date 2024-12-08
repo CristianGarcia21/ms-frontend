@@ -1,0 +1,238 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0" *ngIf="mode == 1">Visualizar</h3>
+          <h3 class="mb-0" *ngIf="mode == 2">Crear</h3>
+          <h3 class="mb-0" *ngIf="mode == 3">Actualizar</h3>
+        </div>
+        <form class="form" [formGroup]="theFormGroup">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4">
+                <label>Id:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ shift.id }}</p>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Fecha Inicio:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="date"
+                  [(ngModel)]="shift.start_time"
+                  formControlName="start_time"
+                  [class.is-invalid]="
+                    theFormGroup.get('start_time')?.invalid &&
+                    (theFormGroup.get('start_time')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('start_time')?.valid &&
+                    (theFormGroup.get('start_time')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.start_time.errors &&
+                    (getTheFormGroup.start_time.dirty ||
+                      getTheFormGroup.start_time.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.start_time.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Fecha fin:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="date"
+                  [(ngModel)]="shift.end_time"
+                  formControlName="end_time"
+                  [class.is-invalid]="
+                    theFormGroup.get('end_time')?.invalid &&
+                    (theFormGroup.get('end_time')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('end_time')?.valid &&
+                    (theFormGroup.get('end_time')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.end_time.errors &&
+                    (getTheFormGroup.end_time.dirty ||
+                      getTheFormGroup.end_time.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.end_time.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.end_time.errors.endDateBeforeStartDate"
+                    class="msnError"
+                    >Inválido: La fecha de fin debe ser mayor a la fecha de inicio
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Kilometro inicial:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="shift.start_mileage"
+                  formControlName="start_mileage"
+                  [class.is-invalid]="
+                    theFormGroup.get('start_mileage')?.invalid &&
+                    (theFormGroup.get('start_mileage')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('start_mileage')?.valid &&
+                    (theFormGroup.get('start_mileage')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.start_mileage.errors &&
+                    (getTheFormGroup.start_mileage.dirty ||
+                      getTheFormGroup.start_mileage.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.start_mileage.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Kilometro final:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="shift.end_mileage"
+                  formControlName="end_mileage"
+                  [class.is-invalid]="
+                    theFormGroup.get('end_mileage')?.invalid &&
+                    (theFormGroup.get('end_mileage')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('end_mileage')?.valid &&
+                    (theFormGroup.get('end_mileage')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.end_mileage.errors &&
+                    (getTheFormGroup.end_mileage.dirty ||
+                      getTheFormGroup.end_mileage.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.end_mileage.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                  *ngIf="getTheFormGroup.end_time.errors.validateMileage"
+                  class="msnError"
+                  >Inválido: El kilometraje final debe ser mayor al inicial
+                </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label> Conductor:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="shift.driver_id"
+                  formControlName="driver_id"
+                  [class.is-invalid]="
+                    theFormGroup.get('driver_id')?.invalid &&
+                    (theFormGroup.get('driver_id')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('driver_id')?.valid &&
+                    (theFormGroup.get('driver_id')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.driver_id.errors &&
+                    (getTheFormGroup.driver_id.dirty ||
+                      getTheFormGroup.driver_id.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.driver_id.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col text-center">
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="create()"
+                  *ngIf="mode == 2"
+                >
+                  Crear
+                </button>
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="update()"
+                  *ngIf="mode == 3"
+                >
+                  Actualizar
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
