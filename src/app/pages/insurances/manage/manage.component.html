@@ -1,0 +1,295 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0" *ngIf="mode == 1">Visualizar</h3>
+          <h3 class="mb-0" *ngIf="mode == 2">Crear</h3>
+          <h3 class="mb-0" *ngIf="mode == 3">Actualizar</h3>
+        </div>
+        <form class="form" [formGroup]="theFormGroup">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4">
+                <label>Id:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ insurances.id }}</p>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Compañia:</label>
+              </div>
+              <div class="col-8">
+                <p *ngIf="mode == 1">{{ insurances.insurance_company }}</p>
+                <input
+                *ngIf="mode != 1"
+                  type="text"
+                  [(ngModel)]="insurances.insurance_company"
+                  formControlName="insurance_company"
+                  [class.is-invalid]="
+                    theFormGroup.get('insurance_company')?.invalid &&
+                    (theFormGroup.get('insurance_company')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('insurance_company')?.valid &&
+                    (theFormGroup.get('insurance_company')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.insurance_company.errors &&
+                    (getTheFormGroup.insurance_company.dirty ||
+                      getTheFormGroup.insurance_company.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.insurance_company.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.insurance_company.errors.minlength"
+                    class="msnError"
+                    >Inválido: Mínimo 3 caracteres
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Poliza:</label>
+              </div>
+              <div class="col-8">
+                <p *ngIf="mode == 1">{{ insurances.policy_number }}</p>
+                <input
+                *ngIf="mode != 1"
+                  type="text"
+                  [(ngModel)]="insurances.policy_number"
+                  formControlName="policy_number"
+                  [class.is-invalid]="
+                    theFormGroup.get('policy_number')?.invalid &&
+                    (theFormGroup.get('policy_number')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('policy_number')?.valid &&
+                    (theFormGroup.get('policy_number')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.policy_number.errors &&
+                    (getTheFormGroup.policy_number.dirty ||
+                      getTheFormGroup.policy_number.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.policy_number.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.policy_number.errors.minlength"
+                    class="msnError"
+                    >Inválido: Mínimo 5 caracteres
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Fecha incial:</label>
+              </div>
+              <div class="col-8">
+                <p *ngIf="mode == 1">{{ formatDate(insurances.start_date) }}</p>
+                <input
+                  *ngIf="mode != 1"
+                  type="date"
+                  [(ngModel)]="insurances.start_date"
+                  formControlName="start_date"
+                  [class.is-invalid]="
+                    theFormGroup.get('start_date')?.invalid &&
+                    (theFormGroup.get('start_date')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('start_date')?.valid &&
+                    (theFormGroup.get('start_date')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.start_date.errors &&
+                    (getTheFormGroup.start_date.dirty ||
+                      getTheFormGroup.start_date.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.start_date.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Fecha final:</label>
+              </div>
+              <div class="col-8">
+                <p *ngIf="mode == 1">{{ formatDate(insurances.end_date) }}</p>
+                <input
+                *ngIf="mode != 1"
+                  type="date"
+                  [(ngModel)]="insurances.end_date"
+                  formControlName="end_date"
+                  [class.is-invalid]="
+                    theFormGroup.get('end_date')?.invalid &&
+                    (theFormGroup.get('end_date')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('end_date')?.valid &&
+                    (theFormGroup.get('end_date')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.end_date.errors &&
+                    (getTheFormGroup.end_date.dirty ||
+                      getTheFormGroup.end_date.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.end_date.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                  *ngIf="getTheFormGroup.end_date?.errors?.endDateBeforeStartDate"
+                  class="msnError"
+                   >
+                    La fecha final debe ser posterior a la fecha inicial.
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Costo:</label>
+              </div>
+              <div class="col-8">
+                <p *ngIf="mode == 1"> {{insurances.amount}}</p>
+                <input
+                  *ngIf="mode != 1"
+                  type="number"
+                  [(ngModel)]="insurances.amount"
+                  formControlName="amount"
+                  [class.is-invalid]="
+                    theFormGroup.get('amount')?.invalid &&
+                    (theFormGroup.get('amount')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('amount')?.valid &&
+                    (theFormGroup.get('amount')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.amount.errors &&
+                    (getTheFormGroup.amount.dirty ||
+                      getTheFormGroup.amount.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.amount.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.amount.errors.min"
+                    class="msnError"
+                    >Inválido: Debe ser mayor a 0
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Estado:</label>
+              </div>
+              <div class="col-8">
+                <p *ngIf="mode == 1">{{ insurances.status ? 'Activo' : 'Inactivo' }}</p>
+                <select
+                  *ngIf="mode != 1"
+                  formControlName="status"
+                  class="form-control"
+                  [class.is-invalid]="
+                    theFormGroup.get('status')?.invalid &&
+                    (theFormGroup.get('status')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('status')?.valid &&
+                    (theFormGroup.get('status')?.touched || trySend)
+                  "
+                >
+                  <option [value]="true">Activo</option>
+                  <option [value]="false">Inactivo</option>
+                </select>
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    theFormGroup.get('status')?.errors &&
+                    (theFormGroup.get('status')?.touched || trySend)
+                  "
+                >
+                  <strong *ngIf="theFormGroup.get('status')?.errors?.required" class="msnError">
+                    El estado es requerido.
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col text-center">
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="create()"
+                  *ngIf="mode == 2"
+                >
+                  Crear
+                </button>
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="update()"
+                  *ngIf="mode == 3"
+                >
+                  Actualizar
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

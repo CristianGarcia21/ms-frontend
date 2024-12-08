@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Contract } from 'src/app/models/contract.model';
-import { ContractService } from 'src/app/services/contract.service';
+import { Company } from 'src/app/models/company.model';
+import { CompanyService } from 'src/app/services/company.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,14 +11,13 @@ import Swal from 'sweetalert2';
 })
 export class ListComponent implements OnInit {
 
-
-  Contract : Contract[]
+  companies : Company[]
 
   constructor(
-    private contractService: ContractService,
+    private companyService: CompanyService,
     private router: Router
   ) {
-    this.Contract= []
+    this.companies= []
    }
 
   ngOnInit(): void {
@@ -26,8 +25,8 @@ export class ListComponent implements OnInit {
   }
 
   list(){
-    this.contractService.list().subscribe(data => {
-      this.Contract = data
+    this.companyService.list().subscribe(data => {
+      this.companies = data
     })
   }
 
@@ -43,7 +42,7 @@ export class ListComponent implements OnInit {
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.contractService.delete(id).subscribe(data=>{
+        this.companyService.delete(id).subscribe(data=>{
           this.ngOnInit()
           Swal.fire({
             title: "Eliminado!",
@@ -56,15 +55,14 @@ export class ListComponent implements OnInit {
   }
 
   view(id:number){
-    this.router.navigate(['contracts/view/'+id])
+    this.router.navigate(['companies/view/'+id])
   }
 
   update(id:number){
-    this.router.navigate(['contracts/update/'+id])
+    this.router.navigate(['companies/update/'+id])
   }
 
   create(){
-    this.router.navigate(['contracts/create'])
+    this.router.navigate(['companies/create'])
   }
-
 }

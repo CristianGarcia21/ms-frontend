@@ -1,0 +1,166 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0" *ngIf="mode == 1">Visualizar</h3>
+          <h3 class="mb-0" *ngIf="mode == 2">Crear</h3>
+          <h3 class="mb-0" *ngIf="mode == 3">Actualizar</h3>
+        </div>
+        <form class="form" [formGroup]="theFormGroup">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4">
+                <label>Id:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ companies.id }}</p>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Nombre:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  [(ngModel)]="companies.name"
+                  formControlName="name"
+                  [class.is-invalid]="
+                    theFormGroup.get('name')?.invalid &&
+                    (theFormGroup.get('name')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('name')?.valid &&
+                    (theFormGroup.get('name')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.name.errors &&
+                    (getTheFormGroup.name.dirty ||
+                      getTheFormGroup.name.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.name.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.name.errors.minlength"
+                    class="msnError"
+                    >Inválido: mínimo 3 caracteres
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>NIT:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  [(ngModel)]="companies.nit"
+                  formControlName="nit"
+                  [class.is-invalid]="
+                    theFormGroup.get('nit')?.invalid &&
+                    (theFormGroup.get('nit')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('nit')?.valid &&
+                    (theFormGroup.get('nit')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.nit.errors &&
+                    (getTheFormGroup.nit.dirty ||
+                      getTheFormGroup.nit.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.nit.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.nit.errors.pattern"
+                    class="msnError"
+                    >Inválido: El NIT debe tener entre 5 y 15 dígitos, seguido de un guion y un dígito (ej: 800123456-7).
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Cliente ID:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="companies.client_id"
+                  formControlName="client_id"
+                  [class.is-invalid]="
+                    theFormGroup.get('client_id')?.invalid &&
+                    (theFormGroup.get('client_id')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('client_id')?.valid &&
+                    (theFormGroup.get('client_id')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.client_id.errors &&
+                    (getTheFormGroup.client_id.dirty ||
+                      getTheFormGroup.client_id.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.client_id.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col text-center">
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="create()"
+                  *ngIf="mode == 2"
+                >
+                  Crear
+                </button>
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="update()"
+                  *ngIf="mode == 3"
+                >
+                  Actualizar
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

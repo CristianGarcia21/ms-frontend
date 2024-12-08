@@ -55,5 +55,21 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'categories', children:[{
       path: '',
       loadChildren: () => import('src/app/pages/categories/categories.module').then(m=>m.CategoriesModule)
+    }]},
+    { path: 'product_category', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/product-category/product-category.module').then(m => m.ProductCategoryModule)
+    }]},
+    { path: 'companies', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/companies/companies.module').then(m=>m.CompaniesModule)
+    }]},
+    { path: 'distribution_centers', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/distribution-center/distribution-center.module').then(m=>m.DistributionCenterModule)
+    }]},
+    { path: 'insurances', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/insurances/insurances.module').then(m=>m.InsurancesModule)
     }]}
 ];

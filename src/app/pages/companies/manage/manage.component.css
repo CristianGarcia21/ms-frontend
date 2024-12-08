@@ -1,0 +1,59 @@
+/* Mensaje de error */
+.msnError {
+  display: flex; /* Alineación del texto e iconos */
+  align-items: center; /* Centrar verticalmente */
+  color: #ff4d4f; /* Color rojo elegante */
+  font-size: 14px; /* Tamaño refinado */
+  font-weight: 600; /* Resaltar el mensaje */
+  margin-top: 8px; /* Espacio entre input y error */
+  animation: fadeIn 0.3s ease-in-out; /* Animación al aparecer */
+}
+
+.msnError::before {
+  content: '⛔'; /* Icono de error */
+  font-size: 16px; /* Tamaño del icono */
+  color: #ff4d4f; /* Mismo color que el texto */
+  margin-right: 8px; /* Espacio entre icono y texto */
+}
+
+/* Input inválido: Fondo rojo tenue */
+input.is-invalid {
+  border: 2px solid #ff4d4f !important; /* Borde rojo elegante */
+  background-color: #fff5f5; /* Fondo rojo tenue */
+  box-shadow: 0 0 6px rgba(255, 77, 79, 0.2); /* Sombra roja */
+  transition: all 0.3s ease; /* Transiciones suaves */
+}
+
+/* Input válido: Fondo verde tenue */
+input.is-valid {
+  border: 2px solid #52c41a !important; /* Borde verde elegante */
+  background-color: #f6ffed; /* Fondo verde tenue */
+  box-shadow: 0 0 6px rgba(82, 196, 26, 0.2); /* Sombra verde */
+  transition: all 0.3s ease; /* Transiciones suaves */
+}
+
+/* Transición suave al enfocar */
+input:focus {
+  box-shadow: 0 0 10px rgba(24, 144, 255, 0.5); /* Sombra azul tenue */
+  border-color: #1890ff; /* Borde azul */
+  outline: none;
+}
+
+/* Etiquetas refinadas */
+label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #555; /* Color gris profesional */
+}
+
+/* Animación para los mensajes de error */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

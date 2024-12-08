@@ -1,0 +1,63 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <div class="row">
+                      <div class="col-2">
+                        <h3 class="mb-0">Seguros</h3>
+                      </div>
+                      <div class="col-8">
+
+                      </div>
+                      <div class="col-2">
+                    <button type="button" class="btn btn-success" (click)="create()">Crear</button>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="col-1">ID</th>
+                        <th class="col-3">Compañia</th>
+                        <th class="col-4">Numero Polisa</th>
+                        <th class="col-5">Fecha Inicio</th>
+                        <th class="col-6">Fecha Fin</th>
+                        <th class="col-7">Precio</th>
+                        <th class="col-8">Estado</th>
+                        <th class="col-9">Vehiculo Id</th>
+                        <th class="col-10">Acciones</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let actual of insurances">
+                        <td>{{ actual.id }}</td>
+                        <td>{{ actual.insurance_company }}</td>
+                        <td>{{ actual.policy_number }}</td>
+                        <td>{{ formatDate(actual.start_date) }}</td>
+                        <td>{{ formatDate(actual.end_date) }}</td>
+                        <td>{{ actual.amount | currency:'COP' }}</td>
+                        <td>{{ actual.status ? 'Activo' : 'Inactivo' }}</td>
+                        <td>{{ actual.vehicle_id }}</td>
+                        <td>
+                          <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
+                          <button type="button" class="btn btn-success" (click)="view(actual.id)">Ver</button>
+                          <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Eliminar</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
