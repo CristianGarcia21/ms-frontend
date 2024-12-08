@@ -13,7 +13,8 @@ import Swal from 'sweetalert2';
 export class ManageComponent implements OnInit {
 
   category: Category;
-  categories: Category[] = []; // Para almacenar las categorías principales
+  categories: Category[] = [];
+  parentCategories: Category[] = [];
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
@@ -37,17 +38,32 @@ export class ManageComponent implements OnInit {
       this.mode = 1;
     } else if (currentUrl.includes("create")) {
       this.mode = 2;
-      this.loadParentCategories(); // Cargar categorías principales al crear
     } else if (currentUrl.includes("update")) {
       this.mode = 3;
-      this.loadParentCategories(); // Cargar categorías principales al actualizar
     }
+
+    // Cargar todas las categorías al inicio
+    this.loadCategories();
 
     if (this.activatedRoute.snapshot.params.id) {
       this.category.id = this.activatedRoute.snapshot.params.id;
       this.getCategory(this.category.id);
     }
   }
+
+  loadCategories() {
+    this.categoryService.list().subscribe(data => {
+      this.categories = data; // Guardar todas las categorías
+      this.parentCategories = data.filter(category => category.parent_id === null); // Filtrar principales
+    });
+  }
+
+  getCategoryName(id: number): string {
+    // Buscar el nombre de la categoría en todas las categorías cargadas
+    const category = this.categories.find(category => category.id === id);
+    return category ? category.name : 'Desconocida';
+  }
+
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({

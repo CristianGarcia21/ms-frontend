@@ -27,7 +27,9 @@
                 <label>Nombre:</label>
               </div>
               <div class="col-8">
+                <p *ngIf="mode == 1">{{ category.name }}</p>
                 <input
+                  *ngIf="mode != 1"
                   type="text"
                   formControlName="name"
                   class="form-control"
@@ -59,7 +61,11 @@
                 <label>Categoria Padre:</label>
               </div>
               <div class="col-8">
+                <p *ngIf="mode == 1">
+                  {{ category.parent_id ? getCategoryName(category.parent_id) : 'Ninguna (Categoría Principal)' }}
+                </p>
                 <select
+                  *ngIf="mode != 1"
                   formControlName="parent_id"
                   class="form-control"
                   [class.is-invalid]="
@@ -70,26 +76,27 @@
                     (theFormGroup.get('parent_id')?.touched || trySend)"
                 >
                   <option value="">Ninguna (Categoría Principal)</option>
-                  <option *ngFor="let cat of categories" [value]="cat.id">
+                  <option *ngFor="let cat of parentCategories" [value]="cat.id">
                     {{ cat.name }}
                   </option>
                 </select>
               </div>
             </div>
 
+
             <div class="row px-4 py-2">
               <div class="col text-center">
                 <button
+                  *ngIf="mode != 1 && mode == 2"
                   class="btn btn-success btn-block"
                   (click)="create()"
-                  *ngIf="mode == 2"
                 >
                   Crear
                 </button>
                 <button
+                  *ngIf="mode != 1 && mode == 3"
                   class="btn btn-success btn-block"
                   (click)="update()"
-                  *ngIf="mode == 3"
                 >
                   Actualizar
                 </button>
