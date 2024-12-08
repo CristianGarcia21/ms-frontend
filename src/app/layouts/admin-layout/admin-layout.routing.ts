@@ -47,5 +47,13 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'stages', children: [{
       path: '',
       loadChildren: () => import('src/app/pages/stages/stages.module').then(m => m.StagesModule)
+    }]},
+    { path: 'products', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/products/products.module').then(m=>m.ProductsModule)
+    }]},
+    { path: 'categories', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/categories/categories.module').then(m=>m.CategoriesModule)
     }]}
 ];

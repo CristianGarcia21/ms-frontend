@@ -1,0 +1,81 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row">
+            <div class="col-2">
+              <h3 class="mb-0">Categorías</h3>
+            </div>
+            <div class="col-8"></div>
+            <div class="col-2">
+              <button type="button" class="btn btn-success" (click)="create()">Crear</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="col-1">ID</th>
+                <th class="col-3">Nombre</th>
+                <th class="col-3">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Categorías principales -->
+              <ng-container *ngFor="let category of parentCategories">
+                <tr>
+                  <td>{{ category.id }}</td>
+                  <td>{{ category.name }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-info"
+                      (click)="toggleSubcategories(category)">
+                      {{ activeCategory?.id === category.id ? 'Ocultar Subcategorías' : 'Ver Subcategorías' }}
+                    </button>
+                    <button type="button" class="btn btn-primary" (click)="update(category.id)">Editar</button>
+                    <button type="button" class="btn btn-success" (click)="view(category.id)">Ver</button>
+                    <button type="button" class="btn btn-danger" (click)="delete(category.id)">Eliminar</button>
+                  </td>
+                </tr>
+
+                <!-- Subcategorías -->
+                <tr *ngIf="activeCategory?.id === category.id">
+                  <td colspan="3">
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th class="col-1">ID</th>
+                          <th class="col-3">Nombre</th>
+                          <th class="col-3">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let subcategory of subcategories">
+                          <td>{{ subcategory.id }}</td>
+                          <td>{{ subcategory.name }}</td>
+                          <td>
+                            <button type="button" class="btn btn-primary" (click)="update(subcategory.id)">Editar</button>
+                            <button type="button" class="btn btn-success" (click)="view(subcategory.id)">Ver</button>
+                            <button type="button" class="btn btn-danger" (click)="delete(subcategory.id)">Eliminar</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

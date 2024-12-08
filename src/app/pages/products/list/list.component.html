@@ -10,7 +10,7 @@
                 <div class="card-header border-0">
                     <div class="row">
                       <div class="col-2">
-                        <h3 class="mb-0">Etapas</h3>
+                        <h3 class="mb-0">Productos</h3>
                       </div>
                       <div class="col-8">
 
@@ -26,19 +26,23 @@
                     <thead>
                       <tr>
                         <th class="col-1">ID</th>
-                        <th class="col-3">Orden</th>
-                        <th class="col-4">Direccion ID</th>
-                        <th class="col-4"> Ruta ID</th>
-                        <th class="col-4">Lote Id</th>
+                        <th class="col-3">Descripcion</th>
+                        <th class="col-4">Peso</th>
+                        <th class="col-4">Tamaño </th>
+                        <th class="col-4">Tipo</th>
+                        <th class="col-4">Lote</th>
+                        <th class="col-4">Cliente</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let actual of stages">
+                      <tr *ngFor="let actual of products">
                         <td>{{actual.id}}</td>
-                        <td>{{actual.order}}</td>
-                        <td>{{actual.address_id}}</td>
-                        <td>{{actual.route_id}}</td>
+                        <td>{{actual.description}}</td>
+                        <td>{{actual.weight}}</td>
+                        <td>{{actual.size}}</td>
+                        <td>{{actual.type}}</td>
                         <td>{{actual.lot_id}}</td>
+                        <td>{{actual.client_id}}</td>
                         <td>
                           <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
                           <button type="button" class="btn btn-success" (click)="view(actual.id)">Ver</button>

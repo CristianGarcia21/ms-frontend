@@ -24,7 +24,9 @@ export const ROUTES: RouteInfo[] = [
         { path: '/vehicles/list', title: 'Vehículos', icon: 'ni-bullet-list-67', class: '' },
         { path: '/routes/list', title: 'Rutas', icon: 'ni-bullet-list-67', class: '' },
         { path: '/lots/list', title: 'Lotes', icon: 'ni-bullet-list-67', class: '' },
-        { path: '/stages/list', title: 'Etapas', icon: 'ni-bullet-list-67', class: '' }
+        { path: '/stages/list', title: 'Etapas', icon: 'ni-bullet-list-67', class: '' },
+        { path: '/products/list', title: 'Productos', icon: 'ni-bullet-list-67', class: '' },
+        { path: '/categories/list', title: 'Categorías', icon: 'ni-bullet-list-67', class: '' },
       ], expanded: false
     },
     { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '' },
