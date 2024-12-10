@@ -18,224 +18,172 @@
                 <label>Id:</label>
               </div>
               <div class="col-8">
-                <p>{{ hotel.id }}</p>
+                <p>{{ expenses.id }}</p>
               </div>
             </div>
 
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Nombre:</label>
-              </div>
-              <div class="col-8">
-                <input
-                  type="text"
-                  [(ngModel)]="hotel.name"
-                  formControlName="name"
-                  [class.is-invalid]="
-                    theFormGroup.get('name')?.invalid &&
-                    (theFormGroup.get('name')?.touched || trySend)
-                  "
-                  [class.is-valid]="
-                    theFormGroup.get('name')?.valid &&
-                    (theFormGroup.get('name')?.touched || trySend)
-                  "
-                />
-                <div
-                  class="text-danger mt-1"
-                  *ngIf="
-                    getTheFormGroup.name.errors &&
-                    (getTheFormGroup.name.dirty ||
-                      getTheFormGroup.name.touched ||
-                      trySend)
-                  "
-                >
-                  <strong
-                    *ngIf="getTheFormGroup.name.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
-                  <strong
-                    *ngIf="getTheFormGroup.name.errors.minlength"
-                    class="msnError"
-                    >Inválido: Mínimo 3 caracteres
-                  </strong>
-                </div>
-              </div>
-            </div>
-
-            <div class="row px-4 py-2">
-              <div class="col-4">
-                <label>Direccion:</label>
-              </div>
-              <div class="col-8">
-                <input
-                  type="text"
-                  [(ngModel)]="hotel.address"
-                  formControlName="address"
-                  [class.is-invalid]="
-                    theFormGroup.get('address')?.invalid &&
-                    (theFormGroup.get('address')?.touched || trySend)
-                  "
-                  [class.is-valid]="
-                    theFormGroup.get('address')?.valid &&
-                    (theFormGroup.get('address')?.touched || trySend)
-                  "
-                />
-                <div
-                  class="text-danger mt-1"
-                  *ngIf="
-                    getTheFormGroup.address.errors &&
-                    (getTheFormGroup.address.dirty ||
-                      getTheFormGroup.address.touched ||
-                      trySend)
-                  "
-                >
-                  <strong
-                    *ngIf="getTheFormGroup.address.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
-                  <strong
-                    *ngIf="getTheFormGroup.address.errors.minlength"
-                    class="msnError"
-                    >Inválido: Mínimo 3 caracteres
-                  </strong>
-                </div>
-              </div>
-            </div>
-
-            <div class="row px-4 py-2">
-              <div class="col-4">
-                <label>Telefono:</label>
-              </div>
-              <div class="col-8">
-                <input
-                  type="text"
-                  [(ngModel)]="hotel.phone"
-                  formControlName="phone"
-                  [class.is-invalid]="
-                    theFormGroup.get('phone')?.invalid &&
-                    (theFormGroup.get('phone')?.touched || trySend)
-                  "
-                  [class.is-valid]="
-                    theFormGroup.get('phone')?.valid &&
-                    (theFormGroup.get('phone')?.touched || trySend)
-                  "
-                />
-                <div
-                  class="text-danger mt-1"
-                  *ngIf="
-                    getTheFormGroup.phone.errors &&
-                    (getTheFormGroup.phone.dirty ||
-                      getTheFormGroup.phone.touched ||
-                      trySend)
-                  "
-                >
-                  <strong
-                    *ngIf="getTheFormGroup.phone.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
-                  <strong
-                    *ngIf="getTheFormGroup.phone.errors.minlength"
-                    class="msnError"
-                    >Inválido: Solo números y 10 dígitos
-                  </strong>
-                </div>
-              </div>
-            </div>
-
-            <div class="row px-4 py-2">
-              <div class="col-4">
-                <label>Correo:</label>
-              </div>
-              <div class="col-8">
-                <input
-                  type="text"
-                  [(ngModel)]="hotel.email"
-                  formControlName="email"
-                  [class.is-invalid]="
-                    theFormGroup.get('email')?.invalid &&
-                    (theFormGroup.get('email')?.touched || trySend)
-                  "
-                  [class.is-valid]="
-                    theFormGroup.get('email')?.valid &&
-                    (theFormGroup.get('email')?.touched || trySend)
-                  "
-                />
-                <div
-                  class="text-danger mt-1"
-                  *ngIf="
-                    getTheFormGroup.email.errors &&
-                    (getTheFormGroup.email.dirty ||
-                      getTheFormGroup.email.touched ||
-                      trySend)
-                  "
-                >
-                  <strong
-                    *ngIf="getTheFormGroup.email.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
-                  <strong
-                    *ngIf="getTheFormGroup.email.errors.email"
-                    class="msnError"
-                    >Inválido: Correo no válido
-                  </strong>
-                </div>
-              </div>
-            </div>
-
-
-            <div class="row px-4 py-2">
-              <div class="col-4">
-                <label>Estado:</label>
-              </div>
-              <div class="col-8">
-                <input
-                  type="text"
-                  [(ngModel)]="hotel.status"
-                  formControlName="status"
-                  [class.is-invalid]="
-                    theFormGroup.get('status')?.invalid &&
-                    (theFormGroup.get('status')?.touched || trySend)
-                  "
-                  [class.is-valid]="
-                    theFormGroup.get('status')?.valid &&
-                    (theFormGroup.get('status')?.touched || trySend)
-                  "
-                />
-                <div
-                  class="text-danger mt-1"
-                  *ngIf="
-                    getTheFormGroup.status.errors &&
-                    (getTheFormGroup.status.dirty ||
-                      getTheFormGroup.status.touched ||
-                      trySend)
-                  "
-                >
-                  <strong
-                    *ngIf="getTheFormGroup.status.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
-                  <strong
-                    *ngIf="getTheFormGroup.status.errors.minlength"
-                    class="msnError"
-                    >Inválido: Mínimo 3 caracteres
-                  </strong>
-                </div>
-              </div>
-            </div>
-
-            <div class="row px-4 py-2">
-              <div class="col-4">
-                <label>Service Id:</label>
+                <label>Monto:</label>
               </div>
               <div class="col-8">
                 <input
                   type="number"
-                  [(ngModel)]="hotel.service_id"
+                  [(ngModel)]="expenses.amount"
+                  formControlName="amount"
+                  [class.is-invalid]="
+                    theFormGroup.get('amount')?.invalid &&
+                    (theFormGroup.get('amount')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('amount')?.valid &&
+                    (theFormGroup.get('amount')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.amount.errors &&
+                    (getTheFormGroup.amount.dirty ||
+                      getTheFormGroup.amount.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.amount.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.amount.errors.min"
+                    class="msnError"
+                    >Inválido: Mayor a 0
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Descripcion:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  [(ngModel)]="expenses.description"
+                  formControlName="description"
+                  [class.is-invalid]="
+                    theFormGroup.get('description')?.invalid &&
+                    (theFormGroup.get('description')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('description')?.valid &&
+                    (theFormGroup.get('description')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.description.errors &&
+                    (getTheFormGroup.description.dirty ||
+                      getTheFormGroup.description.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.description.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.description.errors.maxlength"
+                    class="msnError"
+                    >Inválido: Máximo 255 caracteres
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Fecha:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="date"
+                  [(ngModel)]="expenses.date"
+                  formControlName="date"
+                  [class.is-invalid]="
+                    theFormGroup.get('date')?.invalid &&
+                    (theFormGroup.get('date')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('date')?.valid &&
+                    (theFormGroup.get('date')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.date.errors &&
+                    (getTheFormGroup.date.dirty ||
+                      getTheFormGroup.date.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.date.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Dueño:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="expenses.owner_id"
+                  formControlName="owner_id"
+                  [class.is-invalid]="
+                    theFormGroup.get('owner_id')?.invalid &&
+                    (theFormGroup.get('owner_id')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('owner_id')?.valid &&
+                    (theFormGroup.get('owner_id')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.owner_id.errors &&
+                    (getTheFormGroup.owner_id.dirty ||
+                      getTheFormGroup.owner_id.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.owner_id.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Servicio:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="expenses.service_id"
                   formControlName="service_id"
                   [class.is-invalid]="
                     theFormGroup.get('service_id')?.invalid &&
@@ -264,6 +212,77 @@
               </div>
             </div>
 
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Conductor:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="expenses.driver_id"
+                  formControlName="driver_id"
+                  [class.is-invalid]="
+                    theFormGroup.get('driver_id')?.invalid &&
+                    (theFormGroup.get('driver_id')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('driver_id')?.valid &&
+                    (theFormGroup.get('driver_id')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.driver_id.errors &&
+                    (getTheFormGroup.driver_id.dirty ||
+                      getTheFormGroup.driver_id.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.driver_id.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Factura:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="expenses.receipt_id"
+                  formControlName="receipt_id"
+                  [class.is-invalid]="
+                    theFormGroup.get('receipt_id')?.invalid &&
+                    (theFormGroup.get('receipt_id')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('receipt_id')?.valid &&
+                    (theFormGroup.get('receipt_id')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.receipt_id.errors &&
+                    (getTheFormGroup.receipt_id.dirty ||
+                      getTheFormGroup.receipt_id.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.receipt_id.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                </div>
+              </div>
+            </div>
 
             <div class="row px-4 py-2">
               <div class="col text-center">

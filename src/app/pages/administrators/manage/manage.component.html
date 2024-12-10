@@ -18,7 +18,7 @@
                 <label>Id:</label>
               </div>
               <div class="col-8">
-                <p>{{ hotel.id }}</p>
+                <p>{{ admin.id }}</p>
               </div>
             </div>
 
@@ -29,7 +29,7 @@
               <div class="col-8">
                 <input
                   type="text"
-                  [(ngModel)]="hotel.name"
+                  [(ngModel)]="admin.name"
                   formControlName="name"
                   [class.is-invalid]="
                     theFormGroup.get('name')?.invalid &&
@@ -65,40 +65,35 @@
 
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Direccion:</label>
+                <label>Estado:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="text"
-                  [(ngModel)]="hotel.address"
-                  formControlName="address"
+                <p *ngIf="mode == 1">{{ admin.status ? 'Activo' : 'Inactivo' }}</p>
+                <select
+                  *ngIf="mode != 1"
+                  formControlName="status"
+                  class="form-control"
                   [class.is-invalid]="
-                    theFormGroup.get('address')?.invalid &&
-                    (theFormGroup.get('address')?.touched || trySend)
+                    theFormGroup.get('status')?.invalid &&
+                    (theFormGroup.get('status')?.touched || trySend)
                   "
                   [class.is-valid]="
-                    theFormGroup.get('address')?.valid &&
-                    (theFormGroup.get('address')?.touched || trySend)
+                    theFormGroup.get('status')?.valid &&
+                    (theFormGroup.get('status')?.touched || trySend)
                   "
-                />
+                >
+                  <option [value]="true">Activo</option>
+                  <option [value]="false">Inactivo</option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="
-                    getTheFormGroup.address.errors &&
-                    (getTheFormGroup.address.dirty ||
-                      getTheFormGroup.address.touched ||
-                      trySend)
+                    theFormGroup.get('status')?.errors &&
+                    (theFormGroup.get('status')?.touched || trySend)
                   "
                 >
-                  <strong
-                    *ngIf="getTheFormGroup.address.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
-                  <strong
-                    *ngIf="getTheFormGroup.address.errors.minlength"
-                    class="msnError"
-                    >Inválido: Mínimo 3 caracteres
+                  <strong *ngIf="theFormGroup.get('status')?.errors?.required" class="msnError">
+                    El estado es requerido.
                   </strong>
                 </div>
               </div>
@@ -106,53 +101,12 @@
 
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Telefono:</label>
+                <label>email:</label>
               </div>
               <div class="col-8">
                 <input
                   type="text"
-                  [(ngModel)]="hotel.phone"
-                  formControlName="phone"
-                  [class.is-invalid]="
-                    theFormGroup.get('phone')?.invalid &&
-                    (theFormGroup.get('phone')?.touched || trySend)
-                  "
-                  [class.is-valid]="
-                    theFormGroup.get('phone')?.valid &&
-                    (theFormGroup.get('phone')?.touched || trySend)
-                  "
-                />
-                <div
-                  class="text-danger mt-1"
-                  *ngIf="
-                    getTheFormGroup.phone.errors &&
-                    (getTheFormGroup.phone.dirty ||
-                      getTheFormGroup.phone.touched ||
-                      trySend)
-                  "
-                >
-                  <strong
-                    *ngIf="getTheFormGroup.phone.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
-                  <strong
-                    *ngIf="getTheFormGroup.phone.errors.minlength"
-                    class="msnError"
-                    >Inválido: Solo números y 10 dígitos
-                  </strong>
-                </div>
-              </div>
-            </div>
-
-            <div class="row px-4 py-2">
-              <div class="col-4">
-                <label>Correo:</label>
-              </div>
-              <div class="col-8">
-                <input
-                  type="text"
-                  [(ngModel)]="hotel.email"
+                  [(ngModel)]="admin.email"
                   formControlName="email"
                   [class.is-invalid]="
                     theFormGroup.get('email')?.invalid &&
@@ -180,49 +134,48 @@
                   <strong
                     *ngIf="getTheFormGroup.email.errors.email"
                     class="msnError"
-                    >Inválido: Correo no válido
+                    >Inválido: Debe ser un correo.
                   </strong>
                 </div>
               </div>
             </div>
 
-
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Estado:</label>
+                <label>Contrasenia:</label>
               </div>
               <div class="col-8">
                 <input
                   type="text"
-                  [(ngModel)]="hotel.status"
-                  formControlName="status"
+                  [(ngModel)]="admin.password"
+                  formControlName="password"
                   [class.is-invalid]="
-                    theFormGroup.get('status')?.invalid &&
-                    (theFormGroup.get('status')?.touched || trySend)
+                    theFormGroup.get('password')?.invalid &&
+                    (theFormGroup.get('password')?.touched || trySend)
                   "
                   [class.is-valid]="
-                    theFormGroup.get('status')?.valid &&
-                    (theFormGroup.get('status')?.touched || trySend)
+                    theFormGroup.get('password')?.valid &&
+                    (theFormGroup.get('password')?.touched || trySend)
                   "
                 />
                 <div
                   class="text-danger mt-1"
                   *ngIf="
-                    getTheFormGroup.status.errors &&
-                    (getTheFormGroup.status.dirty ||
-                      getTheFormGroup.status.touched ||
+                    getTheFormGroup.password.errors &&
+                    (getTheFormGroup.password.dirty ||
+                      getTheFormGroup.password.touched ||
                       trySend)
                   "
                 >
                   <strong
-                    *ngIf="getTheFormGroup.status.errors.required"
+                    *ngIf="getTheFormGroup.password.errors.required"
                     class="msnError"
                     >Requerido</strong
                   >
                   <strong
-                    *ngIf="getTheFormGroup.status.errors.minlength"
+                    *ngIf="getTheFormGroup.password.errors.minlength"
                     class="msnError"
-                    >Inválido: Mínimo 3 caracteres
+                    >Inválido: Mínimo 6 caracteres
                   </strong>
                 </div>
               </div>
@@ -230,40 +183,39 @@
 
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Service Id:</label>
+                <label>Usuaio:</label>
               </div>
               <div class="col-8">
                 <input
                   type="number"
-                  [(ngModel)]="hotel.service_id"
-                  formControlName="service_id"
+                  [(ngModel)]="admin.user_id"
+                  formControlName="user_id"
                   [class.is-invalid]="
-                    theFormGroup.get('service_id')?.invalid &&
-                    (theFormGroup.get('service_id')?.touched || trySend)
+                    theFormGroup.get('user_id')?.invalid &&
+                    (theFormGroup.get('user_id')?.touched || trySend)
                   "
                   [class.is-valid]="
-                    theFormGroup.get('service_id')?.valid &&
-                    (theFormGroup.get('service_id')?.touched || trySend)
+                    theFormGroup.get('user_id')?.valid &&
+                    (theFormGroup.get('user_id')?.touched || trySend)
                   "
                 />
                 <div
                   class="text-danger mt-1"
                   *ngIf="
-                    getTheFormGroup.service_id.errors &&
-                    (getTheFormGroup.service_id.dirty ||
-                      getTheFormGroup.service_id.touched ||
+                    getTheFormGroup.user_id.errors &&
+                    (getTheFormGroup.user_id.dirty ||
+                      getTheFormGroup.user_id.touched ||
                       trySend)
                   "
                 >
                   <strong
-                    *ngIf="getTheFormGroup.service_id.errors.required"
+                    *ngIf="getTheFormGroup.user_id.errors.required"
                     class="msnError"
                     >Requerido</strong
                   >
                 </div>
               </div>
             </div>
-
 
             <div class="row px-4 py-2">
               <div class="col text-center">

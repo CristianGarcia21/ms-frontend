@@ -1,0 +1,212 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0" *ngIf="mode == 1">Visualizar</h3>
+          <h3 class="mb-0" *ngIf="mode == 2">Crear</h3>
+          <h3 class="mb-0" *ngIf="mode == 3">Actualizar</h3>
+        </div>
+        <form class="form" [formGroup]="theFormGroup">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4">
+                <label>Id:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ users.id }}</p>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>User Id:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  [(ngModel)]="users.user_id"
+                  formControlName="userId"
+                  [class.is-invalid]="
+                    theFormGroup.get('userId')?.invalid &&
+                    (theFormGroup.get('userId')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('userId')?.valid &&
+                    (theFormGroup.get('userId')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.userId.errors &&
+                    (getTheFormGroup.userId.dirty ||
+                      getTheFormGroup.userId.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.userId.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.userId.errors.pattern"
+                    class="msnError"
+                    >Inválido: Debe ser un ID validod de mongo
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Username:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  [(ngModel)]="users.username"
+                  formControlName="username"
+                  [class.is-invalid]="
+                    theFormGroup.get('username')?.invalid &&
+                    (theFormGroup.get('username')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('username')?.valid &&
+                    (theFormGroup.get('username')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.username.errors &&
+                    (getTheFormGroup.username.dirty ||
+                      getTheFormGroup.username.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.username.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.username.errors.minlength"
+                    class="msnError"
+                    >Inválido: Mínimo 3 caracteres
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Correo:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  [(ngModel)]="users.email"
+                  formControlName="email"
+                  [class.is-invalid]="
+                    theFormGroup.get('email')?.invalid &&
+                    (theFormGroup.get('email')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('email')?.valid &&
+                    (theFormGroup.get('email')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.email.errors &&
+                    (getTheFormGroup.email.dirty ||
+                      getTheFormGroup.email.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.email.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.email.errors.email"
+                    class="msnError"
+                    >Inválido: Debe ser un correo.
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Password:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="text"
+                  [(ngModel)]="users.password"
+                  formControlName="password"
+                  [class.is-invalid]="
+                    theFormGroup.get('password')?.invalid &&
+                    (theFormGroup.get('password')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('password')?.valid &&
+                    (theFormGroup.get('password')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.password.errors &&
+                    (getTheFormGroup.password.dirty ||
+                      getTheFormGroup.password.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.password.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.password.errors.minlength"
+                    class="msnError"
+                    >Inválido: Mínimo 6 caracteres
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col text-center">
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="create()"
+                  *ngIf="mode == 2"
+                >
+                  Crear
+                </button>
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="update()"
+                  *ngIf="mode == 3"
+                >
+                  Actualizar
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
