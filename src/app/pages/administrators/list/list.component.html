@@ -10,7 +10,7 @@
                 <div class="card-header border-0">
                     <div class="row">
                       <div class="col-2">
-                        <h3 class="mb-0">Hoteles</h3>
+                        <h3 class="mb-0">Administradores</h3>
                       </div>
                       <div class="col-8">
 
@@ -27,23 +27,21 @@
                       <tr>
                         <th class="col-1">ID</th>
                         <th class="col-3">Nombre</th>
-                        <th class="col-4">Direccion</th>
-                        <th class="col-4">Telefono</th>
-                        <th class="col-4">Correo</th>
-                        <th class="col-5">Estado</th>
-                        <th class="col-6">Service Id</th>
-                        <th class="col-7">Acciones</th>
+                        <th class="col-4">Estado</th>
+                        <th class="col-5">Correo</th>
+                        <th class="col-6">password</th>
+                        <th class="col-7">Usuario</th>
+                        <th class="col-8">Acciones</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let actual of hotel">
+                      <tr *ngFor="let actual of admin">
                         <td>{{actual.id}}</td>
                         <td>{{actual.name}}</td>
-                        <td>{{actual.address}}</td>
-                        <td>{{actual.phone}}</td>
+                        <td>{{ actual.status ? 'Activo' : 'Inactivo' }}</td>
                         <td>{{actual.email}}</td>
-                        <td>{{actual.status}}</td>
-                        <td>{{actual.service_id}}</td>
+                        <td>{{actual.password}}</td>
+                        <td>{{actual.user_id}}</td>
                         <td>
                           <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
                           <button type="button" class="btn btn-success" (click)="view(actual.id)">Ver</button>
@@ -58,4 +56,3 @@
         </div>
     </div>
 </div>
-

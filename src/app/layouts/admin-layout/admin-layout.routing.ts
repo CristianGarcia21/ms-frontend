@@ -84,6 +84,30 @@ export const AdminLayoutRoutes: Routes = [
       path: '',
       loadChildren: () => import('src/app/pages/hotel/hotel.module').then(m => m.HotelModule)
     }]},
+    { path: 'users', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/users/users.module').then(m=>m.UsersModule)
+    }]},
+    { path: 'owners', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/owners/owners.module').then(m=>m.OwnersModule)
+    }]},
+    { path: 'drivers', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/drivers/drivers.module').then(m=>m.DriversModule)
+    }]},
+    { path: 'services', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/services/services.module').then(m=>m.ServicesModule)
+    }]},
+    { path: 'administrators', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/administrators/administrators.module').then(m=>m.AdministratorsModule)
+    }]},
+    { path: 'expenses', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/expenses/expenses.module').then(m=>m.ExpensesModule)
+    }]},
     {
       path: 'operations',
       children: [

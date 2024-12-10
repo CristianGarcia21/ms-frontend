@@ -34,6 +34,12 @@ export const ROUTES: RouteInfo[] = [
         { path: '/shifts/list', title: 'Turnos', icon: 'ni-bullet-list-67', class: '' },
         { path: '/restaurants/list', title: 'Restaurantes', icon: 'ni-bullet-list-67', class: '' },
         { path: '/hotels/list', title: 'Hoteles', icon: 'ni-bullet-list-67', class: '' },
+        { path: '/users/list', title: 'Usuarios', icon: 'ni-bullet-list-67', class: '' },
+        { path: '/owners/list', title: 'Propietarios', icon: 'ni-bullet-list-67', class: '' },
+        { path: '/drivers/list', title: 'Conductores', icon: 'ni-bullet-list-67', class: '' },
+        { path: '/services/list', title: 'Servicios', icon: 'ni-bullet-list-67', class: '' },
+        { path: '/administrators/list', title: 'Administradores', icon: 'ni-bullet-list-67', class: '' },
+        { path: '/expenses/list', title: 'Gastos', icon: 'ni-bullet-list-67', class: '' },
       ], expanded: false
     },
     { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '' },
