@@ -15,10 +15,10 @@ export class OperationService {
     return this.http.get<Operations[]>(`${environment.url_ms_logica}/operations`);
   }
   delete(id: number) {
-    return this.http.delete<Operations>(`${environment.url_ms_logica}/Operations/${id}`);
+    return this.http.delete<Operations>(`${environment.url_ms_logica}/operations/${id}`);
   }
   view(id:number): Observable<Operations> {
-    return this.http.get<Operations>(`${environment.url_ms_logica}/Operations/${id}`);
+    return this.http.get<Operations>(`${environment.url_ms_logica}/operations/${id}`);
   }
   create(operation:Operations): Observable<Operations> {
     return this.http.post<Operations>(`${environment.url_ms_logica}/operations`,operation);

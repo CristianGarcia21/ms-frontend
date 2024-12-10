@@ -3,15 +3,20 @@ import { CommonModule } from '@angular/common';
 
 import { OperationsRoutingModule } from './operations-routing.module';
 import { ListComponent } from './list/list.component';
+import { ManageComponent } from './manage/manage.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    ListComponent
+    ListComponent,
+    ManageComponent
   ],
   imports: [
     CommonModule,
-    OperationsRoutingModule
+    OperationsRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class OperationsModule { }
