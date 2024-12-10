@@ -83,5 +83,14 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'hotels', children:[{
       path: '',
       loadChildren: () => import('src/app/pages/hotel/hotel.module').then(m => m.HotelModule)
-    }]}
+    }]},
+    {
+      path: 'operations',
+      children: [
+        {
+          path: '',
+          loadChildren: () =>  import('src/app/pages/operations/operations.module').then(m => m.OperationsModule)
+        }
+      ]
+    }
 ];

@@ -1,3 +1,5 @@
+import { Operations } from "./operations.model";
+
 export class Vehicle {
   id?:number;
   plate:string;
@@ -6,4 +8,5 @@ export class Vehicle {
   load_capacity:number;
   latitude:number;
   longitude:number;
+  operations?: Operations[];
 }

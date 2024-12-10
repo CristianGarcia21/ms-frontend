@@ -1,4 +1,5 @@
 import { Departament } from "./departament.model";
+import { Operations } from "./operations.model";
 
 
 export class Municipality {
@@ -9,4 +10,5 @@ export class Municipality {
     id?: number;
     name: string;
   };
+  operations?: Operations[];
 }
