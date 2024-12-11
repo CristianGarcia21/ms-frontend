@@ -40,7 +40,10 @@ export const ROUTES: RouteInfo[] = [
         { path: '/services/list', title: 'Servicios', icon: 'ni-bullet-list-67', class: '' },
         { path: '/administrators/list', title: 'Administradores', icon: 'ni-bullet-list-67', class: '' },
         { path: '/expenses/list', title: 'Gastos', icon: 'ni-bullet-list-67', class: '' },
-        { path: '/operations/list', title: 'Operaciones', icon: 'ni-bullet-list-67', class: '' }
+        { path: '/operations/list', title: 'Operaciones', icon: 'ni-bullet-list-67', class: '' },
+        { path: '/vehicle_drivers/list', title: 'Vehículos por conductor', icon: 'ni-bullet-list-67', class: '' },
+        { path: '/vehicle_owners/list', title: 'Vehículos por propietario', icon: 'ni-bullet-list-67', class: '' },
+        { path: '/payments/list', title: 'Pagos', icon: 'ni-bullet-list-67', class: '' },
       ], expanded: false
     },
     { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '' },

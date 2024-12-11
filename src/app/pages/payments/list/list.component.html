@@ -1,0 +1,60 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <div class="row">
+                      <div class="col-2">
+                        <h3 class="mb-0">Pagos</h3>
+                      </div>
+                      <div class="col-8">
+
+                      </div>
+                      <div class="col-2">
+                    <button type="button" class="btn btn-success" (click)="create()">Crear</button>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="col-1">ID</th>
+                        <th class="col-2">Cantidad</th>
+                        <th class="col-3">Fecha inicial</th>
+                        <th class="col-4">Fecha final</th>
+                        <th class="col-5">Estado</th>
+                        <th class="col-6">Contrato</th>
+                        <th class="col-7">Factura</th>
+                        <th class="col-8">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let actual of payments">
+                        <td>{{actual.id}}</td>
+                        <td>{{actual.amount}}</td>
+                        <td>{{actual.start_date}}</td>
+                        <td>{{actual.end_date}}</td>
+                        <td>{{ actual.status ? 'Pagado' : 'No pagado' }}</td>
+                        <td>{{ actual.contract_id }}</td>
+                        <td>{{ actual.receipt_id }}</td>
+                        <td>
+                          <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
+                          <button type="button" class="btn btn-success" (click)="view(actual.id)">Ver</button>
+                          <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Eliminar</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

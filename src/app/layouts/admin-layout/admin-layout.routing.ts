@@ -116,5 +116,17 @@ export const AdminLayoutRoutes: Routes = [
           loadChildren: () =>  import('src/app/pages/operations/operations.module').then(m => m.OperationsModule)
         }
       ]
-    }
+    },
+    { path: 'vehicle_drivers', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/vehicle-drivers/vehicle-drivers.module').then(m=>m.VehicleDriversModule)
+    }]},
+    { path: 'vehicle_owners', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/vehicle-owners/vehicle-owners.module').then(m=>m.VehicleOwnersModule)
+    }]},
+    { path: 'payments', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/payments/payments.module').then(m=>m.PaymentsModule)
+    }]}
 ];

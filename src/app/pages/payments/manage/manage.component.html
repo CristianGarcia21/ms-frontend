@@ -1,0 +1,274 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0" *ngIf="mode == 1">Visualizar</h3>
+          <h3 class="mb-0" *ngIf="mode == 2">Crear</h3>
+          <h3 class="mb-0" *ngIf="mode == 3">Actualizar</h3>
+        </div>
+        <form class="form" [formGroup]="theFormGroup">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4">
+                <label>Id:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ payment.id }}</p>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Cantidad:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="payment.amount"
+                  formControlName="amount"
+                  [class.is-invalid]="
+                    theFormGroup.get('amount')?.invalid &&
+                    (theFormGroup.get('amount')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('amount')?.valid &&
+                    (theFormGroup.get('amount')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.amount.errors &&
+                    (getTheFormGroup.amount.dirty ||
+                      getTheFormGroup.amount.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.amount.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                  <strong
+                    *ngIf="getTheFormGroup.amount.errors.min"
+                    class="msnError"
+                    >Inválido: Debe ser mayor a 0
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Fecha inicial:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="date"
+                  [(ngModel)]="payment.start_date"
+                  formControlName="start_date"
+                  [class.is-invalid]="
+                    theFormGroup.get('start_date')?.invalid &&
+                    (theFormGroup.get('start_date')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('start_date')?.valid &&
+                    (theFormGroup.get('start_date')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.start_date.errors &&
+                    (getTheFormGroup.start_date.dirty ||
+                      getTheFormGroup.start_date.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.start_date.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Fecha Final:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="date"
+                  [(ngModel)]="payment.end_date"
+                  formControlName="end_date"
+                  [class.is-invalid]="
+                    theFormGroup.get('end_date')?.invalid &&
+                    (theFormGroup.get('end_date')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('end_date')?.valid &&
+                    (theFormGroup.get('end_date')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.end_date.errors &&
+                    (getTheFormGroup.end_date.dirty ||
+                      getTheFormGroup.end_date.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.end_date.errors.required"
+                    class="msnError"
+                    >Fecha final requerida.</strong
+                  >
+                  <strong
+                  *ngIf="getTheFormGroup.end_date?.errors?.endDateBeforeStartDate"
+                  class="msnError"
+                >
+                  La fecha final debe ser posterior a la fecha inicial.
+                </strong>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Estado:</label>
+              </div>
+              <div class="col-8">
+                <select
+                  formControlName="status"
+                  class="form-control"
+                  [class.is-invalid]="
+                    theFormGroup.get('status')?.invalid &&
+                    (theFormGroup.get('status')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('status')?.valid &&
+                    (theFormGroup.get('status')?.touched || trySend)
+                  "
+                >
+                  <option [value]="true">Pagado</option>
+                  <option [value]="false">No pagado</option>
+                </select>
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    theFormGroup.get('status')?.errors &&
+                    (theFormGroup.get('status')?.touched || trySend)
+                  "
+                >
+                  <strong *ngIf="theFormGroup.get('status')?.errors?.required" class="msnError">
+                    El estado es requerido.
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Contrato:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="payment.contract_id"
+                  formControlName="contract_id"
+                  [class.is-invalid]="
+                    theFormGroup.get('contract_id')?.invalid &&
+                    (theFormGroup.get('contract_id')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('contract_id')?.valid &&
+                    (theFormGroup.get('contract_id')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.contract_id.errors &&
+                    (getTheFormGroup.contract_id.dirty ||
+                      getTheFormGroup.contract_id.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.contract_id.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col-4">
+                <label>Factura:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  type="number"
+                  [(ngModel)]="payment.receipt_id"
+                  formControlName="receipt_id"
+                  [class.is-invalid]="
+                    theFormGroup.get('receipt_id')?.invalid &&
+                    (theFormGroup.get('receipt_id')?.touched || trySend)
+                  "
+                  [class.is-valid]="
+                    theFormGroup.get('receipt_id')?.valid &&
+                    (theFormGroup.get('receipt_id')?.touched || trySend)
+                  "
+                />
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="
+                    getTheFormGroup.receipt_id.errors &&
+                    (getTheFormGroup.receipt_id.dirty ||
+                      getTheFormGroup.receipt_id.touched ||
+                      trySend)
+                  "
+                >
+                  <strong
+                    *ngIf="getTheFormGroup.receipt_id.errors.required"
+                    class="msnError"
+                    >Requerido</strong
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="row px-4 py-2">
+              <div class="col text-center">
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="create()"
+                  *ngIf="mode == 2"
+                >
+                  Crear
+                </button>
+                <button
+                  class="btn btn-success btn-block"
+                  (click)="update()"
+                  *ngIf="mode == 3"
+                >
+                  Actualizar
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
