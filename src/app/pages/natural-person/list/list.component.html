@@ -1,0 +1,53 @@
+<!-- Vista del formulario -->
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row">
+            <div class="col-2">
+              <h3 class="mb-0">Personas naturales</h3>
+            </div>
+            <div class="col-8"></div>
+            <div class="col-2">
+              <button type="button" class="btn btn-success" (click)="create()">Crear</button>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <!-- Tablas -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="col-1">Id</th>
+                  <th class="col-3">cedula</th>
+                  <th class="col-4">Fecha de nacimiento</th>
+                  <th class="col-4">Id de la compañia</th>
+                  <th class="col-4">Id de cliente</th>
+                  <th class="col-4">Id de usuario</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let actual of natural_persons">
+                  <td>{{actual.id}}</td>
+                  <td>{{actual.cedula}}</td>
+                  <td>{{actual.birth_date}}</td>
+                  <td>{{actual.company_id}}</td>
+                  <td>{{actual.client_id}}</td>
+                  <td>{{actual.user_id}}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
+                    <button type="button" class="btn btn-success" (click)="view(actual.id)">Ver</button>
+                    <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Eliminar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -109,6 +109,12 @@ export const AdminLayoutRoutes: Routes = [
       loadChildren: () => import('src/app/pages/expenses/expenses.module').then(m=>m.ExpensesModule)
     }]},
     {
+      path: 'natural-person', children: [{
+        path: '',
+        loadChildren: () => import('src/app/pages/natural-person/natural-person.module').then(m => m.NaturalPersonModule)
+      }]
+    },
+    {
       path: 'operations',
       children: [
         {

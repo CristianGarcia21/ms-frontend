@@ -1,0 +1,201 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0" *ngIf="mode == 1">Visualizar</h3>
+                    <h3 class="mb-0" *ngIf="mode == 2">Crear</h3>
+                    <h3 class="mb-0" *ngIf="mode == 3">Actualizar</h3>
+                </div>
+                <form class="form" [formGroup]="theFormGroup">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Id:</label>
+                            </div>
+                            <div class="col-8">
+                                <p>{{ natural_person.id }}</p>
+                            </div>
+                        </div>
+
+                        <div class="row px-4 py-2">
+                            <div class="col-4">
+                                <label>Cedula:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="number" [(ngModel)]="natural_person.cedula" formControlName="cedula"
+                                    [class.is-invalid]="
+                    theFormGroup.get('cedula')?.invalid &&
+                    (theFormGroup.get('cedula')?.touched || trySend)
+                  " [class.is-valid]="
+                    theFormGroup.get('cedula')?.valid &&
+                    (theFormGroup.get('cedula')?.touched || trySend)
+                  " />
+                                <div class="text-danger mt-1" *ngIf="
+                    getTheFormGroup.cedula.errors &&
+                    (getTheFormGroup.cedula.dirty ||
+                      getTheFormGroup.cedula.touched ||
+                      trySend)
+                  ">
+                                    <strong *ngIf="getTheFormGroup.cedula.errors.required"
+                                        class="msnError">Requerido</strong>
+                                    <strong *ngIf="getTheFormGroup.cedula.errors.min" class="msnError">Inválido: Debe
+                                        ser mayor a 0
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row px-4 py-2">
+                            <div class="col-4">
+                                <label>Fecha de nacimiento:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="date" [(ngModel)]="natural_person.birth_date" formControlName="birth_date"
+                                    [class.is-invalid]="
+                    theFormGroup.get('birth_date')?.invalid &&
+                    (theFormGroup.get('birth_date')?.touched || trySend)
+                  " [class.is-valid]="
+                    theFormGroup.get('birth_date')?.valid &&
+                    (theFormGroup.get('birth_date')?.touched || trySend)
+                  " />
+                                <div class="text-danger mt-1" *ngIf="
+                    getTheFormGroup.birth_date.errors &&
+                    (getTheFormGroup.birth_date.dirty ||
+                      getTheFormGroup.birth_date.touched ||
+                      trySend)
+                  ">
+                                    <strong *ngIf="getTheFormGroup.birth_date.errors.required"
+                                        class="msnError">Requerido</strong>
+                                    <!-- <strong
+                    *ngIf="getTheFormGroup.birth_date.errors.min"
+                    class="msnError"
+                    >Inválido: Debe ser mayor a 0
+                  </strong> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row px-4 py-2">
+                            <div class="col-4">
+                                <label>Id compañia:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="number" [(ngModel)]="natural_person.company_id"
+                                    formControlName="company_id" [class.is-invalid]="
+                    theFormGroup.get('company_id')?.invalid &&
+                    (theFormGroup.get('company_id')?.touched || trySend)
+                  " [class.is-valid]="
+                    theFormGroup.get('company_id')?.valid &&
+                    (theFormGroup.get('company_id')?.touched || trySend)
+                  " />
+                                <div class="text-danger mt-1" *ngIf="
+                    getTheFormGroup.company_id.errors &&
+                    (getTheFormGroup.company_id.dirty ||
+                      getTheFormGroup.company_id.touched ||
+                      trySend)
+                  ">
+                                    <strong *ngIf="getTheFormGroup.company_id.errors.required"
+                                        class="msnError">Requerido</strong>
+                                    <!-- <strong
+                    *ngIf="getTheFormGroup.company_id.errors.min"
+                    class="msnError"
+                    >Inválido: Debe ser mayor a 0
+                  </strong> -->
+                                </div>
+                                <div class="text-danger mt-1" *ngIf="
+                    theFormGroup.get('company_id')?.errors &&
+                    (theFormGroup.get('company_id')?.dirty || theFormGroup.get('company_id')?.touched || trySend)
+                  ">
+                                    <strong *ngIf="theFormGroup.get('company_id')?.errors?.required">
+                                        El tipo es obligatorio.
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row px-4 py-2">
+                            <div class="col-4">
+                                <label>Id cliente:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="number" [(ngModel)]="natural_person.client_id" formControlName="client_id"
+                                    [class.is-invalid]="
+                    theFormGroup.get('client_id')?.invalid &&
+                    (theFormGroup.get('client_id')?.touched || trySend)
+                  " [class.is-valid]="
+                    theFormGroup.get('client_id')?.valid &&
+                    (theFormGroup.get('client_id')?.touched || trySend)
+                  " />
+                                <div class="text-danger mt-1" *ngIf="
+                    getTheFormGroup.client_id.errors &&
+                    (getTheFormGroup.client_id.dirty ||
+                      getTheFormGroup.client_id.touched ||
+                      trySend)
+                  ">
+                                    <strong *ngIf="getTheFormGroup.client_id.errors.required"
+                                        class="msnError">Requerido</strong>
+                                    <strong *ngIf="getTheFormGroup.client_id.errors.min" class="msnError">Inválido: Debe
+                                        ser mayor a 0
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row px-4 py-2">
+                            <div class="col-4">
+                                <label>Id usuario:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="number" [(ngModel)]="natural_person.user_id" formControlName="user_id"
+                                    [class.is-invalid]="
+                    theFormGroup.get('user_id')?.invalid &&
+                    (theFormGroup.get('user_id')?.touched || trySend)
+                  " [class.is-valid]="
+                    theFormGroup.get('user_id')?.valid &&
+                    (theFormGroup.get('user_id')?.touched || trySend)
+                  " />
+                                <div class="text-danger mt-1" *ngIf="
+                    getTheFormGroup.user_id.errors &&
+                    (getTheFormGroup.user_id.dirty ||
+                      getTheFormGroup.user_id.touched ||
+                      trySend)
+                  ">
+                                    <strong *ngIf="getTheFormGroup.user_id.errors.required"
+                                        class="msnError">Requerido</strong>
+                                    <strong *ngIf="getTheFormGroup.user_id.errors.min" class="msnError">Inválido: Debe
+                                        ser mayor a 0
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reemplaza la sección de botones en el HTML -->
+<div class="row px-4 py-2">
+    <div class="col text-center">
+      <button *ngIf="mode == 2" 
+              type="button" 
+              class="btn btn-success" 
+              (click)="create()">
+        Crear
+      </button>
+      
+      <button *ngIf="mode == 3" 
+              type="button" 
+              class="btn btn-primary" 
+              (click)="update()">
+        Actualizar
+      </button>
+    </div>
+  </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
