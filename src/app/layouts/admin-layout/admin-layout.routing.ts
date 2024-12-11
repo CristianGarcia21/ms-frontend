@@ -134,5 +134,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'payments', children:[{
       path: '',
       loadChildren: () => import('src/app/pages/payments/payments.module').then(m=>m.PaymentsModule)
+    }]},
+    { path: 'receipts', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/receipts/receipts.module').then(m=>m.ReceiptsModule)
     }]}
 ];

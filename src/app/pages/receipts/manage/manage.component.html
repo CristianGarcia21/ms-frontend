@@ -1,0 +1,119 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0" *ngIf="mode == 1">Visualizar</h3>
+                    <h3 class="mb-0" *ngIf="mode == 2">Crear</h3>
+                    <h3 class="mb-0" *ngIf="mode == 3">Actualizar</h3>
+                </div>
+                <form class="form" [formGroup]="theFormGroup">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Id:</label>
+                            </div>
+                            <div class="col-8">
+                                <p>{{ receipt.id }}</p>
+                            </div>
+                        </div>
+
+                        <div class="row px-4 py-2">
+                            <div class="col-4">
+                                <label>Id customer:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="number" [(ngModel)]="receipt.customer_id" formControlName="customer_id"
+                                    [class.is-invalid]="
+                    theFormGroup.get('customer_id')?.invalid &&
+                    (theFormGroup.get('customer_id')?.touched || trySend)
+                  " [class.is-valid]="
+                    theFormGroup.get('customer_id')?.valid &&
+                    (theFormGroup.get('customer_id')?.touched || trySend)
+                  " />
+                                <div class="text-danger mt-1" *ngIf="
+                    getTheFormGroup.customer_id.errors &&
+                    (getTheFormGroup.customer_id.dirty ||
+                      getTheFormGroup.customer_id.touched ||
+                      trySend)
+                  ">
+                                    <strong *ngIf="getTheFormGroup.customer_id.errors.required"
+                                        class="msnError">Requerido</strong>
+                                    <strong *ngIf="getTheFormGroup.customer_id.errors.min" class="msnError">Inválido:
+                                        Debe ser mayor a 0
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row px-4 py-2">
+                            <div class="col-4">
+                                <label>Total</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="number" [(ngModel)]="receipt.total_amount" formControlName="total_amount"
+                                    [class.is-invalid]="
+                    theFormGroup.get('total_amount')?.invalid &&
+                    (theFormGroup.get('total_amount')?.touched || trySend)
+                  " [class.is-valid]="
+                    theFormGroup.get('total_amount')?.valid &&
+                    (theFormGroup.get('total_amount')?.touched || trySend)
+                  " />
+                                <div class="text-danger mt-1" *ngIf="
+                    getTheFormGroup.total_amount.errors &&
+                    (getTheFormGroup.total_amount.dirty ||
+                      getTheFormGroup.total_amount.touched ||
+                      trySend)
+                  ">
+                                    <strong *ngIf="getTheFormGroup.total_amount.errors.required"
+                                        class="msnError">Requerido</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row px-4 py-2">
+                            <div class="col-4">
+                                <label>Estado</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="boolean" [(ngModel)]="receipt.status" formControlName="status"
+                                    [class.is-invalid]="
+                    theFormGroup.get('status')?.invalid &&
+                    (theFormGroup.get('status')?.touched || trySend)
+                  " [class.is-valid]="
+                    theFormGroup.get('status')?.valid &&
+                    (theFormGroup.get('status')?.touched || trySend)
+                  " />
+                                <div class="text-danger mt-1" *ngIf="
+                    getTheFormGroup.status.errors &&
+                    (getTheFormGroup.status.dirty ||
+                      getTheFormGroup.status.touched ||
+                      trySend)
+                  ">
+                                    <strong *ngIf="getTheFormGroup.status.errors.required" class="msnError">Estado
+                                        requerido.</strong>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row px-4 py-2">
+                            <div class="col text-center">
+                                <button class="btn btn-success btn-block" (click)="create()" *ngIf="mode == 2">
+                                    Crear
+                                </button>
+                                <button class="btn btn-success btn-block" (click)="update()" *ngIf="mode == 3">
+                                    Actualizar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
