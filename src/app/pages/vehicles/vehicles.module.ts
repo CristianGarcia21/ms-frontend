@@ -5,6 +5,7 @@ import { VehiclesRoutingModule } from './vehicles-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ManageComponent } from './manage/manage.component';
     CommonModule,
     VehiclesRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ComponentsModule
   ]
 })
 export class VehiclesModule { }

@@ -13,6 +13,7 @@ export class ListComponent implements OnInit {
 
   vehicle : Vehicle[]
 
+
   constructor(
     private vehicleService: VehicleService,
     private router: Router
@@ -28,7 +29,11 @@ export class ListComponent implements OnInit {
     this.vehicleService.list().subscribe(data => {
       this.vehicle = data
     })
+    console.log(this.vehicle);
   }
+
+
+
 
   delete(id: number) {
     Swal.fire({

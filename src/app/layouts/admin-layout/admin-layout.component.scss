@@ -1,0 +1,11 @@
+.main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Asegura que el contenido principal ocupe toda la ventana */
+}
+
+.container-fluid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,19 @@
+.sidebar {
+  width: 250px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1; /* Asegura que esté sobre el contenido principal */
+  overflow-y: auto;
+  background-color: #fff; /* Asegura un fondo blanco */
+  border-right: 1px solid #dee2e6; /* Línea divisoria */
+}
+
+.main-content {
+  margin-left: 250px; /* Ajusta al ancho del sidebar */
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Altura completa de la ventana */
+}
+

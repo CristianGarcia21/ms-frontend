@@ -1,0 +1,6 @@
+#ol-map {
+  height: 500px; /* Altura fija */
+  width: 100%;   /* Ancho completo */
+  position: relative;
+}
+
