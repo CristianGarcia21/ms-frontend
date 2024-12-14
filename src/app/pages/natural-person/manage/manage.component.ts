@@ -76,7 +76,7 @@ export class ManageComponent implements OnInit {
     }
     this.naturalPersonService.create(this.natural_person).subscribe((data) => {
       Swal.fire("Creado", "El registro ha sido creado", "success");
-      this.router.navigate(["natural_people/list"]);
+      this.router.navigate(["natural-person/list"]);
     });
   }
 
@@ -88,7 +88,7 @@ export class ManageComponent implements OnInit {
     }
     this.naturalPersonService.update(this.natural_person).subscribe((data) => {
       Swal.fire("Actualizado", "El registro ha sido actualizado", "success");
-      this.router.navigate(["natural_people/list"]);
+      this.router.navigate(["natural-person/list"]);
     });
   }
 }
