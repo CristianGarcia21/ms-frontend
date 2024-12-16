@@ -11,101 +11,118 @@ export class SecurityService {
 
   private baseUrl = `${environment.url_ms_security}/api/public/security`;
 
-  // Variable famosa. Permite que los componentes reciban actualizaciones cuando el usuario 
+  // Variable famosa. Permite que los componentes reciban actualizaciones cuando el usuario
   // inicie o cierre sesión
-  theUser = new BehaviorSubject<User>(new User);
+  theUser = new BehaviorSubject<User | null>(null);
 
   constructor(private http: HttpClient) {
-    this.verifyActualSession()
+    this.verifyActualSession();
   }
 
   /**
   * Realiza la petición al backend con el correo y la contraseña
   * para verificar si existe o no en la plataforma
-  * @param infoUsuario JSON con la información de correo y contraseña
+  * @param user JSON con la información de correo y contraseña
   * @returns Respuesta HTTP la cual indica si el usuario tiene permiso de acceso
   */
   login(user: User): Observable<any> {
     const url = `${this.baseUrl}/login`;
     return this.http.post<any>(url, user);
   }
- 
 
-  /*
-  Guardar la información de usuario en el local storage
+  /**
+  * Guarda la sesión del usuario en el local storage.
+  * @param dataSesion Respuesta del backend con los datos de la sesión.
   */
   saveSession(dataSesion: any) {
-    let data: User = {
-      user_id: dataSesion["user"]["userId"],
-      username: dataSesion["user"]["username"],
-      email: dataSesion["user"]["email"],
+    // Ajustar la estructura del objeto a la actual en el local storage
+    const sessionData = {
+      name: dataSesion.name,
+      email: dataSesion.email,
       password: '',
-      // role:dataSesion["user"]["role"],
-      // token: dataSesion["token"]
+      token: dataSesion.token,
+      _id: dataSesion._id
     };
-    localStorage.setItem('sesion', JSON.stringify(data));
-    this.setUser(data);
+
+    localStorage.setItem('session', JSON.stringify(sessionData));
+    localStorage.setItem('token', dataSesion.token); // Guardar el token separado si es necesario
+    this.setUser(sessionData);
   }
 
   /**
-    * Permite actualizar la información del usuario
-    * que acabó de validarse correctamente
-    * @param user información del usuario logueado
+  * Permite actualizar la información del usuario
+  * que acabó de validarse correctamente.
+  * @param user Información del usuario logueado.
   */
   setUser(user: User) {
     this.theUser.next(user);
   }
+
   /**
-  * Permite obtener la información del usuario
-  * con datos tales como el identificador y el token
-  * @returns
+  * Permite obtener la información del usuario como observable.
+  * @returns Observable con los datos del usuario.
   */
-  getUser() {
+  getUser(): Observable<User | null> {
     return this.theUser.asObservable();
   }
+
   /**
-    * Permite obtener la información de usuario
-    * que tiene la función activa y servirá
-    * para acceder a la información del token
-*/
-  public get activeUserSession(): User {
+  * Permite obtener la información del usuario
+  * que tiene la sesión activa.
+  * @returns Usuario con la sesión activa.
+  */
+  public get activeUserSession(): User | null {
     return this.theUser.value;
   }
 
-
   /**
   * Permite cerrar la sesión del usuario
-  * que estaba previamente logueado
+  * que estaba previamente logueado.
   */
   logout() {
-    localStorage.removeItem('sesion');
-    this.setUser(new User());
+    localStorage.removeItem('session');
+    localStorage.removeItem('token');
+    this.setUser(null);
   }
+
   /**
-  * Permite verificar si actualmente en el local storage
-  * existe información de un usuario previamente logueado
+  * Verifica si actualmente en el local storage
+  * existe información de un usuario previamente logueado.
   */
   verifyActualSession() {
-    let actualSesion = this.getSessionData();
-    if (actualSesion) {
-      this.setUser(JSON.parse(actualSesion));
+    let actualSession = this.getSessionData();
+    if (actualSession) {
+      this.setUser(actualSession);
     }
   }
+
   /**
-  * Verifica si hay una sesion activa
-  * @returns
+  * Verifica si hay una sesión activa.
+  * @returns Boolean indicando si existe sesión.
   */
   existSession(): boolean {
-    let sesionActual = this.getSessionData();
-    return (sesionActual) ? true : false;
+    return localStorage.getItem('session') ? true : false;
   }
+
   /**
-  * Permite obtener los dato de la sesión activa en el
-  * local storage
-  * @returns
+  * Permite obtener los datos de la sesión activa en el
+  * local storage.
+  * @returns Objeto con los datos de la sesión.
   */
-  getSessionData() {
-    let sesionActual = localStorage.getItem('sesion');
-    return sesionActual;
+  getSessionData(): User | null {
+    const sessionString = localStorage.getItem('session');
+    return sessionString ? JSON.parse(sessionString) : null;
+  }
+
+  /**
+  * Verifica el código 2FA ingresado por el usuario.
+  * @param email Correo del usuario
+  * @param code2FA Código de 2FA ingresado
+  * @returns Observable con la respuesta del backend
+  */
+  verify2FA(email: string, code2FA: string): Observable<any> {
+    const url = `${this.baseUrl}/verify-2fa`;
+    const body = { email, code2FA };
+    return this.http.post<any>(url, body);
   }
 }
