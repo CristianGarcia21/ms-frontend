@@ -1,0 +1,102 @@
+<div class="header bg-gradient-primary pb-6 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow-lg border-0 chat-card">
+        <div class="container-fluid chat-container py-4">
+          <div class="row">
+            <!-- Lista de Chats -->
+            <div class="col-md-4">
+              <div class="card shadow chat-sidebar p-3">
+                <div class="card-header bg-secondary text-white">
+                  <h5 class="mb-0 d-flex align-items-center">
+                    <i class="bi bi-chat-dots me-2"></i> Conversaciones
+                  </h5>
+                </div>
+                <div class="card-body p-0 chat-list">
+                  <ul class="list-group list-group-flush">
+                    <li
+                      *ngFor="let chat of chats"
+                      class="list-group-item chat-item d-flex align-items-center shadow-sm"
+                      [class.active]="chat.id === currentChatId"
+                      (click)="loadMessages(chat.id)"
+                    >
+                      <div
+                        class="avatar rounded-circle text-white me-3 d-flex justify-content-center align-items-center"
+                      >
+                        <i class="bi bi-person-fill"></i>
+                      </div>
+                      <div class="chat-preview">
+                        <h6 class="mb-0 text-dark">{{ chat.user2Email }}</h6>
+                        <small class="text-muted">Último: {{ chat.lastMessage }}</small>
+                      </div>
+                      <span class="badge bg-success ms-auto">Activo</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- Ventana de Mensajes -->
+            <div class="col-md-8">
+              <div class="card shadow chat-window p-3">
+                <div
+                  class="card-header bg-primary text-white d-flex align-items-center justify-content-between"
+                >
+                  <h5 class="mb-0">
+                    <i class="bi bi-chat-left-dots-fill"></i> Mensajes
+                  </h5>
+                  <button
+                    class="btn btn-light btn-sm"
+                    (click)="refreshChats()"
+                    title="Refrescar Chat"
+                  >
+                    <i class="bi bi-arrow-clockwise"></i>
+                  </button>
+                </div>
+                <div class="card-body chat-messages">
+                  <div
+                    *ngIf="messages.length === 0"
+                    class="text-center text-muted mt-5"
+                  >
+                    <i class="bi bi-inbox-fill fa-3x mb-3"></i>
+                    <p>No hay mensajes en este chat.</p>
+                  </div>
+                  <div
+                    *ngFor="let message of messages"
+                    class="message-row"
+                    [class.self]="message.userId === userId"
+                  >
+                    <div class="message shadow">
+                      <div class="message-content">{{ message.content }}</div>
+                      <small class="text-muted">{{
+                        message.createdAt | date : "shortTime"
+                      }}</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer chat-footer">
+                  <div class="input-group">
+                    <input
+                      [(ngModel)]="newMessage"
+                      type="text"
+                      class="form-control"
+                      placeholder="Escribe un mensaje..."
+                    />
+                    <button
+                      class="btn btn-primary"
+                      (click)="sendMessage()"
+                      title="Enviar Mensaje"
+                    >
+                      <i class="bi bi-send-fill"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

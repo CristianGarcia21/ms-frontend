@@ -24,4 +24,6 @@ export class WebSocketService extends Socket {
   emit(eventName: string, data: any) {
     this.ioSocket.emit(eventName, data);
   }
+
+
 }

@@ -114,16 +114,17 @@ export class MapComponent implements OnInit, AfterViewInit {
       feature.setStyle(
         new Style({
           image: new Icon({
-            src: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
-            scale: 0.05,
+            src: './assets/img/icons/common/delivery.png',
+            scale: 0.07, // Ajusta el tamaño del ícono
+            anchor: [0.5, 1], // Ajusta la posición del ícono
           }),
           text: new Text({
-            text: vehicle.plate,
-            font: '12px Arial',
+            text: vehicle.plate, // Mostrar la placa del vehículo
+            font: '14px Arial bold',
             fill: new Fill({
-              color: '#000',
+              color: '#000', // Color del texto
             }),
-            offsetY: -20,
+            offsetY: -50, // Mueve el texto encima del ícono
           }),
         })
       );
