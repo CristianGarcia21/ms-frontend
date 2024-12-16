@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  url_ms_logica: 'http://localhost:3333'
+  url_ms_logica: 'http://localhost:3333',
+  url_ms_security: 'http://localhost:8080'
 };
 
 /*
