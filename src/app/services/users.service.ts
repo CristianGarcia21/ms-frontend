@@ -26,4 +26,8 @@ export class UsersService {
   update(user:User): Observable<User> {
     return this.http.put<User>(`${environment.url_ms_logica}/user/${user.id}`,user);
   }
+  getLogicUserIdByMongoId(mongoUserId: string): Observable<any> {
+    const url = `${environment.url_ms_logica}/users/${mongoUserId}`;
+    return this.http.get<any>(url);
+  }
 }

@@ -15,6 +15,21 @@
                   </h5>
                 </div>
                 <div class="card-body p-0 chat-list">
+                  <!-- Input para iniciar nuevo chat -->
+                  <div class="new-chat mb-3 px-3">
+                    <input
+                      [(ngModel)]="userEmail"
+                      type="email"
+                      class="form-control"
+                      placeholder="Correo del usuario..."
+                    />
+                    <button
+                      class="btn btn-primary btn-sm mt-2 w-100"
+                      (click)="startChat()"
+                    >
+                      Iniciar Chat
+                    </button>
+                  </div>
                   <ul class="list-group list-group-flush">
                     <li
                       *ngFor="let chat of chats"
@@ -28,10 +43,16 @@
                         <i class="bi bi-person-fill"></i>
                       </div>
                       <div class="chat-preview">
-                        <h6 class="mb-0 text-dark">{{ chat.user2Email }}</h6>
+                        <h6 class="mb-0 text-dark">{{ chat.otherUser.username }}</h6>
                         <small class="text-muted">Último: {{ chat.lastMessage }}</small>
                       </div>
-                      <span class="badge bg-success ms-auto">Activo</span>
+                      <button
+                        class="btn btn-link text-danger p-0 ms-2"
+                        (click)="deleteChat(chat.id, $event)"
+                        title="Eliminar Chat"
+                      >
+                        <i class="bi bi-trash"></i>
+                      </button>
                     </li>
                   </ul>
                 </div>
@@ -48,7 +69,7 @@
                   </h5>
                   <button
                     class="btn btn-light btn-sm"
-                    (click)="refreshChats()"
+                    (click)="loadChats()"
                     title="Refrescar Chat"
                   >
                     <i class="bi bi-arrow-clockwise"></i>
@@ -62,16 +83,19 @@
                     <i class="bi bi-inbox-fill fa-3x mb-3"></i>
                     <p>No hay mensajes en este chat.</p>
                   </div>
+
+                  <!-- Mensajes -->
                   <div
                     *ngFor="let message of messages"
                     class="message-row"
-                    [class.self]="message.userId === userId"
+                    [class.self]="message.user_id === userId"
+                    [class.other]="message.user_id !== userId"
                   >
                     <div class="message shadow">
                       <div class="message-content">{{ message.content }}</div>
-                      <small class="text-muted">{{
-                        message.createdAt | date : "shortTime"
-                      }}</small>
+                      <small class="text-muted">
+                        {{ message.createdAt | date : "shortTime" }}
+                      </small>
                     </div>
                   </div>
                 </div>
