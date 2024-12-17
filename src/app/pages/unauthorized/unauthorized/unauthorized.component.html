@@ -1,0 +1,42 @@
+<div class="header bg-gradient-danger py-7 py-lg-8">
+  <div class="container">
+    <div class="header-body text-center mb-7">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+          <h1 class="text-white">¡Acceso Denegado!</h1>
+          <p class="text-lead text-light">
+            Lo sentimos, no tienes los permisos necesarios para acceder a esta página.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="separator separator-bottom separator-skew zindex-100">
+    <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+    </svg>
+  </div>
+</div>
+
+<!-- Page Content -->
+<div class="container mt--8 pb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+      <div class="card bg-secondary shadow border-0">
+        <div class="card-body text-center">
+          <div class="error-icon mb-4">
+            <i class="ni ni-lock-circle-open text-danger" style="font-size: 6rem;"></i>
+          </div>
+          <h3 class="text-danger mb-3">No Autorizado</h3>
+          <p class="text-muted">
+            Parece que no tienes los permisos necesarios para acceder a esta sección.
+            Si crees que esto es un error, por favor contacta al administrador.
+          </p>
+          <a [routerLink]="['/dashboard']" class="btn btn-primary mt-3">
+            Volver al Dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

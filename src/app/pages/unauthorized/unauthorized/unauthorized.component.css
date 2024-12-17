@@ -1,0 +1,40 @@
+/* Estilo general de la página "No Autorizado" */
+.text-danger {
+  color: #e3342f !important; /* Rojo intenso */
+}
+
+.error-icon {
+  text-align: center;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+  background-color: #5e72e4;
+  border-color: #5e72e4;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #324cdd;
+  border-color: #324cdd;
+  transform: scale(1.05);
+}
+
+.separator {
+  position: relative;
+  height: 100px;
+  overflow: hidden;
+}
+
+.separator .fill-default {
+  fill: #fff; /* Fondo blanco para el separador */
+}
+
+.header-body h1 {
+  font-weight: bold;
+  font-size: 2.5rem;
+}
