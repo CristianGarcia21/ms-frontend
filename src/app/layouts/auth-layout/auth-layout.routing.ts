@@ -8,4 +8,8 @@ export const AuthLayoutRoutes: Routes = [
     { path: 'login',          component: LoginComponent },
     { path: 'register',       component: RegisterComponent },
     {path: 'two-factor', component: FormularioComponent},
+    {path: 'unauthorized', children:[{
+      path: '',
+      loadChildren: () => import('src/app/pages/unauthorized/unauthorized.module').then(m => m.UnauthorizedModule)
+    }]}
 ];
