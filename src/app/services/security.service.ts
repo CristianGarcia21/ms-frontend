@@ -126,4 +126,9 @@ export class SecurityService {
     const body = { email, code2FA };
     return this.http.post<any>(url, body);
   }
+
+  forgotPassword(email: string): Observable<any> {
+    const url = `${this.baseUrl}/forgot-password`;
+    return this.http.post<any>(url, email);
+  }
 }

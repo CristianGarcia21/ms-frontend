@@ -26,6 +26,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
   login() {
+    console.log("Usuario: "+JSON.stringify(this.theUser));
+    
     this.service.login(this.theUser).subscribe({
       next:(data) => {
         console.log("Respuesta: "+JSON.stringify(data));
