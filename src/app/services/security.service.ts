@@ -41,9 +41,10 @@ export class SecurityService {
       email: dataSesion.email,
       password: '',
       token: dataSesion.token,
-      _id: dataSesion._id
+      _id: dataSesion._id,
+      role: dataSesion.role
     };
-
+    console.log('Guardando sesión:', JSON.stringify(dataSesion));
     localStorage.setItem('session', JSON.stringify(sessionData));
     localStorage.setItem('token', dataSesion.token); // Guardar el token separado si es necesario
     this.setUser(sessionData);

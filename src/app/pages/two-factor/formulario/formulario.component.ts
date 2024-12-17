@@ -17,9 +17,11 @@ export class FormularioComponent  {
   verifyCode(): void {
     this.securityService.verify2FA(this.email, this.code2FA).subscribe({
       next: (response) => {
-        // Guardar token en localStorage
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('session', JSON.stringify(response));
+        console.log("Respuesta de 2FA:", response);
+
+        // Guardar sesión usando el método del servicio
+        this.securityService.saveSession(response);
+
         Swal.fire('Éxito', 'Autenticación 2FA completada', 'success');
 
         // Redirigir al dashboard o a la página principal
@@ -31,4 +33,5 @@ export class FormularioComponent  {
       }
     });
   }
+
 }

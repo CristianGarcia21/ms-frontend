@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { log } from 'node:console';
 import { User } from 'src/app/models/user.model';
 import { SecurityService } from 'src/app/services/security.service';
 import Swal from 'sweetalert2';
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         Swal.fire("Autenticación invlálida", "El correo o la contraseña son incorrectos", "error");
+        console.log("Error: "+JSON.stringify(error));
       }
     })
   }
