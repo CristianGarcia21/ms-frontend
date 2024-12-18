@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const excludedRoutes = ["/login", "/two-factor"]; // Rutas que no requieren token
+    const excludedRoutes = ["/login", "/two-factor", "forgot-password"]; // Rutas que no requieren token
     const token = this.securityService.activeUserSession?.token; // Token del usuario logueado
 
     // Verifica si la URL está excluida

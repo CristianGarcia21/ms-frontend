@@ -125,9 +125,15 @@ export class SecurityService {
     return this.http.post<any>(url, body);
   }
 
+  /**
+   * Permite solicitar un código de recuperación de contraseña.
+   * @param email Correo del usuario
+   * @returns Observable con la respuesta del backend
+   */
   forgotPassword(email: string): Observable<any> {
     const url = `${this.baseUrl}/forgot-password`;
-    return this.http.post<any>(url, email);
+    const body = { email };
+    return this.http.post(url, body, { responseType: 'text' }); // Forzar respuesta como texto
   }
   /**
    * Verifica si el usuario actual tiene el rol de administrador.

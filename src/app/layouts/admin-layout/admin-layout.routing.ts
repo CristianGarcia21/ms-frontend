@@ -141,7 +141,7 @@ export const AdminLayoutRoutes: Routes = [
       path: '',
       loadChildren: () => import('src/app/pages/receipts/receipts.module').then(m=>m.ReceiptsModule)
     }]},
-    { path: 'chats',canActivate:[AuthGuard,AdminGuard],  children:[{
+    { path: 'chats',canActivate:[AuthGuard],  children:[{
       path: '',
       loadChildren: () => import('src/app/pages/chat/chat.module').then(m=>m.ChatModule)
     }]}
