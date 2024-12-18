@@ -23,9 +23,9 @@ export class ContractService {
   create(contract:Contract): Observable<Contract> {
     return this.http.post<Contract>(`${environment.url_ms_logica}/contracts`,contract);
   }
-  update(contract:Contract): Observable<Contract> {
+  update(id:number, contract:Contract): Observable<Contract> {
     console.log(contract.id);
-    return this.http.put<Contract>(`${environment.url_ms_logica}/contracts/${contract.id}`,contract);
+    return this.http.put<Contract>(`${environment.url_ms_logica}/contracts/${id}`,contract);
   }
 
 }

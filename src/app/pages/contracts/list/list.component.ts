@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { log } from 'node:console';
 import { Contract } from 'src/app/models/contract.model';
 import { Route } from 'src/app/models/route.model';
 import { ContractService } from 'src/app/services/contract.service';

@@ -113,7 +113,7 @@
                   [class.is-valid]="theFormGroup.get('client_id')?.valid && (theFormGroup.get('client_id')?.touched || trySend)"
                 >
                   <option value="" disabled>Seleccionar Cliente</option>
-                  <option *ngFor="let client of clients" [value]="client.id">{{ client.name }}</option>
+                  <option *ngFor="let client of clients" [value]="client.id">{{ client.id }}</option>
                 </select>
                 <div class="text-danger mt-1" *ngIf="theFormGroup.get('client_id')?.errors && (theFormGroup.get('client_id')?.touched || trySend)">
                   <strong *ngIf="theFormGroup.get('client_id')?.errors.required">Cliente requerido.</strong>

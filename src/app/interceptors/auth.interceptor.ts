@@ -27,14 +27,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
     // Verifica si la URL está excluida
     if (excludedRoutes.some((route) => request.url.includes(route))) {
-      console.log("Excluyendo token para la ruta:", request.url);
       return next.handle(request); // No se adjunta el token
     }
 
     // Si el token existe, adjuntarlo a la solicitud
     let authRequest = request;
     if (token) {
-      console.log("Adjuntando token a la solicitud:", token);
       authRequest = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
