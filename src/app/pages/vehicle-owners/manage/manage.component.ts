@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Owner } from 'src/app/models/owner.model';
 import { VehicleOwner } from 'src/app/models/vehicle-owner.model';
+import { Vehicle } from 'src/app/models/vehicle.model';
+import { OwnerService } from 'src/app/services/owner.service';
 import { VehicleOwnerService } from 'src/app/services/vehicle-owner.service';
+import { VehicleService } from 'src/app/services/vehicle.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,9 +20,13 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  vehicles: Vehicle[] = [];
+  owners: Owner[] = [];
 
   constructor(
     private vehiOwnerService: VehicleOwnerService,
+    private vehicleService: VehicleService,
+    private ownerService: OwnerService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder
@@ -43,6 +51,8 @@ export class ManageComponent implements OnInit {
       this.vehiOwner.id = this.activatedRoute.snapshot.params.id;
       this.getVehiOwners(this.vehiOwner.id);
     }
+    this.loadVehicles();
+    this.loadOwners();
   }
 
   configFormGroup() {
@@ -55,6 +65,19 @@ export class ManageComponent implements OnInit {
 
     });
   }
+
+  loadVehicles() {
+    this.vehicleService.list().subscribe(data => {
+      this.vehicles = data;
+    });
+  }
+
+  loadOwners() {
+    this.ownerService.list().subscribe(data => {
+      this.owners = data;
+    });
+  }
+
   get getTheFormGroup(){
     return this.theFormGroup.controls
   }
@@ -66,26 +89,36 @@ export class ManageComponent implements OnInit {
   }
 
   create() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
-      return
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error");
+      return;
     }
-    this.vehiOwnerService.create(this.vehiOwner).subscribe((data) => {
+
+    const formData = { ...this.theFormGroup.value };
+
+    console.log('Datos ajustados enviados:', formData);
+
+    this.vehiOwnerService.create(formData).subscribe((data) => {
       Swal.fire("Creado", "El registro ha sido creado", "success");
-      this.router.navigate(["vehicle_owners/list"]);
+      this.router.navigate(["vehicle-owners/list"]);
     });
   }
 
   update() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
-      return
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error");
+      return;
     }
-    this.vehiOwnerService.update(this.vehiOwner).subscribe((data) => {
+
+    const formData = { ...this.theFormGroup.value };
+
+    console.log('Datos ajustados enviados:', formData);
+
+    this.vehiOwnerService.update(this.vehiOwner.id!, formData).subscribe((data) => {
       Swal.fire("Actualizado", "El registro ha sido actualizado", "success");
-      this.router.navigate(["vehicle_owners/list"]);
+      this.router.navigate(["vehicle-owners/list"]);
     });
   }
 

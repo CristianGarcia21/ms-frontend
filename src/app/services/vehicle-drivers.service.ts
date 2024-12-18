@@ -23,7 +23,7 @@ export class VehicleDriversService {
   create(vehiDriver:VehicleDrivers): Observable<VehicleDrivers> {
     return this.http.post<VehicleDrivers>(`${environment.url_ms_logica}/vehicle_drivers`,vehiDriver);
   }
-  update(vehiDriver:VehicleDrivers): Observable<VehicleDrivers> {
-    return this.http.put<VehicleDrivers>(`${environment.url_ms_logica}/vehicle_drivers/${vehiDriver.id}`,vehiDriver);
+  update(id:number, vehiDriver:VehicleDrivers): Observable<VehicleDrivers> {
+    return this.http.put<VehicleDrivers>(`${environment.url_ms_logica}/vehicle_drivers/${id}`,vehiDriver);
   }
 }

@@ -24,13 +24,13 @@
 
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Vehiculo:</label>
+                <label>Vehículo:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
+                <select
                   [(ngModel)]="vehiDrive.vehicle_id"
                   formControlName="vehicle_id"
+                  class="form-control"
                   [class.is-invalid]="
                     theFormGroup.get('vehicle_id')?.invalid &&
                     (theFormGroup.get('vehicle_id')?.touched || trySend)
@@ -39,7 +39,10 @@
                     theFormGroup.get('vehicle_id')?.valid &&
                     (theFormGroup.get('vehicle_id')?.touched || trySend)
                   "
-                />
+                >
+                  <option value="" disabled>Seleccionar Vehículo</option>
+                  <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{ vehicle.id }}</option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="
@@ -63,10 +66,10 @@
                 <label>Conductor:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
+                <select
                   [(ngModel)]="vehiDrive.driver_id"
                   formControlName="driver_id"
+                  class="form-control"
                   [class.is-invalid]="
                     theFormGroup.get('driver_id')?.invalid &&
                     (theFormGroup.get('driver_id')?.touched || trySend)
@@ -75,7 +78,10 @@
                     theFormGroup.get('driver_id')?.valid &&
                     (theFormGroup.get('driver_id')?.touched || trySend)
                   "
-                />
+                >
+                  <option value="" disabled>Seleccionar Conductor</option>
+                  <option *ngFor="let driver of drivers" [value]="driver.id">{{ driver.name }}</option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="
@@ -90,10 +96,10 @@
                     class="msnError"
                     >Requerido</strong
                   >
-
                 </div>
               </div>
             </div>
+
 
             <div class="row px-4 py-2">
               <div class="col-4">
