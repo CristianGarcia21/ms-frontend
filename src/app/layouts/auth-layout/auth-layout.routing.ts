@@ -13,5 +13,6 @@ export const AuthLayoutRoutes: Routes = [
     {path: 'unauthorized', children:[{
       path: '',
       loadChildren: () => import('src/app/pages/unauthorized/unauthorized.module').then(m => m.UnauthorizedModule)
-    }]}
+    }]},
+ 
 ];
