@@ -11,10 +11,6 @@ export class NaturalPersonService {
 
   constructor(private http: HttpClient) {}
 
-  listByClient(clientId: number): Observable<NaturalPerson> {
-    return this.http.get<NaturalPerson>(`${environment.url_ms_logica}/clients/${clientId}`);
-  }
-
   list(): Observable<NaturalPerson[]> {
     return this.http.get<NaturalPerson[]>(`${environment.url_ms_logica}/natural_people`);
   }
