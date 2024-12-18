@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Contract } from 'src/app/models/contract.model';
+import { Route } from 'src/app/models/route.model';
 import { ContractService } from 'src/app/services/contract.service';
+import { RouteService } from 'src/app/services/route.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,12 +15,17 @@ export class ListComponent implements OnInit {
 
 
   Contract : Contract[]
+  routes: Route[];
+  selectedContractId: number | null;
 
   constructor(
     private contractService: ContractService,
+    private routeService: RouteService,
     private router: Router
   ) {
     this.Contract= []
+    this.routes = [];
+    this.selectedContractId = null;
    }
 
   ngOnInit(): void {
@@ -29,6 +36,18 @@ export class ListComponent implements OnInit {
     this.contractService.list().subscribe(data => {
       this.Contract = data
     })
+  }
+
+  showRoutes(contractId: number) {
+    if (this.selectedContractId === contractId) {
+      this.selectedContractId = null; // Ocultar rutas si ya están visibles
+    } else {
+      this.selectedContractId = contractId;
+      this.routeService.listRoutesByContract(contractId).subscribe(data => {
+        this.routes = data;
+        console.log('Routes loaded for contract:', this.routes);
+      });
+    }
   }
 
   delete(id: number) {

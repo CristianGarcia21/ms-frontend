@@ -26,15 +26,15 @@
                     <thead>
                       <tr>
                         <th class="col-1">ID</th>
-                        <th class="col-3">Contrato Id</th>
-                        <th class="col-4">Vehiculo Id</th>
+                        <th class="col-3">Contrato </th>
+                        <th class="col-4">Vehiculo </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let actual of route">
                         <td>{{actual.id}}</td>
                         <td>{{actual.contract_id}}</td>
-                        <td>{{actual.vehicle_id}}</td>
+                        <td>{{ getVehiclePlate(actual.vehicle_id) }}</td>
                         <td>
                           <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
                           <button type="button" class="btn btn-success" (click)="view(actual.id)">Ver</button>

@@ -22,20 +22,22 @@
                 </div>
 
                 <div class="card-body">
-                  <table class="table">
-                    <thead>
+                  <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
                       <tr>
                         <th class="col-1">ID</th>
-                        <th class="col-3">Placa</th>
-                        <th class="col-4">Marca</th>
-                        <th class="col-4">Tipo Vehiculo</th>
-                        <th class="col-4">Capacidad (kg)</th>
-                        <th class="col-4">Latitud</th>
-                        <th class="col-4">Longitud</th>
+                        <th class="col-2">Placa</th>
+                        <th class="col-2">Marca</th>
+                        <th class="col-2">Tipo Vehiculo</th>
+                        <th class="col-2">Capacidad (kg)</th>
+                        <th class="col-2">Latitud</th>
+                        <th class="col-2">Longitud</th>
+                        <th class="col-3">Acciones</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let actual of vehicle">
+                      <ng-container *ngFor="let actual of vehicle">
+                      <tr >
                         <td>{{actual.id}}</td>
                         <td>{{actual.plate}}</td>
                         <td>{{actual.brand}}</td>
@@ -47,8 +49,27 @@
                           <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
                           <button type="button" class="btn btn-success" (click)="view(actual.id)">Ver</button>
                           <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Eliminar</button>
+                          <button type="button" class="btn btn-info" (click)="showRoutes(actual.id)">
+                            {{ selectedVehicleId === actual.id ? 'Ocultar rutas' : 'Mostrar rutas' }}
+                          </button>
                         </td>
                       </tr>
+                      <tr *ngIf="selectedVehicleId === actual.id">
+                        <td colspan="8">
+                          <div *ngIf="routes.length > 0">
+                            <h5>Rutas asociadas:</h5>
+                            <ul>
+                              <li *ngFor="let route of routes">
+                                ID: {{ route.id }}, Contrato: {{ route.contract_id }}, Vehículo: {{ route.vehicle_id }}
+                              </li>
+                            </ul>
+                          </div>
+                          <div *ngIf="routes.length === 0">
+                            <p>No hay rutas asociadas a este vehículo.</p>
+                          </div>
+                        </td>
+                      </tr>
+                    </ng-container>
                     </tbody>
                   </table>
                   <div class="row mt-4">

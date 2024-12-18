@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Route } from 'src/app/models/route.model';
+import { Vehicle } from 'src/app/models/vehicle.model';
 import { RouteService } from 'src/app/services/route.service';
+import { VehicleService } from 'src/app/services/vehicle.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,22 +14,36 @@ import Swal from 'sweetalert2';
 export class ListComponent implements OnInit {
 
   route : Route[]
+  vehicles: Vehicle[];
 
   constructor(
     private routeService: RouteService,
+    private vehicleService: VehicleService,
     private router: Router
   ) {
     this.route= []
+    this.vehicles = [];
    }
 
   ngOnInit(): void {
     this.list()
+    this.loadVehicles();
   }
 
   list(){
     this.routeService.list().subscribe(data => {
       this.route = data
     })
+  }
+  loadVehicles() {
+    this.vehicleService.list().subscribe(data => {
+      this.vehicles = data;
+    });
+  }
+
+  getVehiclePlate(vehicleId: number): string {
+    const vehicle = this.vehicles.find(veh => veh.id === vehicleId);
+    return vehicle ? vehicle.plate : 'Unknown Vehicle';
   }
 
   delete(id: number) {

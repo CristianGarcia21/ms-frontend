@@ -26,4 +26,11 @@ export class RouteService {
   update(route:Route): Observable<Route> {
     return this.http.put<Route>(`${environment.url_ms_logica}/routes/${route.id}`,route);
   }
+  listByVehicle(vehicleId: number): Observable<Route[]> {
+    return this.http.get<Route[]>(`${environment.url_ms_logica}/routes/vehicle/${vehicleId}`);
+  }
+
+  listRoutesByContract(contractId: number): Observable<Route[]> {
+    return this.http.get<Route[]>(`${environment.url_ms_logica}/contracts/${contractId}/routes`);
+  }
 }

@@ -22,30 +22,50 @@
                 </div>
 
                 <div class="card-body">
-                  <table class="table">
-                    <thead>
+                  <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
                       <tr>
                         <th class="col-1">ID</th>
                         <th class="col-2">Cliente</th>
-                        <th class="col-3">Fecha Inicial</th>
-                        <th class="col-4">Fecha Final</th>
-                        <th class="col-4">Cantidad</th>
-                        <th class="col-4">Estado</th>
+                        <th class="col-2">Fecha de Inicio</th>
+                        <th class="col-2">Fecha de Fin</th>
+                        <th class="col-2">Monto</th>
+                        <th class="col-3">Acciones</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let actual of Contract">
+                      <ng-container *ngFor="let actual of Contract">
+                      <tr>
                         <td>{{actual.id}}</td>
+                        <td>{{actual.name}}</td>
                         <td>{{actual.start_date}}</td>
                         <td>{{actual.end_date}}</td>
                         <td>{{actual.amount}}</td>
-                        <td>{{actual.estate ? 'Activo' : 'Inactivo' }}</td>
                         <td>
                           <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
                           <button type="button" class="btn btn-success" (click)="view(actual.id)">Ver</button>
                           <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Eliminar</button>
+                          <button type="button" class="btn btn-info" (click)="showRoutes(actual.id)">
+                            {{ selectedContractId === actual.id ? 'Ocultar rutas' : 'Mostrar rutas' }}
+                          </button>
                         </td>
                       </tr>
+                      <tr *ngIf="selectedContractId === actual.id">
+                        <td colspan="6">
+                          <div *ngIf="routes.length > 0">
+                            <h5>Rutas asociadas:</h5>
+                            <ul>
+                              <li *ngFor="let route of routes">
+                                ID: {{ route.id }}, Vehículo: {{ route.vehicle_id }}
+                              </li>
+                            </ul>
+                          </div>
+                          <div *ngIf="routes.length === 0">
+                            <p>No hay rutas asociadas a este contrato.</p>
+                          </div>
+                        </td>
+                      </tr>
+                    </ng-container>
                     </tbody>
                   </table>
                 </div>

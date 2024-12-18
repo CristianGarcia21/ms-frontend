@@ -11,7 +11,7 @@
           <h3 class="mb-0" *ngIf="mode == 2">Crear</h3>
           <h3 class="mb-0" *ngIf="mode == 3">Actualizar</h3>
         </div>
-        <form class="form" [formGroup]="theFormGroup">
+        <form class="form" [formGroup]="theFormGroup" (ngSubmit)="mode === 2 ? create() : update()">
           <div class="card-body">
             <div class="row">
               <div class="col-4">
@@ -24,13 +24,12 @@
 
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Contrato Id:</label>
+                <label>Contrato:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
-                  [(ngModel)]="route.contract_id"
+                <select
                   formControlName="contract_id"
+                  class="form-control"
                   [class.is-invalid]="
                     theFormGroup.get('contract_id')?.invalid &&
                     (theFormGroup.get('contract_id')?.touched || trySend)
@@ -39,7 +38,9 @@
                     theFormGroup.get('contract_id')?.valid &&
                     (theFormGroup.get('contract_id')?.touched || trySend)
                   "
-                />
+                >
+                  <option *ngFor="let contract of contracts" [value]="contract.id">{{ contract.id }}</option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="
@@ -49,29 +50,20 @@
                       trySend)
                   "
                 >
-                  <strong
-                    *ngIf="getTheFormGroup.contract_id.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
-                  <strong
-                    *ngIf="getTheFormGroup.contract_id.errors.min"
-                    class="msnError"
-                    >Inválido: Debe ser mayor a 0
-                  </strong>
+                  <small *ngIf="getTheFormGroup.contract_id.errors.required">El contrato es requerido.</small>
+                  <small *ngIf="getTheFormGroup.contract_id.errors.min">El contrato debe ser válido.</small>
                 </div>
               </div>
             </div>
 
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Vehiculo:</label>
+                <label>Vehículo:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
-                  [(ngModel)]="route.vehicle_id"
+                <select
                   formControlName="vehicle_id"
+                  class="form-control"
                   [class.is-invalid]="
                     theFormGroup.get('vehicle_id')?.invalid &&
                     (theFormGroup.get('vehicle_id')?.touched || trySend)
@@ -80,7 +72,9 @@
                     theFormGroup.get('vehicle_id')?.valid &&
                     (theFormGroup.get('vehicle_id')?.touched || trySend)
                   "
-                />
+                >
+                  <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{ vehicle.plate }}</option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="
@@ -90,36 +84,15 @@
                       trySend)
                   "
                 >
-                  <strong
-                    *ngIf="getTheFormGroup.vehicle_id.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
-                  <strong
-                    *ngIf="getTheFormGroup.vehicle_id.errors.min"
-                    class="msnError"
-                    >Inválido: Debe ser mayor a 0
-                  </strong>
+                  <small *ngIf="getTheFormGroup.vehicle_id.errors.required">El vehículo es requerido.</small>
+                  <small *ngIf="getTheFormGroup.vehicle_id.errors.min">El vehículo debe ser válido.</small>
                 </div>
               </div>
             </div>
 
             <div class="row px-4 py-2">
-              <div class="col text-center">
-                <button
-                  class="btn btn-success btn-block"
-                  (click)="create()"
-                  *ngIf="mode == 2"
-                >
-                  Crear
-                </button>
-                <button
-                  class="btn btn-success btn-block"
-                  (click)="update()"
-                  *ngIf="mode == 3"
-                >
-                  Actualizar
-                </button>
+              <div class="col-12 text-right">
+                <button type="submit" class="btn btn-primary">{{ mode === 2 ? 'Crear' : 'Actualizar' }}</button>
               </div>
             </div>
           </div>

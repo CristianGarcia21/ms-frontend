@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Vehicle } from 'src/app/models/vehicle.model';
 import { VehicleService } from 'src/app/services/vehicle.service';
 import Swal from 'sweetalert2';
+import { Route } from 'src/app/models/route.model';
+import { RouteService } from 'src/app/services/route.service';
 
 @Component({
   selector: 'app-list',
@@ -12,13 +14,17 @@ import Swal from 'sweetalert2';
 export class ListComponent implements OnInit {
 
   vehicle : Vehicle[]
-
+  routes: Route[];
+  selectedVehicleId: number | null;
 
   constructor(
     private vehicleService: VehicleService,
+    private routeService: RouteService,
     private router: Router
   ) {
     this.vehicle= []
+    this.routes = [];
+    this.selectedVehicleId = null;
    }
 
   ngOnInit(): void {
@@ -32,7 +38,17 @@ export class ListComponent implements OnInit {
     console.log(this.vehicle);
   }
 
-
+  showRoutes(vehicleId: number) {
+    if (this.selectedVehicleId === vehicleId) {
+      this.selectedVehicleId = null; // Ocultar rutas si ya están visibles
+    } else {
+      this.selectedVehicleId = vehicleId;
+      this.routeService.listByVehicle(vehicleId).subscribe(data => {
+        this.routes = data;
+        console.log('Routes loaded for vehicle:', this.routes);
+      });
+    }
+  }
 
 
   delete(id: number) {
