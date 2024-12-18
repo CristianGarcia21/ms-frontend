@@ -11,9 +11,9 @@
           <h3 class="mb-0" *ngIf="mode == 2">Crear</h3>
           <h3 class="mb-0" *ngIf="mode == 3">Actualizar</h3>
         </div>
-        <form class="form" [formGroup]="theFormGroup">
+        <form class="form" [formGroup]="theFormGroup" (ngSubmit)="mode === 2 ? create() : update()">
           <div class="card-body">
-            <div class="row">
+            <div class="row mb-3">
               <div class="col-4">
                 <label>Id:</label>
               </div>
@@ -21,265 +21,131 @@
                 <p>{{ products.id }}</p>
               </div>
             </div>
-
-            <div class="row px-4 py-2">
+  
+            <div class="row mb-3">
               <div class="col-4">
-                <label>Descripcion:</label>
+                <label for="description">Descripción:</label>
               </div>
               <div class="col-8">
                 <input
                   type="text"
-                  [(ngModel)]="products.description"
+                  id="description"
                   formControlName="description"
-                  [class.is-invalid]="
-                    theFormGroup.get('description')?.invalid &&
-                    (theFormGroup.get('description')?.touched || trySend)
-                  "
-                  [class.is-valid]="
-                    theFormGroup.get('description')?.valid &&
-                    (theFormGroup.get('description')?.touched || trySend)
-                  "
+                  class="form-control"
+                  [class.is-invalid]="theFormGroup.get('description')?.invalid && (theFormGroup.get('description')?.touched || trySend)"
+                  [class.is-valid]="theFormGroup.get('description')?.valid && (theFormGroup.get('description')?.touched || trySend)"
                 />
-                <div
-                  class="text-danger mt-1"
-                  *ngIf="
-                    getTheFormGroup.description.errors &&
-                    (getTheFormGroup.description.dirty ||
-                      getTheFormGroup.description.touched ||
-                      trySend)
-                  "
-                >
-                  <strong
-                    *ngIf="getTheFormGroup.description.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
-                  <strong
-                    *ngIf="getTheFormGroup.description.errors.minlength"
-                    class="msnError"
-                    >Inválido: Minimo 3 caracteres
-                  </strong>
-
-                  <strong
-                    *ngIf="getTheFormGroup.description.errors.maxlength"
-                    class="msnError"
-                    >Inválido: Maximo 255 caracteres
-                  </strong>
+                <div class="text-danger mt-1" *ngIf="theFormGroup.get('description')?.errors && (theFormGroup.get('description')?.touched || trySend)">
+                  <strong *ngIf="theFormGroup.get('description')?.errors.required">Descripción requerida.</strong>
                 </div>
               </div>
             </div>
-
-            <div class="row px-4 py-2">
+  
+            <div class="row mb-3">
               <div class="col-4">
-                <label>Peso:</label>
+                <label for="weight">Peso:</label>
               </div>
               <div class="col-8">
                 <input
                   type="number"
-                  [(ngModel)]="products.weight"
+                  id="weight"
                   formControlName="weight"
-                  [class.is-invalid]="
-                    theFormGroup.get('weight')?.invalid &&
-                    (theFormGroup.get('weight')?.touched || trySend)
-                  "
-                  [class.is-valid]="
-                    theFormGroup.get('weight')?.valid &&
-                    (theFormGroup.get('weight')?.touched || trySend)
-                  "
+                  class="form-control"
+                  [class.is-invalid]="theFormGroup.get('weight')?.invalid && (theFormGroup.get('weight')?.touched || trySend)"
+                  [class.is-valid]="theFormGroup.get('weight')?.valid && (theFormGroup.get('weight')?.touched || trySend)"
                 />
-                <div
-                  class="text-danger mt-1"
-                  *ngIf="
-                    getTheFormGroup.weight.errors &&
-                    (getTheFormGroup.weight.dirty ||
-                      getTheFormGroup.weight.touched ||
-                      trySend)
-                  "
-                >
-                  <strong
-                    *ngIf="getTheFormGroup.weight.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
-                  <strong
-                    *ngIf="getTheFormGroup.weight.errors.min"
-                    class="msnError"
-                    >Inválido: Debe ser mayor a 0
-                  </strong>
+                <div class="text-danger mt-1" *ngIf="theFormGroup.get('weight')?.errors && (theFormGroup.get('weight')?.touched || trySend)">
+                  <strong *ngIf="theFormGroup.get('weight')?.errors.required">Peso requerido.</strong>
+                  <strong *ngIf="theFormGroup.get('weight')?.errors.min">Peso debe ser mayor a 0.</strong>
                 </div>
               </div>
             </div>
-
-            <div class="row px-4 py-2">
+  
+            <div class="row mb-3">
               <div class="col-4">
-                <label>Tamaño:</label>
+                <label for="size">Tamaño:</label>
               </div>
               <div class="col-8">
                 <input
                   type="number"
-                  [(ngModel)]="products.size"
+                  id="size"
                   formControlName="size"
-                  [class.is-invalid]="
-                    theFormGroup.get('size')?.invalid &&
-                    (theFormGroup.get('size')?.touched || trySend)
-                  "
-                  [class.is-valid]="
-                    theFormGroup.get('size')?.valid &&
-                    (theFormGroup.get('size')?.touched || trySend)
-                  "
+                  class="form-control"
+                  [class.is-invalid]="theFormGroup.get('size')?.invalid && (theFormGroup.get('size')?.touched || trySend)"
+                  [class.is-valid]="theFormGroup.get('size')?.valid && (theFormGroup.get('size')?.touched || trySend)"
                 />
-                <div
-                  class="text-danger mt-1"
-                  *ngIf="
-                    getTheFormGroup.size.errors &&
-                    (getTheFormGroup.size.dirty ||
-                      getTheFormGroup.size.touched ||
-                      trySend)
-                  "
-                >
-                  <strong
-                    *ngIf="getTheFormGroup.size.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
-                  <strong
-                    *ngIf="getTheFormGroup.size.errors.min"
-                    class="msnError"
-                    >Inválido: Debe ser mayor a 0
-                  </strong>
+                <div class="text-danger mt-1" *ngIf="theFormGroup.get('size')?.errors && (theFormGroup.get('size')?.touched || trySend)">
+                  <strong *ngIf="theFormGroup.get('size')?.errors.required">Tamaño requerido.</strong>
+                  <strong *ngIf="theFormGroup.get('size')?.errors.min">Tamaño debe ser mayor a 0.</strong>
                 </div>
               </div>
             </div>
-
-            <div class="row px-4 py-2">
+  
+            <div class="row mb-3">
               <div class="col-4">
-                <label>Tipo:</label>
+                <label for="type">Tipo:</label>
               </div>
               <div class="col-8">
                 <input
                   type="text"
-                  [(ngModel)]="products.type"
+                  id="type"
                   formControlName="type"
-                  [class.is-invalid]="
-                    theFormGroup.get('type')?.invalid &&
-                    (theFormGroup.get('type')?.touched || trySend)
-                  "
-                  [class.is-valid]="
-                    theFormGroup.get('type')?.valid &&
-                    (theFormGroup.get('type')?.touched || trySend)
-                  "
+                  class="form-control"
+                  [class.is-invalid]="theFormGroup.get('type')?.invalid && (theFormGroup.get('type')?.touched || trySend)"
+                  [class.is-valid]="theFormGroup.get('type')?.valid && (theFormGroup.get('type')?.touched || trySend)"
                 />
-                <div
-                  class="text-danger mt-1"
-                  *ngIf="
-                    getTheFormGroup.type.errors &&
-                    (getTheFormGroup.type.dirty ||
-                      getTheFormGroup.type.touched ||
-                      trySend)
-                  "
-                >
-                  <strong
-                    *ngIf="getTheFormGroup.type.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
-                  <strong
-                    *ngIf="getTheFormGroup.type.errors.pattern"
-                    class="msnError"
-                    >Inválido: Solo puede ser "perecedero|no perecedero|líquido|otro"
-                  </strong>
+                <div class="text-danger mt-1" *ngIf="theFormGroup.get('type')?.errors && (theFormGroup.get('type')?.touched || trySend)">
+                  <strong *ngIf="theFormGroup.get('type')?.errors.required">Tipo requerido.</strong>
                 </div>
               </div>
             </div>
-
-            <div class="row px-4 py-2">
+  
+            <div class="row mb-3">
               <div class="col-4">
-                <label>Lote Id:</label>
+                <label for="client_id">Cliente:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
-                  [(ngModel)]="products.lot_id"
-                  formControlName="lot_id"
-                  [class.is-invalid]="
-                    theFormGroup.get('lot_id')?.invalid &&
-                    (theFormGroup.get('lot_id')?.touched || trySend)
-                  "
-                  [class.is-valid]="
-                    theFormGroup.get('lot_id')?.valid &&
-                    (theFormGroup.get('lot_id')?.touched || trySend)
-                  "
-                />
-                <div
-                  class="text-danger mt-1"
-                  *ngIf="
-                    getTheFormGroup.lot_id.errors &&
-                    (getTheFormGroup.lot_id.dirty ||
-                      getTheFormGroup.lot_id.touched ||
-                      trySend)
-                  "
-                >
-                  <strong
-                    *ngIf="getTheFormGroup.lot_id.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
-                </div>
-              </div>
-            </div>
-
-            <div class="row px-4 py-2">
-              <div class="col-4">
-                <label>Cliente Id:</label>
-              </div>
-              <div class="col-8">
-                <input
-                  type="number"
-                  [(ngModel)]="products.client_id"
+                <select
+                  id="client_id"
                   formControlName="client_id"
-                  [class.is-invalid]="
-                    theFormGroup.get('client_id')?.invalid &&
-                    (theFormGroup.get('client_id')?.touched || trySend)
-                  "
-                  [class.is-valid]="
-                    theFormGroup.get('client_id')?.valid &&
-                    (theFormGroup.get('client_id')?.touched || trySend)
-                  "
-                />
-                <div
-                  class="text-danger mt-1"
-                  *ngIf="
-                    getTheFormGroup.client_id.errors &&
-                    (getTheFormGroup.client_id.dirty ||
-                      getTheFormGroup.client_id.touched ||
-                      trySend)
-                  "
+                  class="form-control"
+                  [class.is-invalid]="theFormGroup.get('client_id')?.invalid && (theFormGroup.get('client_id')?.touched || trySend)"
+                  [class.is-valid]="theFormGroup.get('client_id')?.valid && (theFormGroup.get('client_id')?.touched || trySend)"
                 >
-                  <strong
-                    *ngIf="getTheFormGroup.client_id.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
+                  <option value="" disabled>Seleccionar Cliente</option>
+                  <option *ngFor="let client of clients" [value]="client.id">{{ client.name }}</option>
+                </select>
+                <div class="text-danger mt-1" *ngIf="theFormGroup.get('client_id')?.errors && (theFormGroup.get('client_id')?.touched || trySend)">
+                  <strong *ngIf="theFormGroup.get('client_id')?.errors.required">Cliente requerido.</strong>
                 </div>
               </div>
             </div>
-
-            <div class="row px-4 py-2">
+  
+            <div class="row mb-3">
+              <div class="col-4">
+                <label for="lot_id">Lote:</label>
+              </div>
+              <div class="col-8">
+                <select
+                  id="lot_id"
+                  formControlName="lot_id"
+                  class="form-control"
+                  [class.is-invalid]="theFormGroup.get('lot_id')?.invalid && (theFormGroup.get('lot_id')?.touched || trySend)"
+                  [class.is-valid]="theFormGroup.get('lot_id')?.valid && (theFormGroup.get('lot_id')?.touched || trySend)"
+                >
+                  <option value="" disabled>Seleccionar Lote</option>
+                  <option *ngFor="let lot of lots" [value]="lot.id">{{ lot.id }}</option>
+                </select>
+                <div class="text-danger mt-1" *ngIf="theFormGroup.get('lot_id')?.errors && (theFormGroup.get('lot_id')?.touched || trySend)">
+                  <strong *ngIf="theFormGroup.get('lot_id')?.errors.required">Lote requerido.</strong>
+                </div>
+              </div>
+            </div>
+  
+            <div class="row">
               <div class="col text-center">
-                <button
-                  class="btn btn-success btn-block"
-                  (click)="create()"
-                  *ngIf="mode == 2"
-                >
-                  Crear
-                </button>
-                <button
-                  class="btn btn-success btn-block"
-                  (click)="update()"
-                  *ngIf="mode == 3"
-                >
-                  Actualizar
-                </button>
+                <button type="submit" class="btn btn-success" *ngIf="mode === 2">Crear</button>
+                <button type="submit" class="btn btn-success" *ngIf="mode === 3">Actualizar</button>
               </div>
             </div>
           </div>

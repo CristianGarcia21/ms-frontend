@@ -59,10 +59,8 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
-      // primer elemento del vector, valor por defecto
-      // lista, serán las reglas
-      contract_id: ["",[Validators.required, Validators.min(1)],],
-      vehicle_id: ["", [Validators.required, Validators.min(1)] ],
+      contract_id: ["",[Validators.required],],
+      vehicle_id: ["", [Validators.required] ],
     });
   }
   loadVehicles() {
@@ -89,26 +87,54 @@ export class ManageComponent implements OnInit {
   }
 
   create() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
-      return
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire('Error en el formulario', 'Ingresa correctamente los datos solicitados', 'error');
+      return;
     }
-    this.routeService.create(this.route).subscribe((data) => {
-      Swal.fire("Creado", "El registro ha sido creado", "success");
-      this.router.navigate(["routes/list"]);
+
+    // Formatear los datos del formulario antes de enviarlos
+    const formData = {
+      contract_id: Number(this.theFormGroup.get('contract_id')?.value),
+      vehicle_id: Number(this.theFormGroup.get('vehicle_id')?.value),
+      // otros campos...
+    };
+
+    this.routeService.create(formData).subscribe({
+      next: () => {
+        Swal.fire('Creado', 'El registro ha sido creado.', 'success');
+        this.router.navigate(['routes/list']);
+      },
+      error: (err) => {
+        console.error('Error creating route:', err);
+        Swal.fire('Error', 'No se pudo crear el registro', 'error');
+      }
     });
   }
 
   update() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
-      return
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire('Error en el formulario', 'Ingresa correctamente los datos solicitados', 'error');
+      return;
     }
-    this.routeService.update(this.route).subscribe((data) => {
-      Swal.fire("Actualizado", "El registro ha sido actualizado", "success");
-      this.router.navigate(["routes/list"]);
+
+    // Formatear los datos del formulario antes de enviarlos
+    const formData = {
+      contract_id: Number(this.theFormGroup.get('contract_id')?.value),
+      vehicle_id: Number(this.theFormGroup.get('vehicle_id')?.value),
+      // otros campos...
+    };
+
+    this.routeService.update(this.route.id, formData).subscribe({
+      next: () => {
+        Swal.fire('Actualizado', 'El registro ha sido actualizado.', 'success');
+        this.router.navigate(['routes/list']);
+      },
+      error: (err) => {
+        console.error('Error updating route:', err);
+        Swal.fire('Error', 'No se pudo actualizar el registro', 'error');
+      }
     });
   }
 }

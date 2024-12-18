@@ -39,7 +39,8 @@
                     (theFormGroup.get('contract_id')?.touched || trySend)
                   "
                 >
-                  <option *ngFor="let contract of contracts" [value]="contract.id">{{ contract.id }}</option>
+                  <option *ngFor="let contract of contracts" [value]="contract.id">{{ contract.id }} </option>
+
                 </select>
                 <div
                   class="text-danger mt-1"
@@ -73,7 +74,8 @@
                     (theFormGroup.get('vehicle_id')?.touched || trySend)
                   "
                 >
-                  <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{ vehicle.plate }}</option>
+                  <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{ vehicle.plate }} </option>
+
                 </select>
                 <div
                   class="text-danger mt-1"

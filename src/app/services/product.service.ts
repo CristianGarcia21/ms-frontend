@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Product } from '../models/product.model';
+import { Lot } from '../models/lot.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,8 @@ export class ProductService {
   }
   update(product:Product): Observable<Product> {
     return this.http.put<Product>(`${environment.url_ms_logica}/products/${product.id}`,product);
+  }
+  listLotsByProduct(productId: number): Observable<Lot[]> {
+    return this.http.get<Lot[]>(`${environment.url_ms_logica}/products/${productId}/lots`);
   }
 }
