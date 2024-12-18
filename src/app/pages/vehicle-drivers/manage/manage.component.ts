@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Driver } from 'src/app/models/driver.model';
 import { VehicleDrivers } from 'src/app/models/vehicle-drivers.model';
+import { Vehicle } from 'src/app/models/vehicle.model';
+import { DriverService } from 'src/app/services/driver.service';
 import { VehicleDriversService } from 'src/app/services/vehicle-drivers.service';
+import { VehicleService } from 'src/app/services/vehicle.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,9 +20,13 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  vehicles: Vehicle[] = [];
+  drivers: Driver[] = [];
 
   constructor(
     private vehiDriveService: VehicleDriversService,
+    private vehicleService: VehicleService,
+    private driverService: DriverService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder
@@ -43,6 +51,20 @@ export class ManageComponent implements OnInit {
       this.vehiDrive.id = this.activatedRoute.snapshot.params.id;
       this.getClients(this.vehiDrive.id);
     }
+    this.loadVehicles();
+    this.loadDrivers();
+  }
+
+  loadVehicles() {
+    this.vehicleService.list().subscribe(data => {
+      this.vehicles = data;
+    });
+  }
+
+  loadDrivers() {
+    this.driverService.list().subscribe(data => {
+      this.drivers = data;
+    });
   }
 
   configFormGroup() {
@@ -66,26 +88,36 @@ export class ManageComponent implements OnInit {
   }
 
   create() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
-      return
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error");
+      return;
     }
-    this.vehiDriveService.create(this.vehiDrive).subscribe((data) => {
+
+    const formData = { ...this.theFormGroup.value };
+
+    console.log('Datos ajustados enviados:', formData);
+
+    this.vehiDriveService.create(formData).subscribe((data) => {
       Swal.fire("Creado", "El registro ha sido creado", "success");
-      this.router.navigate(["vehicle_drivers/list"]);
+      this.router.navigate(["vehicle-drivers/list"]);
     });
   }
 
   update() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
-      return
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error");
+      return;
     }
-    this.vehiDriveService.update(this.vehiDrive).subscribe((data) => {
+
+    const formData = { ...this.theFormGroup.value };
+
+    console.log('Datos ajustados enviados:', formData);
+
+    this.vehiDriveService.update(this.vehiDrive.id!, formData).subscribe((data) => {
       Swal.fire("Actualizado", "El registro ha sido actualizado", "success");
-      this.router.navigate(["vehicle_drivers/list"]);
+      this.router.navigate(["vehicle-drivers/list"]);
     });
   }
 

@@ -2,8 +2,12 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Contract } from 'src/app/models/contract.model';
 import { Payment } from 'src/app/models/payment.model';
+import { Receipt } from 'src/app/models/receipt.model';
+import { ContractService } from 'src/app/services/contract.service';
 import { PaymentService } from 'src/app/services/payment.service';
+import { ReceiptService } from 'src/app/services/receipt.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,9 +21,13 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  contracts: Contract[] = [];
+  receipts: Receipt[] = [];
 
   constructor(
     private paymentService: PaymentService,
+    private contractService: ContractService,
+    private receiptService: ReceiptService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder
@@ -44,6 +52,20 @@ export class ManageComponent implements OnInit {
       this.payment.id = this.activatedRoute.snapshot.params.id;
       this.getPayment(this.payment.id);
     }
+    this.loadContracts();
+    this.loadReceipts();
+  }
+
+  loadContracts() {
+    this.contractService.list().subscribe(data => {
+      this.contracts = data;
+    });
+  }
+
+  loadReceipts() {
+    this.receiptService.list().subscribe(data => {
+      this.receipts = data;
+    });
   }
 
   configFormGroup() {

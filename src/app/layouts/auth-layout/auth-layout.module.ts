@@ -7,8 +7,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { LoginComponent } from '../../pages/login/login.component';
 import { RegisterComponent } from '../../pages/register/register.component';
-import { ForgotPasswordComponent } from 'src/app/pages/forgot-password/forgot-password.component';
-import { AppRoutingModule } from 'src/app/app.routing';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,12 +14,10 @@ import { AppRoutingModule } from 'src/app/app.routing';
     FormsModule,
     // NgbModule
     RouterModule,
-    AppRoutingModule
   ],
   declarations: [
     LoginComponent,
     RegisterComponent,
-    ForgotPasswordComponent
   ]
 })
 export class AuthLayoutModule { }

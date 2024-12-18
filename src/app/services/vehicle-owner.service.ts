@@ -23,7 +23,7 @@ export class VehicleOwnerService {
   create(vehiOwner:VehicleOwner): Observable<VehicleOwner> {
     return this.http.post<VehicleOwner>(`${environment.url_ms_logica}/vehicle_owners`,vehiOwner);
   }
-  update(vehiOwner:VehicleOwner): Observable<VehicleOwner> {
-    return this.http.put<VehicleOwner>(`${environment.url_ms_logica}/vehicle_owners/${vehiOwner.id}`,vehiOwner);
+  update(id:number, vehiOwner:VehicleOwner): Observable<VehicleOwner> {
+    return this.http.put<VehicleOwner>(`${environment.url_ms_logica}/vehicle_owners/${id}`,vehiOwner);
   }
 }

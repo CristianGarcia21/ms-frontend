@@ -14,7 +14,7 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthGuard } from './guards/auth.guard';
-import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 
 
@@ -27,13 +27,13 @@ import { ChangePasswordComponent } from './pages/change-password/change-password
     NgbModule,
     RouterModule,
     AppRoutingModule,
-
+    FormsModule
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    ChangePasswordComponent,
+    ForgotPasswordComponent
   ],
   providers: [AuthGuard ,{
     provide: HTTP_INTERCEPTORS,

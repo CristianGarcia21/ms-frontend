@@ -15,5 +15,5 @@ export const AuthLayoutRoutes: Routes = [
       path: '',
       loadChildren: () => import('src/app/pages/unauthorized/unauthorized.module').then(m => m.UnauthorizedModule)
     }]},
-    {path: 'change-password', component: ChangePasswordComponent}
+ 
 ];

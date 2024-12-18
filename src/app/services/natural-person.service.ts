@@ -24,7 +24,7 @@ export class NaturalPersonService {
   create(natural_people:NaturalPerson): Observable<NaturalPerson> {
     return this.http.post<NaturalPerson>(`${environment.url_ms_logica}/natural_people`,natural_people);
   }
-  update(natural_people:NaturalPerson): Observable<NaturalPerson> {
-    return this.http.put<NaturalPerson>(`${environment.url_ms_logica}/natural_people/${natural_people.id}`,natural_people);
+  update(id:number, natural_people:NaturalPerson): Observable<NaturalPerson> {
+    return this.http.put<NaturalPerson>(`${environment.url_ms_logica}/natural_people/${id}`,natural_people);
   }
 }
