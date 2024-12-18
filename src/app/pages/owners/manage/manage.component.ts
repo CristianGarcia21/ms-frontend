@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Owner } from 'src/app/models/owner.model';
+import { User } from 'src/app/models/user.model';
 import { OwnerService } from 'src/app/services/owner.service';
+import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,9 +18,11 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  users: User[] = [];
 
   constructor(
     private ownerService: OwnerService,
+    private userService: UsersService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder
@@ -43,6 +47,13 @@ export class ManageComponent implements OnInit {
       this.owner.id = this.activatedRoute.snapshot.params.id;
       this.getOwner(this.owner.id);
     }
+    this.loadUsers();
+  }
+
+  loadUsers() {
+    this.userService.list().subscribe((data) => {
+      this.users = data;
+    });
   }
 
   configFormGroup() {
@@ -65,24 +76,34 @@ export class ManageComponent implements OnInit {
   }
 
   create() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
-      return
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error");
+      return;
     }
-    this.ownerService.create(this.owner).subscribe((data) => {
+
+    const formData = { ...this.theFormGroup.value };
+
+    console.log('Datos ajustados enviados:', formData);
+
+    this.ownerService.create(formData).subscribe((data) => {
       Swal.fire("Creado", "El registro ha sido creado", "success");
       this.router.navigate(["owners/list"]);
     });
   }
 
   update() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
-      return
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error");
+      return;
     }
-    this.ownerService.update(this.owner).subscribe((data) => {
+
+    const formData = { ...this.theFormGroup.value };
+
+    console.log('Datos ajustados enviados:', formData);
+
+    this.ownerService.update(this.owner.id!, formData).subscribe((data) => {
       Swal.fire("Actualizado", "El registro ha sido actualizado", "success");
       this.router.navigate(["owners/list"]);
     });

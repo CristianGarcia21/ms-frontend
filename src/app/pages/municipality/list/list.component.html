@@ -41,7 +41,13 @@
                       type="button"
                       class="btn btn-info"
                       (click)="toggleMunicipalities(actual)">
-                      {{ activeMunicipality?.id === actual.id ? 'Ocultar Direcciones' : 'Ver Direcciones' }}
+                      {{ activeMunicipality?.id === actual.id ? 'Ocultar' : 'Direcciones' }}
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-info"
+                      (click)="showOperations(actual)">
+                      {{ activeMunicipalityForOperations?.id === actual.id ? 'Ocultar' : 'Operaciones' }}
                     </button>
                   </td>
                 </tr>
@@ -59,6 +65,20 @@
                     </div>
                   </td>
                 </tr>
+
+                  <!-- Fila Expandible para Operaciones -->
+                  <tr *ngIf="activeMunicipalityForOperations?.id === actual.id">
+                    <td colspan="3">
+                      <div>
+                        <h5>Operaciones de {{ activeMunicipalityForOperations.name }}</h5>
+                        <ul class="list-group">
+                          <li *ngFor="let operation of selectedOperations" class="list-group-item">
+                            ID: {{ operation.id }}, Vehículo: {{ operation.vehicle.plate }}
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
               </ng-container>
             </tbody>
           </table>

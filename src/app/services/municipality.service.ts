@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Municipality } from '../models/municipality.model';
 import { environment } from 'src/environments/environment';
 import { Address } from '../models/address.model';
+import { Operation } from 'ol/source/Raster';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,10 @@ export class MunicipalityService {
     return this.http.get<Address[]>(
       `${environment.url_ms_logica}/municipalities/${municipalityId}/addresses`
     );
+
+  }
+
+  getOperations(municipalityId: number): Observable<Operation[]> {
+    return this.http.get<Operation[]>(`${environment.url_ms_logica}/municipalities/${municipalityId}/operations`);
   }
 }

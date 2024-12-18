@@ -230,13 +230,13 @@
 
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Service Id:</label>
+                <label>Servicio:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
+                <select
                   [(ngModel)]="hotel.service_id"
                   formControlName="service_id"
+                  class="form-control"
                   [class.is-invalid]="
                     theFormGroup.get('service_id')?.invalid &&
                     (theFormGroup.get('service_id')?.touched || trySend)
@@ -245,7 +245,10 @@
                     theFormGroup.get('service_id')?.valid &&
                     (theFormGroup.get('service_id')?.touched || trySend)
                   "
-                />
+                >
+                  <option value="" disabled>Seleccionar Servicio</option>
+                  <option *ngFor="let service of services" [value]="service.id">{{ service.name }}</option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="

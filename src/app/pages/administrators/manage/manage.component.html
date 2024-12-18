@@ -183,13 +183,13 @@
 
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Usuaio:</label>
+                <label>Usuario:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
+                <select
                   [(ngModel)]="admin.user_id"
                   formControlName="user_id"
+                  class="form-control"
                   [class.is-invalid]="
                     theFormGroup.get('user_id')?.invalid &&
                     (theFormGroup.get('user_id')?.touched || trySend)
@@ -198,7 +198,10 @@
                     theFormGroup.get('user_id')?.valid &&
                     (theFormGroup.get('user_id')?.touched || trySend)
                   "
-                />
+                >
+                  <option value="" disabled>Seleccionar Usuario</option>
+                  <option *ngFor="let user of users" [value]="user.id">{{ user.username }}</option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="

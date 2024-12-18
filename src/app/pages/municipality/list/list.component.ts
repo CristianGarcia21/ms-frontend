@@ -5,6 +5,8 @@ import { MunicipalityService } from 'src/app/services/municipality.service';
 import { AddressService } from 'src/app/services/address.service';
 import Swal from 'sweetalert2';
 import { Address } from 'src/app/models/address.model';
+import { Operation } from 'ol/source/Raster';
+import { OperationService } from 'src/app/services/operation.service';
 
 @Component({
   selector: 'app-list',
@@ -16,10 +18,12 @@ export class ListComponent implements OnInit {
   Municipalities: Municipality[] = [];
   selectedAddresses: Address[] = [];
   activeMunicipality: Municipality | null = null;
+  selectedOperations: Operation[] = [];
+  activeMunicipalityForOperations: Municipality | null = null;
+
 
   constructor(
     private municipalityService: MunicipalityService,
-    private addressService: AddressService,
     private router: Router
   ) {}
 
@@ -85,6 +89,17 @@ export class ListComponent implements OnInit {
       this.municipalityService.getAddresses(municipality.id!).subscribe((addresses) => {
         this.selectedAddresses = addresses;
         this.activeMunicipality = municipality;
+      });
+    }
+  }
+  showOperations(municipality: Municipality): void {
+    if (this.activeMunicipalityForOperations?.id === municipality.id) {
+      this.activeMunicipalityForOperations = null;
+      this.selectedOperations = [];
+    } else {
+      this.activeMunicipalityForOperations = municipality;
+      this.municipalityService.getOperations(municipality.id!).subscribe((operations) => {
+        this.selectedOperations = operations;
       });
     }
   }

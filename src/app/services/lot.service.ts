@@ -23,7 +23,7 @@ export class LotService {
   create(lot:Lot): Observable<Lot> {
     return this.http.post<Lot>(`${environment.url_ms_logica}/lots`,lot);
   }
-  update(lot:Lot): Observable<Lot> {
-    return this.http.put<Lot>(`${environment.url_ms_logica}/lots/${lot.id}`,lot);
+  update(id:number, lot:Lot): Observable<Lot> {
+    return this.http.put<Lot>(`${environment.url_ms_logica}/lots/${id}`,lot);
   }
 }

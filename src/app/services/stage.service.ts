@@ -23,7 +23,7 @@ export class StageService {
   create(stage:Stage): Observable<Stage> {
     return this.http.post<Stage>(`${environment.url_ms_logica}/stages`,stage);
   }
-  update(stage:Stage): Observable<Stage> {
-    return this.http.put<Stage>(`${environment.url_ms_logica}/stages/${stage.id}`,stage);
+  update(id:number, stage:Stage): Observable<Stage> {
+    return this.http.put<Stage>(`${environment.url_ms_logica}/stages/${id}`,stage);
   }
 }

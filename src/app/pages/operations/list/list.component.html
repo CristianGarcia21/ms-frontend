@@ -33,8 +33,8 @@
                     <tbody>
                       <tr *ngFor="let actual of operations">
                         <td>{{actual.id}}</td>
-                        <td>{{actual.municipality_id}}</td>
-                        <td>{{actual.vehicle_id}}</td>
+                        <td>{{ getMunicipalityName(actual.municipality_id)}}</td>
+                        <td>{{getVehiclePlate(actual.vehicle_id)}}</td>
                         <td>
                           <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
                           <button type="button" class="btn btn-success" (click)="view(actual.id)">Ver</button>

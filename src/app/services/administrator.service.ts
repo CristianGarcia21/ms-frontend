@@ -23,7 +23,7 @@ export class AdministratorService {
   create(administrators:Admin): Observable<Admin> {
     return this.http.post<Admin>(`${environment.url_ms_logica}/administrators`,administrators);
   }
-  update(administrators:Admin): Observable<Admin> {
-    return this.http.put<Admin>(`${environment.url_ms_logica}/administrators/${administrators.id}`,administrators);
+  update(id:number, administrators:Admin): Observable<Admin> {
+    return this.http.put<Admin>(`${environment.url_ms_logica}/administrators/${id}`,administrators);
   }
 }

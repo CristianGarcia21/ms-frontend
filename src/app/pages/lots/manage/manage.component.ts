@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lot } from 'src/app/models/lot.model';
+import { Route } from 'src/app/models/route.model';
 import { LotService } from 'src/app/services/lot.service';
+import { RouteService } from 'src/app/services/route.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,9 +18,11 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  routes: Route[] = [];
 
   constructor(
     private lotService: LotService,
+    private routeService: RouteService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder
@@ -43,6 +47,7 @@ export class ManageComponent implements OnInit {
       this.lots.id = this.activatedRoute.snapshot.params.id;
       this.getClients(this.lots.id);
     }
+    this.loadRoutes();
   }
 
   configFormGroup() {
@@ -51,7 +56,13 @@ export class ManageComponent implements OnInit {
       total_weight: ["", [Validators.required, Validators.min(1)]],
       type: ["", [Validators.required]], 
       size: ["", [Validators.required, Validators.min(1)]],
-      route_id: ["", [Validators.required, Validators.min(1)]],
+      route_id: ["", [Validators.required]],
+    });
+  }
+
+  loadRoutes() {
+    this.routeService.list().subscribe(data => {
+      this.routes = data;
     });
   }
 
@@ -66,27 +77,56 @@ export class ManageComponent implements OnInit {
   }
 
   create() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
-      return
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire('Error en el formulario', 'Ingresa correctamente los datos solicitados', 'error');
+      return;
     }
-    console.log("Datos enviados al backend (create):", this.lots);
-    this.lotService.create(this.lots).subscribe((data) => {
-      Swal.fire("Creado", "El registro ha sido creado", "success");
-      this.router.navigate(["lots/list"]);
+
+    const formData = {
+      quantity: Number(this.theFormGroup.get('quantity')?.value),
+      total_weight: Number(this.theFormGroup.get('total_weight')?.value),
+      type: this.theFormGroup.get('type')?.value,
+      size: Number(this.theFormGroup.get('size')?.value),
+      route_id: Number(this.theFormGroup.get('route_id')?.value)
+    };
+
+    this.lotService.create(formData).subscribe({
+      next: () => {
+        Swal.fire('Creado', 'El registro ha sido creado.', 'success');
+        this.router.navigate(['lots/list']);
+      },
+      error: (err) => {
+        console.error('Error creating lot:', err);
+        Swal.fire('Error', 'No se pudo crear el registro', 'error');
+      }
     });
   }
 
   update() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
-      return
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire('Error en el formulario', 'Ingresa correctamente los datos solicitados', 'error');
+      return;
     }
-    this.lotService.update(this.lots).subscribe((data) => {
-      Swal.fire("Actualizado", "El registro ha sido actualizado", "success");
-      this.router.navigate(["lots/list"]);
+
+    const formData = {
+      quantity: Number(this.theFormGroup.get('quantity')?.value),
+      total_weight: Number(this.theFormGroup.get('total_weight')?.value),
+      type: this.theFormGroup.get('type')?.value,
+      size: Number(this.theFormGroup.get('size')?.value),
+      route_id: Number(this.theFormGroup.get('route_id')?.value)
+    };
+
+    this.lotService.update(this.lots.id!, formData).subscribe({
+      next: () => {
+        Swal.fire('Actualizado', 'El registro ha sido actualizado.', 'success');
+        this.router.navigate(['lots/list']);
+      },
+      error: (err) => {
+        console.error('Error updating lot:', err);
+        Swal.fire('Error', 'No se pudo actualizar el registro', 'error');
+      }
     });
   }
 

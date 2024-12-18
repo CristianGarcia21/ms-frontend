@@ -23,7 +23,7 @@ export class HotelService {
   create(hotel:Hotel): Observable<Hotel> {
     return this.http.post<Hotel>(`${environment.url_ms_logica}/hotels`,hotel);
   }
-  update(hotel:Hotel): Observable<Hotel> {
-    return this.http.put<Hotel>(`${environment.url_ms_logica}/hotels/${hotel.id}`,hotel);
+  update(id:number, hotel:Hotel): Observable<Hotel> {
+    return this.http.put<Hotel>(`${environment.url_ms_logica}/hotels/${id}`,hotel);
   }
 }

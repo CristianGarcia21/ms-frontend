@@ -23,8 +23,8 @@ export class OwnerService {
   create(owner:Owner): Observable<Owner> {
     return this.http.post<Owner>(`${environment.url_ms_logica}/owners`,owner);
   }
-  update(owner:Owner): Observable<Owner> {
-    return this.http.put<Owner>(`${environment.url_ms_logica}/owners/${owner.id}`,owner);
+  update(id:number, owner:Owner): Observable<Owner> {
+    return this.http.put<Owner>(`${environment.url_ms_logica}/owners/${id}`,owner);
   }
 }
 

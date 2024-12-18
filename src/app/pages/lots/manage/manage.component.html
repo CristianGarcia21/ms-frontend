@@ -185,10 +185,10 @@
                 <label>Ruta:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
+                <select
                   [(ngModel)]="lots.route_id"
                   formControlName="route_id"
+                  class="form-control"
                   [class.is-invalid]="
                     theFormGroup.get('route_id')?.invalid &&
                     (theFormGroup.get('route_id')?.touched || trySend)
@@ -197,7 +197,10 @@
                     theFormGroup.get('route_id')?.valid &&
                     (theFormGroup.get('route_id')?.touched || trySend)
                   "
-                />
+                >
+                  <option value="" disabled>Seleccionar Ruta</option>
+                  <option *ngFor="let route of routes" [value]="route.id">{{ route.id }}</option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="
@@ -212,11 +215,6 @@
                     class="msnError"
                     >Requerido</strong
                   >
-                  <strong
-                    *ngIf="getTheFormGroup.route_id.errors.min"
-                    class="msnError"
-                    >Inválido: Debe ser mayor a 0
-                  </strong>
                 </div>
               </div>
             </div>

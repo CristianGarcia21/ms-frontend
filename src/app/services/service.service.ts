@@ -23,7 +23,7 @@ export class ServiceService {
   create(service:Service): Observable<Service> {
     return this.http.post<Service>(`${environment.url_ms_logica}/services`,service);
   }
-  update(service:Service): Observable<Service> {
-    return this.http.put<Service>(`${environment.url_ms_logica}/services/${service.id}`,service);
+  update(id:number, service:Service): Observable<Service> {
+    return this.http.put<Service>(`${environment.url_ms_logica}/services/${id}`,service);
   }
 }

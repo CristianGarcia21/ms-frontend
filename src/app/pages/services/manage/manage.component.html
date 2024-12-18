@@ -188,13 +188,13 @@
 
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Administrador ID:</label>
+                <label>Administrador:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
+                <select
                   [(ngModel)]="service.administrator_id"
                   formControlName="administrator_id"
+                  class="form-control"
                   [class.is-invalid]="
                     theFormGroup.get('administrator_id')?.invalid &&
                     (theFormGroup.get('administrator_id')?.touched || trySend)
@@ -203,7 +203,10 @@
                     theFormGroup.get('administrator_id')?.valid &&
                     (theFormGroup.get('administrator_id')?.touched || trySend)
                   "
-                />
+                >
+                  <option value="" disabled>Seleccionar Administrador</option>
+                  <option *ngFor="let admin of administrators" [value]="admin.id">{{ admin.name }}</option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="

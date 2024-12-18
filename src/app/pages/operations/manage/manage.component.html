@@ -23,74 +23,44 @@
             </div>
 
             <!-- Municipios -->
-            <div class="row px-4 py-2">
+            <div class="row mb-3">
               <div class="col-4">
-                <label>Municipio Id:</label>
+                <label for="municipality_id">Municipio:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
-                  [(ngModel)]="operation.municipality_id"
+                <select
+                  id="municipality_id"
                   formControlName="municipality_id"
-                  [class.is-invalid]="
-                    theFormGroup.get('municipality_id')?.invalid &&
-                    (theFormGroup.get('municipality_id')?.touched || trySend)
-                  "
-                  [class.is-valid]="
-                    theFormGroup.get('municipality_id')?.valid &&
-                    (theFormGroup.get('municipality_id')?.touched || trySend)
-                  "
-                />
-                <div
-                  class="text-danger mt-1"
-                  *ngIf="
-                    getTheFormGroup.municipality_id.errors &&
-                    (getTheFormGroup.municipality_id.dirty ||
-                      getTheFormGroup.municipality_id.touched ||
-                      trySend)
-                  "
+                  class="form-control"
+                  [class.is-invalid]="theFormGroup.get('municipality_id')?.invalid && (theFormGroup.get('municipality_id')?.touched || trySend)"
+                  [class.is-valid]="theFormGroup.get('municipality_id')?.valid && (theFormGroup.get('municipality_id')?.touched || trySend)"
                 >
-                  <strong
-                    *ngIf="getTheFormGroup.municipality_id.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
+                  <option value="" disabled>Seleccionar Municipio</option>
+                  <option *ngFor="let municipality of municipalities" [value]="municipality.id">{{ municipality.name }}</option>
+                </select>
+                <div class="text-danger mt-1" *ngIf="theFormGroup.get('municipality_id')?.errors && (theFormGroup.get('municipality_id')?.touched || trySend)">
+                  <strong *ngIf="theFormGroup.get('municipality_id')?.errors.required">Municipio requerido.</strong>
                 </div>
               </div>
             </div>
 
-            <div class="row px-4 py-2">
+            <div class="row mb-3">
               <div class="col-4">
-                <label>Vehiculo Id:</label>
+                <label for="vehicle_id">Vehículo:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
-                  [(ngModel)]="operation.vehicle_id"
+                <select
+                  id="vehicle_id"
                   formControlName="vehicle_id"
-                  [class.is-invalid]="
-                    theFormGroup.get('vehicle_id')?.invalid &&
-                    (theFormGroup.get('vehicle_id')?.touched || trySend)
-                  "
-                  [class.is-valid]="
-                    theFormGroup.get('vehicle_id')?.valid &&
-                    (theFormGroup.get('vehicle_id')?.touched || trySend)
-                  "
-                />
-                <div
-                  class="text-danger mt-1"
-                  *ngIf="
-                    getTheFormGroup.vehicle_id.errors &&
-                    (getTheFormGroup.vehicle_id.dirty ||
-                      getTheFormGroup.vehicle_id.touched ||
-                      trySend)
-                  "
+                  class="form-control"
+                  [class.is-invalid]="theFormGroup.get('vehicle_id')?.invalid && (theFormGroup.get('vehicle_id')?.touched || trySend)"
+                  [class.is-valid]="theFormGroup.get('vehicle_id')?.valid && (theFormGroup.get('vehicle_id')?.touched || trySend)"
                 >
-                  <strong
-                    *ngIf="getTheFormGroup.vehicle_id.errors.required"
-                    class="msnError"
-                    >Requerido</strong
-                  >
+                  <option value="" disabled>Seleccionar Vehículo</option>
+                  <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{ vehicle.plate }}</option>
+                </select>
+                <div class="text-danger mt-1" *ngIf="theFormGroup.get('vehicle_id')?.errors && (theFormGroup.get('vehicle_id')?.touched || trySend)">
+                  <strong *ngIf="theFormGroup.get('vehicle_id')?.errors.required">Vehículo requerido.</strong>
                 </div>
               </div>
             </div>

@@ -24,13 +24,13 @@
 
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Producto Id:</label>
+                <label>Producto:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
+                <select
                   [(ngModel)]="productCategory.product_id"
                   formControlName="product_id"
+                  class="form-control"
                   [class.is-invalid]="
                     theFormGroup.get('product_id')?.invalid &&
                     (theFormGroup.get('product_id')?.touched || trySend)
@@ -39,7 +39,10 @@
                     theFormGroup.get('product_id')?.valid &&
                     (theFormGroup.get('product_id')?.touched || trySend)
                   "
-                />
+                >
+                  <option value="" disabled>Seleccionar Producto</option>
+                  <option *ngFor="let product of products" [value]="product.id">{{ product.description }}</option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="
@@ -60,13 +63,13 @@
 
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Categoria Id:</label>
+                <label>Categoría:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
+                <select
                   [(ngModel)]="productCategory.category_id"
                   formControlName="category_id"
+                  class="form-control"
                   [class.is-invalid]="
                     theFormGroup.get('category_id')?.invalid &&
                     (theFormGroup.get('category_id')?.touched || trySend)
@@ -75,7 +78,10 @@
                     theFormGroup.get('category_id')?.valid &&
                     (theFormGroup.get('category_id')?.touched || trySend)
                   "
-                />
+                >
+                  <option value="" disabled>Seleccionar Categoría</option>
+                  <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="

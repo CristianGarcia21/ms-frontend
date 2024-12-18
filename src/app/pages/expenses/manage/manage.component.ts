@@ -1,8 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Driver } from 'src/app/models/driver.model';
 import { Expenses } from 'src/app/models/expenses.model';
+import { Owner } from 'src/app/models/owner.model';
+import { Receipt } from 'src/app/models/receipt.model';
+import { Service } from 'src/app/models/service.model';
+import { DriverService } from 'src/app/services/driver.service';
 import { ExpensesService } from 'src/app/services/expenses.service';
+import { OwnerService } from 'src/app/services/owner.service';
+import { ReceiptService } from 'src/app/services/receipt.service';
+import { ServiceService } from 'src/app/services/service.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,9 +24,18 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  owners: Owner[] = [];
+  services: Service[] = [];
+  drivers: Driver[] = [];
+  receipts: Receipt[] = [];
+  
 
   constructor(
     private expensesService: ExpensesService,
+    private ownerService: OwnerService,
+    private serviceService: ServiceService,
+    private driverService: DriverService,
+    private receiptService: ReceiptService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder
@@ -43,6 +60,34 @@ export class ManageComponent implements OnInit {
       this.expenses.id = this.activatedRoute.snapshot.params.id;
       this.getExpenses(this.expenses.id);
     }
+    this.loadOwners();
+    this.loadServices();
+    this.loadDrivers();
+    this.loadReceipts();
+  }
+
+  loadOwners() {
+    this.ownerService.list().subscribe(data => {
+      this.owners = data;
+    });
+  }
+
+  loadServices() {
+    this.serviceService.list().subscribe(data => {
+      this.services = data;
+    });
+  }
+
+  loadDrivers() {
+    this.driverService.list().subscribe(data => {
+      this.drivers = data;
+    });
+  }
+
+  loadReceipts() {
+    this.receiptService.list().subscribe(data => {
+      this.receipts = data;
+    });
   }
 
   configFormGroup() {

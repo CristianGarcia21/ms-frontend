@@ -23,8 +23,8 @@ export class InsurancesService {
   create(insurances:Insurances): Observable<Insurances> {
     return this.http.post<Insurances>(`${environment.url_ms_logica}/insurances`,insurances);
   }
-  update(insurances:Insurances): Observable<Insurances> {
-    return this.http.put<Insurances>(`${environment.url_ms_logica}/insurances/${insurances.id}`,insurances);
+  update(id:number, insurances:Insurances): Observable<Insurances> {
+    return this.http.put<Insurances>(`${environment.url_ms_logica}/insurances/${id}`,insurances);
   }
 }
 

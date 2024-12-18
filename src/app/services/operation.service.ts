@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Operations } from '../models/operations.model';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Operation } from 'ol/source/Raster';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,12 @@ export class OperationService {
   create(operation:Operations): Observable<Operations> {
     return this.http.post<Operations>(`${environment.url_ms_logica}/operations`,operation);
   }
-  update(operation:Operations): Observable<Operations> {
-    return this.http.put<Operations>(`${environment.url_ms_logica}/operations/${operation.id}`,operation);
+  update(id:number, operation:Operations): Observable<Operations> {
+    return this.http.put<Operations>(`${environment.url_ms_logica}/operations/${id}`,operation);
+  }
+
+  listByVehicle(vehicleId: number): Observable<Operation[]> {
+    return this.http.get<Operation[]>(`${environment.url_ms_logica}/operations/vehicle/${vehicleId}`);
   }
 
 }

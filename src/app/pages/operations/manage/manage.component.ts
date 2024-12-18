@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Municipality } from 'src/app/models/municipality.model';
 import { Operations } from 'src/app/models/operations.model';
+import { Vehicle } from 'src/app/models/vehicle.model';
+import { MunicipalityService } from 'src/app/services/municipality.service';
 import { OperationService } from 'src/app/services/operation.service';
+import { VehicleService } from 'src/app/services/vehicle.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,9 +19,13 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  municipalities: Municipality[] = [];
+  vehicles: Vehicle[] = [];
 
   constructor(
     private operationService: OperationService,
+    private municipalityService: MunicipalityService,
+    private vehicleService: VehicleService,
     private router: Router,
     private activateRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder
@@ -41,12 +49,26 @@ export class ManageComponent implements OnInit {
       const id = this.activateRoute.snapshot.params.id
       this.getOperation(id)
     }
+    this.loadMunicipalities();
+    this.loadVehicles();
   }
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
       municipality_id: ['', [Validators.required, Validators.min(1)]], // Número mayor a 0
       vehicle_id: ['', [Validators.required, Validators.min(1)]] // Número mayor a 0
+    });
+  }
+
+  loadMunicipalities() {
+    this.municipalityService.list().subscribe(data => {
+      this.municipalities = data;
+    });
+  }
+
+  loadVehicles() {
+    this.vehicleService.list().subscribe(data => {
+      this.vehicles = data;
     });
   }
 
@@ -64,34 +86,50 @@ export class ManageComponent implements OnInit {
   create() {
     if (this.theFormGroup.invalid) {
       this.trySend = true;
-      Swal.fire(
-        'Error en el formulario',
-        'Ingresa correctamente los datos solicitados',
-        'error'
-      );
+      Swal.fire('Error en el formulario', 'Ingresa correctamente los datos solicitados', 'error');
       return;
     }
 
-    const formData = this.theFormGroup.value; // Obtenemos los datos del formulario
-    this.operationService.create(formData).subscribe(() => {
-      Swal.fire('Creado', 'El registro ha sido creado', 'success');
-      this.router.navigate(['operations/list']);
+    const formData = {
+      municipality_id: Number(this.theFormGroup.get('municipality_id')?.value),
+      vehicle_id: Number(this.theFormGroup.get('vehicle_id')?.value),
+      // otros campos...
+    };
+
+    this.operationService.create(formData).subscribe({
+      next: () => {
+        Swal.fire('Creado', 'El registro ha sido creado.', 'success');
+        this.router.navigate(['operations/list']);
+      },
+      error: (err) => {
+        console.error('Error creating operation:', err);
+        Swal.fire('Error', 'No se pudo crear el registro', 'error');
+      }
     });
   }
 
   update() {
     if (this.theFormGroup.invalid) {
       this.trySend = true;
-      Swal.fire(
-        "Error en el formulario",
-        "Ingresa correctamente los datos solicitados",
-        "error"
-      );
+      Swal.fire('Error en el formulario', 'Ingresa correctamente los datos solicitados', 'error');
       return;
     }
-    this.operationService.update(this.operation).subscribe((data) => {
-      Swal.fire("Actualizado", "El registro ha sido actualizado", "success");
-      this.router.navigate(["operations/list"]);
+
+    const formData = {
+      municipality_id: Number(this.theFormGroup.get('municipality_id')?.value),
+      vehicle_id: Number(this.theFormGroup.get('vehicle_id')?.value),
+      // otros campos...
+    };
+
+    this.operationService.update(this.operation.id!, formData).subscribe({
+      next: () => {
+        Swal.fire('Actualizado', 'El registro ha sido actualizado.', 'success');
+        this.router.navigate(['operations/list']);
+      },
+      error: (err) => {
+        console.error('Error updating operation:', err);
+        Swal.fire('Error', 'No se pudo actualizar el registro', 'error');
+      }
     });
   }
 }

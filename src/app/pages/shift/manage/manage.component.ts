@@ -2,7 +2,9 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Driver } from 'src/app/models/driver.model';
 import { Shift } from 'src/app/models/shift.model';
+import { DriverService } from 'src/app/services/driver.service';
 import { ShiftService } from 'src/app/services/shift.service';
 import Swal from 'sweetalert2';
 
@@ -17,9 +19,11 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  drivers: Driver [] = [];
 
   constructor(
     private shiftService: ShiftService,
+    private driverService: DriverService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder
@@ -44,6 +48,13 @@ export class ManageComponent implements OnInit {
       this.shift.id = this.activatedRoute.snapshot.params.id;
       this.getClients(this.shift.id);
     }
+    this.loadDrivers();
+  }
+
+  loadDrivers() {
+    this.driverService.list().subscribe((data) => {
+      this.drivers = data;
+    });
   }
 
   configFormGroup() {

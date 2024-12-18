@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Driver } from 'src/app/models/driver.model';
+import { User } from 'src/app/models/user.model';
 import { DriverService } from 'src/app/services/driver.service';
+import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,9 +18,11 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  users: User[] = [];
 
   constructor(
     private driverService: DriverService,
+    private userService: UsersService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder
@@ -43,6 +47,13 @@ export class ManageComponent implements OnInit {
       this.driver.id = this.activatedRoute.snapshot.params.id;
       this.getDriver(this.driver.id);
     }
+    this.loadUsers();
+  }
+
+  loadUsers() {
+    this.userService.list().subscribe((data) => {
+      this.users = data;
+    });
   }
 
   configFormGroup() {
@@ -67,24 +78,34 @@ export class ManageComponent implements OnInit {
   }
 
   create() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
-      return
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error");
+      return;
     }
-    this.driverService.create(this.driver).subscribe((data) => {
+
+    const formData = { ...this.theFormGroup.value };
+
+    console.log('Datos ajustados enviados:', formData);
+
+    this.driverService.create(formData).subscribe((data) => {
       Swal.fire("Creado", "El registro ha sido creado", "success");
       this.router.navigate(["drivers/list"]);
     });
   }
 
   update() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
-      return
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error");
+      return;
     }
-    this.driverService.update(this.driver).subscribe((data) => {
+
+    const formData = { ...this.theFormGroup.value };
+
+    console.log('Datos ajustados enviados:', formData);
+
+    this.driverService.update(this.driver.id!, formData).subscribe((data) => {
       Swal.fire("Actualizado", "El registro ha sido actualizado", "success");
       this.router.navigate(["drivers/list"]);
     });

@@ -36,7 +36,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <ng-container *ngFor="let actual of vehicle">
+                      <ng-container *ngFor="let actual of vehicles">
                       <tr >
                         <td>{{actual.id}}</td>
                         <td>{{actual.plate}}</td>
@@ -50,22 +50,40 @@
                           <button type="button" class="btn btn-success" (click)="view(actual.id)">Ver</button>
                           <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Eliminar</button>
                           <button type="button" class="btn btn-info" (click)="showRoutes(actual.id)">
-                            {{ selectedVehicleId === actual.id ? 'Ocultar rutas' : 'Mostrar rutas' }}
+                            {{ selectedVehicleIdForRoutes === actual.id ? 'Ocultar ' : 'Rutas' }}
+                          </button>
+                          <button type="button" class="btn btn-info" (click)="showOperations(actual.id)">
+                            {{ selectedVehicleIdForOperations === actual.id ? 'Ocultar' : 'Operaciones' }}
                           </button>
                         </td>
                       </tr>
-                      <tr *ngIf="selectedVehicleId === actual.id">
+                      <tr *ngIf="selectedVehicleIdForRoutes === actual.id">
                         <td colspan="8">
                           <div *ngIf="routes.length > 0">
                             <h5>Rutas asociadas:</h5>
                             <ul>
                               <li *ngFor="let route of routes">
-                                ID: {{ route.id }}, Contrato: {{ route.contract_id }}, Vehículo: {{ route.vehicle_id }}
+                                ID: {{ route.id }}, Descripción: {{ route.description }}
                               </li>
                             </ul>
                           </div>
                           <div *ngIf="routes.length === 0">
                             <p>No hay rutas asociadas a este vehículo.</p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr *ngIf="selectedVehicleIdForOperations === actual.id">
+                        <td colspan="8">
+                          <div *ngIf="operations.length > 0">
+                            <h5>Operaciones asociadas:</h5>
+                            <ul>
+                              <li *ngFor="let operation of operations">
+                                ID: {{ operation.id }}, Municipio: {{ operation.municipality.name }}, Vehículo: {{ operation.vehicle.plate }}
+                              </li>
+                            </ul>
+                          </div>
+                          <div *ngIf="operations.length === 0">
+                            <p>No hay operaciones asociadas a este vehículo.</p>
                           </div>
                         </td>
                       </tr>
@@ -79,7 +97,7 @@
                           <h4>Mapa de Vehículos</h4>
                         </div>
                         <div class="card-body">
-                          <app-map [vehicle]="vehicle"></app-map>
+                          <app-map [vehicle]="vehicles"></app-map>
                         </div>
                       </div>
                     </div>

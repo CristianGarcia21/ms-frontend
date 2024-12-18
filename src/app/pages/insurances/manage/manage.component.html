@@ -271,15 +271,15 @@
 
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Vehiculo Id:</label>
+                <label>Vehículo:</label>
               </div>
               <div class="col-8">
-                <p *ngIf="mode == 1"> {{insurances.vehicle_id}}</p>
-                <input
+                <p *ngIf="mode == 1">{{ insurances.vehicle_id }}</p>
+                <select
                   *ngIf="mode != 1"
-                  type="number"
                   [(ngModel)]="insurances.vehicle_id"
                   formControlName="vehicle_id"
+                  class="form-control"
                   [class.is-invalid]="
                     theFormGroup.get('vehicle_id')?.invalid &&
                     (theFormGroup.get('vehicle_id')?.touched || trySend)
@@ -288,7 +288,10 @@
                     theFormGroup.get('vehicle_id')?.valid &&
                     (theFormGroup.get('vehicle_id')?.touched || trySend)
                   "
-                />
+                >
+                  <option value="" disabled>Seleccionar Vehículo</option>
+                  <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{ vehicle.plate }}</option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="

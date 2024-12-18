@@ -23,7 +23,7 @@ export class CompanyService {
   create(company:Company): Observable<Company> {
     return this.http.post<Company>(`${environment.url_ms_logica}/companies`,company);
   }
-  update(company:Company): Observable<Company> {
-    return this.http.put<Company>(`${environment.url_ms_logica}/companies/${company.id}`,company);
+  update(id:number, company:Company): Observable<Company> {
+    return this.http.put<Company>(`${environment.url_ms_logica}/companies/${id}`,company);
   }
 }

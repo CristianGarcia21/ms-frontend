@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Insurances } from 'src/app/models/insurances.model';
 import { Vehicle } from 'src/app/models/vehicle.model';
 import { InsurancesService } from 'src/app/services/insurances.service';
+import { VehicleService } from 'src/app/services/vehicle.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,9 +19,11 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  vehicles: Vehicle[] = [];
 
   constructor(
     private insurancesServices: InsurancesService,
+    private vehicleService: VehicleService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder
@@ -45,6 +48,7 @@ export class ManageComponent implements OnInit {
       this.insurances.id = this.activatedRoute.snapshot.params.id;
       this.getInsurances(this.insurances.id);
     }
+    this.loadVehicles();
   }
 
   configFormGroup() {
@@ -56,6 +60,12 @@ export class ManageComponent implements OnInit {
       amount: ["",[Validators.required, Validators.min(1), ],],
       status: ["",[Validators.required],],
       vehicle_id: ["", [Validators.required],],
+    });
+  }
+
+  loadVehicles() {
+    this.vehicleService.list().subscribe(data => {
+      this.vehicles = data;
     });
   }
 
@@ -86,27 +96,60 @@ export class ManageComponent implements OnInit {
   }
 
   create() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
-      return
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire('Error en el formulario', 'Ingresa correctamente los datos solicitados', 'error');
+      return;
     }
-    this.insurancesServices.create(this.insurances).subscribe((data) => {
-      Swal.fire("Creado", "El registro ha sido creado", "success");
-      this.router.navigate(["insurances/list"]);
+
+    const formData = {
+      insurance_company: this.theFormGroup.get('insurance_company')?.value,
+      policy_number: this.theFormGroup.get('policy_number')?.value,
+      start_date: this.theFormGroup.get('start_date')?.value,
+      end_date: this.theFormGroup.get('end_date')?.value,
+      amount: Number(this.theFormGroup.get('amount')?.value),
+      status: this.theFormGroup.get('status')?.value,
+      vehicle_id: Number(this.theFormGroup.get('vehicle_id')?.value)
+    };
+
+    this.insurancesServices.create(formData).subscribe({
+      next: () => {
+        Swal.fire('Creado', 'El registro ha sido creado.', 'success');
+        this.router.navigate(['insurances/list']);
+      },
+      error: (err) => {
+        console.error('Error creating insurance:', err);
+        Swal.fire('Error', 'No se pudo crear el registro', 'error');
+      }
     });
   }
 
   update() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
-      return
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire('Error en el formulario', 'Ingresa correctamente los datos solicitados', 'error');
+      return;
     }
-    this.insurancesServices.update(this.insurances).subscribe((data) => {
-      Swal.fire("Actualizado", "El registro ha sido actualizado", "success");
-      this.router.navigate(["insurances/list"]);
+
+    const formData = {
+      insurance_company: this.theFormGroup.get('insurance_company')?.value,
+      policy_number: this.theFormGroup.get('policy_number')?.value,
+      start_date: this.theFormGroup.get('start_date')?.value,
+      end_date: this.theFormGroup.get('end_date')?.value,
+      amount: Number(this.theFormGroup.get('amount')?.value),
+      status: this.theFormGroup.get('status')?.value,
+      vehicle_id: Number(this.theFormGroup.get('vehicle_id')?.value)
+    };
+
+    this.insurancesServices.update(this.insurances.id!, formData).subscribe({
+      next: () => {
+        Swal.fire('Actualizado', 'El registro ha sido actualizado.', 'success');
+        this.router.navigate(['insurances/list']);
+      },
+      error: (err) => {
+        console.error('Error updating insurance:', err);
+        Swal.fire('Error', 'No se pudo actualizar el registro', 'error');
+      }
     });
   }
-
 }

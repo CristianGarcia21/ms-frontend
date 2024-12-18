@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Admin } from 'src/app/models/admin.model';
+import { User } from 'src/app/models/user.model';
 import { AdministratorService } from 'src/app/services/administrator.service';
+import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,9 +18,11 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  users: User[] = [];
 
   constructor(
     private adminService: AdministratorService,
+    private userServices: UsersService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private theFormBuilder: FormBuilder
@@ -43,6 +47,13 @@ export class ManageComponent implements OnInit {
       this.admin.id = this.activatedRoute.snapshot.params.id;
       this.getAdmins(this.admin.id);
     }
+    this.loadUsers();
+  }
+
+  loadUsers() {
+    this.userServices.list().subscribe((data) => {
+      this.users = data;
+    });
   }
 
   configFormGroup() {
@@ -67,24 +78,34 @@ export class ManageComponent implements OnInit {
   }
 
   create() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
-      return
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error");
+      return;
     }
-    this.adminService.create(this.admin).subscribe((data) => {
+
+    const formData = { ...this.theFormGroup.value };
+
+    console.log('Datos ajustados enviados:', formData);
+
+    this.adminService.create(formData).subscribe((data) => {
       Swal.fire("Creado", "El registro ha sido creado", "success");
       this.router.navigate(["administrators/list"]);
     });
   }
 
   update() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error")
-      return
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire("Error en el formulario", "Ingresa correctamente los datos solicitados", "error");
+      return;
     }
-    this.adminService.update(this.admin).subscribe((data) => {
+
+    const formData = { ...this.theFormGroup.value };
+
+    console.log('Datos ajustados enviados:', formData);
+
+    this.adminService.update(this.admin.id!, formData).subscribe((data) => {
       Swal.fire("Actualizado", "El registro ha sido actualizado", "success");
       this.router.navigate(["administrators/list"]);
     });

@@ -23,7 +23,7 @@ export class ProductCategoryService {
   create(productCategory:ProductCategory): Observable<ProductCategory> {
     return this.http.post<ProductCategory>(`${environment.url_ms_logica}/productcategory`,productCategory);
   }
-  update(productCategory:ProductCategory): Observable<ProductCategory> {
-    return this.http.put<ProductCategory>(`${environment.url_ms_logica}/productcategory/${productCategory.id}`,productCategory);
+  update(id:number, productCategory:ProductCategory): Observable<ProductCategory> {
+    return this.http.put<ProductCategory>(`${environment.url_ms_logica}/productcategory/${id}`,productCategory);
   }
 }

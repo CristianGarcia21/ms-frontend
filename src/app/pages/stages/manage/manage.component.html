@@ -65,13 +65,13 @@
 
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Direccion Id:</label>
+                <label>Direcciones:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
+                <select
                   [(ngModel)]="stages.address_id"
                   formControlName="address_id"
+                  class="form-control"
                   [class.is-invalid]="
                     theFormGroup.get('address_id')?.invalid &&
                     (theFormGroup.get('address_id')?.touched || trySend)
@@ -80,7 +80,10 @@
                     theFormGroup.get('address_id')?.valid &&
                     (theFormGroup.get('address_id')?.touched || trySend)
                   "
-                />
+                >
+                  <option value="" disabled>Seleccionar Direccion</option>
+                  <option *ngFor="let address of address" [value]="address.id">{{ address.street}}</option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="
@@ -101,13 +104,13 @@
 
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Ruta Id:</label>
+                <label>Ruta:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
+                <select
                   [(ngModel)]="stages.route_id"
                   formControlName="route_id"
+                  class="form-control"
                   [class.is-invalid]="
                     theFormGroup.get('route_id')?.invalid &&
                     (theFormGroup.get('route_id')?.touched || trySend)
@@ -116,7 +119,10 @@
                     theFormGroup.get('route_id')?.valid &&
                     (theFormGroup.get('route_id')?.touched || trySend)
                   "
-                />
+                >
+                  <option value="" disabled>Seleccionar Ruta</option>
+                  <option *ngFor="let route of routes" [value]="route.id">{{ route.id }}</option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="
@@ -135,16 +141,15 @@
               </div>
             </div>
 
-
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Lote Id:</label>
+                <label>Lote:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
+                <select
                   [(ngModel)]="stages.lot_id"
                   formControlName="lot_id"
+                  class="form-control"
                   [class.is-invalid]="
                     theFormGroup.get('lot_id')?.invalid &&
                     (theFormGroup.get('lot_id')?.touched || trySend)
@@ -153,7 +158,10 @@
                     theFormGroup.get('lot_id')?.valid &&
                     (theFormGroup.get('lot_id')?.touched || trySend)
                   "
-                />
+                >
+                  <option value="" disabled>Seleccionar Lote</option>
+                  <option *ngFor="let lot of lots" [value]="lot.id">{{ lot.id }}</option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="

@@ -23,7 +23,7 @@ export class DriverService {
   create(driver:Driver): Observable<Driver> {
     return this.http.post<Driver>(`${environment.url_ms_logica}/drivers`,driver);
   }
-  update(driver:Driver): Observable<Driver> {
-    return this.http.put<Driver>(`${environment.url_ms_logica}/drivers/${driver.id}`,driver);
+  update(id:number, driver:Driver): Observable<Driver> {
+    return this.http.put<Driver>(`${environment.url_ms_logica}/drivers/${id}`,driver);
   }
 }

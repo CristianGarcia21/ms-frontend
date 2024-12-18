@@ -23,7 +23,7 @@ export class RestaurantService {
   create(restaurant:Restaurant): Observable<Restaurant> {
     return this.http.post<Restaurant>(`${environment.url_ms_logica}/restaurants`,restaurant);
   }
-  update(restaurant:Restaurant): Observable<Restaurant> {
-    return this.http.put<Restaurant>(`${environment.url_ms_logica}/restaurants/${restaurant.id}`,restaurant);
+  update(id:number, restaurant:Restaurant): Observable<Restaurant> {
+    return this.http.put<Restaurant>(`${environment.url_ms_logica}/restaurants/${id}`,restaurant);
   }
 }

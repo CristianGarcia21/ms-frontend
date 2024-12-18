@@ -106,13 +106,13 @@
 
             <div class="row px-4 py-2">
               <div class="col-4">
-                <label>Cliente ID:</label>
+                <label>Cliente:</label>
               </div>
               <div class="col-8">
-                <input
-                  type="number"
+                <select
                   [(ngModel)]="companies.client_id"
                   formControlName="client_id"
+                  class="form-control"
                   [class.is-invalid]="
                     theFormGroup.get('client_id')?.invalid &&
                     (theFormGroup.get('client_id')?.touched || trySend)
@@ -121,7 +121,10 @@
                     theFormGroup.get('client_id')?.valid &&
                     (theFormGroup.get('client_id')?.touched || trySend)
                   "
-                />
+                >
+                  <option value="" disabled>Seleccionar Cliente</option>
+                  <option *ngFor="let client of clients" [value]="client.id">{{ client.id }}</option>
+                </select>
                 <div
                   class="text-danger mt-1"
                   *ngIf="
