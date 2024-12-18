@@ -10,7 +10,7 @@
                 <div class="card-header border-0">
                     <div class="row">
                       <div class="col-2">
-                        <h3 class="mb-0">Clientes</h3>
+                        <h3 class="mb-0">Centro Distribucion</h3>
                       </div>
                       <div class="col-8">
 
@@ -27,16 +27,16 @@
                       <tr>
                         <th class="col-1">ID</th>
                         <th class="col-3">Nombre</th>
-                        <th class="col-4">Direccion id</th>
-                        <th class="col-4">Municipio id</th>
+                        <th class="col-4">Direccion </th>
+                        <th class="col-4">Municipio </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let actual of distriXcenter">
                         <td>{{actual.id}}</td>
                         <td>{{actual.name}}</td>
-                        <td>{{actual.address_id}}</td>
-                        <td>{{actual.municipality_id}}</td>
+                        <td>{{ getAddressName(actual.address_id) }}</td>
+                        <td>{{getMunicipalityName(actual.municipality_id)}}</td>
                         <td>
                           <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
                           <button type="button" class="btn btn-success" (click)="view(actual.id)">Ver</button>

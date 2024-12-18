@@ -27,7 +27,7 @@ export class ListComponent implements OnInit {
   list() {
     this.addressService.list().subscribe(data => {
       console.log(data);
-      this.addressses = data; // Asigna directamente la data del backend
+      this.addressses = data;
     });
   }
 

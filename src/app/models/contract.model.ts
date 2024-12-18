@@ -6,5 +6,15 @@ export class Contract {
   end_date: Date;
   amount:number;
   estate:boolean;
-  client?:Client
+  client_id?: number;
+  clientDetails?: {
+    id?: number;
+    user_id: string;
+    zip_code: string;
+    city: string;
+    address: string;
+
+  };
+
+
 }

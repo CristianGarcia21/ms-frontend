@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Address } from 'src/app/models/address.model';
 import { DistributionCenter } from 'src/app/models/distribution-center.model';
+import { Municipality } from 'src/app/models/municipality.model';
+import { AddressService } from 'src/app/services/address.service';
 import { DistriXCenterService } from 'src/app/services/distri-xcenter.service';
+import { MunicipalityService } from 'src/app/services/municipality.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,16 +16,24 @@ import Swal from 'sweetalert2';
 export class ListComponent implements OnInit {
 
   distriXcenter : DistributionCenter[]
+  addresses: Address[];
+  municipalities: Municipality[];
 
   constructor(
     private distriXcenterService: DistriXCenterService,
+    private addressService: AddressService,
+    private municipalityService: MunicipalityService,
     private router: Router
   ) {
     this.distriXcenter= []
+    this.addresses = [];
+    this.municipalities = [];
    }
 
   ngOnInit(): void {
     this.list()
+    this.loadAddresses();
+    this.loadMunicipalities();
   }
 
   list(){
@@ -29,6 +41,29 @@ export class ListComponent implements OnInit {
       this.distriXcenter = data
     })
   }
+
+  loadAddresses() {
+    this.addressService.list().subscribe(data => {
+      this.addresses = data;
+    });
+  }
+
+  loadMunicipalities() {
+    this.municipalityService.list().subscribe(data => {
+      this.municipalities = data;
+    });
+  }
+
+  getAddressName(addressId: number): string {
+    const address = this.addresses.find(addr => addr.id === addressId);
+    return address ? address.street : 'Unknown Address';
+  }
+
+  getMunicipalityName(municipalityId: number): string {
+    const municipality = this.municipalities.find(mun => mun.id === municipalityId);
+    return municipality ? municipality.name : 'Unknown Municipality';
+  }
+
 
   delete(id: number) {
     Swal.fire({

@@ -26,6 +26,7 @@
                     <thead>
                       <tr>
                         <th class="col-1">ID</th>
+                        <th class="col-2">Cliente</th>
                         <th class="col-3">Fecha Inicial</th>
                         <th class="col-4">Fecha Final</th>
                         <th class="col-4">Cantidad</th>
@@ -38,7 +39,7 @@
                         <td>{{actual.start_date}}</td>
                         <td>{{actual.end_date}}</td>
                         <td>{{actual.amount}}</td>
-                        <td>{{ actual.estate ? 'Activo' : 'Inactivo' }}</td>
+                        <td>{{actual.estate ? 'Activo' : 'Inactivo' }}</td>
                         <td>
                           <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
                           <button type="button" class="btn btn-success" (click)="view(actual.id)">Ver</button>

@@ -5,6 +5,7 @@ import { Contract } from 'src/app/models/contract.model';
 import { ContractService } from 'src/app/services/contract.service';
 import Swal from 'sweetalert2';
 import { formatDate } from '@angular/common';
+import { Client } from 'src/app/models/client.model';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  client:Client[] = []
 
   constructor(
     private contracService: ContractService,

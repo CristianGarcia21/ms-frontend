@@ -26,4 +26,7 @@ export class AddressService {
   update(address:Address): Observable<Address> {
     return this.http.put<Address>(`${environment.url_ms_logica}/addresses/${address.id}`,address);
   }
+  listByMunicipality(municipalityId: number): Observable<Address[]> {
+    return this.http.get<Address[]>(`${environment.url_ms_logica}/addresses/municipality/${municipalityId}`);
+  }
 }
