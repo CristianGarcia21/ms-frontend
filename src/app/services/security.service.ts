@@ -143,4 +143,26 @@ export class SecurityService {
     const session = this.getSessionData(); // Obtiene los datos de la sesión activa
     return session && session.role === "Administrador" as string; // Comprueba el rol
   }
+
+  /**
+ * Permite cambiar la contraseña del usuario.
+ * @param email Correo del usuario
+ * @param currentPassword Contraseña actual
+ * @param newPassword Nueva contraseña
+ * @returns Observable con la respuesta del backend
+ */
+changePassword(email: string, currentPassword: string, newPassword: string): Observable<any> {
+  const url = `${this.baseUrl}/change-password`;
+  const body = {
+    email,
+    currentPassword,
+    newPassword
+  };
+
+  return this.http.post<any>(url, body, {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+  });
+}
 }

@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthGuard } from './guards/auth.guard';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 
 
 
@@ -32,6 +33,7 @@ import { AuthGuard } from './guards/auth.guard';
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
+    ChangePasswordComponent,
   ],
   providers: [AuthGuard ,{
     provide: HTTP_INTERCEPTORS,
